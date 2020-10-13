@@ -1,14 +1,17 @@
 import sys
 import hashlib
 import os.path
+import zipfile
 
 filename_03 = "Press-SwitchV0.3b-all.zip";
 filename_04 = "Press-SwitchV0.4a-pc.zip";
 filename_05 = "Press-SwitchV0.5c-pc.zip";
 
+#-----------------------------------------------------------------------------
 def showError(txt):
   print("Error: " + txt);
 
+#-----------------------------------------------------------------------------
 def md5(fname):
   hash_md5 = hashlib.md5()
   with open(fname, "rb") as f:
@@ -16,6 +19,7 @@ def md5(fname):
       hash_md5.update(chunk)
   return hash_md5.hexdigest()
 
+#-----------------------------------------------------------------------------
 def verifySingleFile(filename, desiredHash):
   print("Verifying " + filename + "...");
   if (not(os.path.exists(filename))):
@@ -32,6 +36,7 @@ def verifySingleFile(filename, desiredHash):
   print("Succeeded");
   return True;
 
+#-----------------------------------------------------------------------------
 def verifyZIPFiles():
   if (not(verifySingleFile(filename_03, "e01bfc54520e8251bc73c7ee128836e2"))):
     return False;
@@ -44,5 +49,17 @@ def verifyZIPFiles():
 
   return True;
 
+#-----------------------------------------------------------------------------
+def unzipFile(filename):
+  print("Unzipping file " + filename + "...");
+  with zipfile.ZipFile(filename, 'r') as zip_ref:
+    zip_ref.extractall(".")
+
+#-----------------------------------------------------------------------------
+# Main program
+
 verifyZIPFiles();
+unzipFile(filename_03);
+unzipFile(filename_04);
+unzipFile(filename_05);
 
