@@ -1,11 +1,19 @@
-import sys
+#-----------------------------------------------------------------------------
+# press-stitch.py
+# Merges the three Press Switch games together
+#-----------------------------------------------------------------------------
+
+import getopt
 import hashlib
 import os.path
+import pathlib
+import shutil
+import sys
 import zipfile
 
-filename_03 = "Press-SwitchV0.3b-all.zip";
-filename_04 = "Press-SwitchV0.4a-pc.zip";
-filename_05 = "Press-SwitchV0.5c-pc.zip";
+filename_03 = "Press-SwitchV0.3b-all";
+filename_04 = "Press-SwitchV0.4a-pc";
+filename_05 = "Press-SwitchV0.5c-pc";
 
 #-----------------------------------------------------------------------------
 def showError(txt):
@@ -38,13 +46,13 @@ def verifySingleFile(filename, desiredHash):
 
 #-----------------------------------------------------------------------------
 def verifyZIPFiles():
-  if (not(verifySingleFile(filename_03, "e01bfc54520e8251bc73c7ee128836e2"))):
+  if (not(verifySingleFile(filename_03 + ".zip", "e01bfc54520e8251bc73c7ee128836e2"))):
     return False;
 
-  if (not(verifySingleFile(filename_04, "ca7ee44f40f802009a6d49659c8a760d"))):
+  if (not(verifySingleFile(filename_04 + ".zip", "ca7ee44f40f802009a6d49659c8a760d"))):
     return False;
 
-  if (not(verifySingleFile(filename_05, "6a4f9dac386e2fae1bce00e0157ee8b1"))):
+  if (not(verifySingleFile(filename_05 + ".zip", "6a4f9dac386e2fae1bce00e0157ee8b1"))):
     return False;
 
   return True;
@@ -56,10 +64,41 @@ def unzipFile(filename):
     zip_ref.extractall(".")
 
 #-----------------------------------------------------------------------------
+def removeDir(filename):
+  if (os.path.isdir(pathlib.Path(filename))):
+    print("Removing directory " + filename + "...");
+    shutil.rmtree(filename);
+
+#-----------------------------------------------------------------------------
 # Main program
+def main(argv):
+  doClean = False;
 
-verifyZIPFiles();
-unzipFile(filename_03);
-unzipFile(filename_04);
-unzipFile(filename_05);
+  try:
+    opts, args = getopt.getopt(argv, "", ["clean"])
+  except getopt.GetoptError:
+    showError('Usage is: press-stitch.py [--clean]');
+    sys.exit(1);
 
+  for opt, arg in opts:
+    if (opt == "--clean"):
+      doClean = True;
+
+  if (doClean):
+    removeDir(filename_03);
+    removeDir(filename_04);
+    removeDir(filename_05);
+    sys.exit(0);
+
+  # Normal run
+  if (not(verifyZIPFiles())):
+    sys.exit(1);
+
+  unzipFile(filename_03 + ".zip");
+  unzipFile(filename_04 + ".zip");
+  unzipFile(filename_05 + ".zip");
+
+#-----------------------------------------------------------------------------
+# Hook to call main
+if __name__ == "__main__":
+  main(sys.argv[1:])
