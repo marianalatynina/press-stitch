@@ -45,19 +45,6 @@ def verifySingleFile(filename, desiredHash):
   return True;
 
 #-----------------------------------------------------------------------------
-def verifyZIPFiles():
-  if (not(verifySingleFile(filename_03 + ".zip", "e01bfc54520e8251bc73c7ee128836e2"))):
-    return False;
-
-  if (not(verifySingleFile(filename_04 + ".zip", "ca7ee44f40f802009a6d49659c8a760d"))):
-    return False;
-
-  if (not(verifySingleFile(filename_05 + ".zip", "6a4f9dac386e2fae1bce00e0157ee8b1"))):
-    return False;
-
-  return True;
-
-#-----------------------------------------------------------------------------
 def unzipFile(filename):
   print("Unzipping file " + filename + "...");
   with zipfile.ZipFile(filename, 'r') as zip_ref:
@@ -68,6 +55,19 @@ def removeDir(filename):
   if (os.path.isdir(pathlib.Path(filename))):
     print("Removing directory " + filename + "...");
     shutil.rmtree(filename);
+
+#-----------------------------------------------------------------------------
+def checkFile(dirname, checksum):
+  if (os.path.isdir(pathlib.Path(dirname))):
+    print("Directory " + dirname + " exists, ZIP extract skipped");
+    return True;
+
+  filename = dirname + ".zip";
+  if (not(verifySingleFile(filename, checksum))):
+    return False;
+
+  unzipFile(filename);
+  return True;
 
 #-----------------------------------------------------------------------------
 # Main program
@@ -92,12 +92,14 @@ def main(argv):
     sys.exit(0);
 
   # Normal run
-  if (not(verifyZIPFiles())):
+  if (not(checkFile(filename_03, "e01bfc54520e8251bc73c7ee128836e2"))):
     sys.exit(1);
 
-  unzipFile(filename_03 + ".zip");
-  unzipFile(filename_04 + ".zip");
-  unzipFile(filename_05 + ".zip");
+  if (not(checkFile(filename_04, "ca7ee44f40f802009a6d49659c8a760d"))):
+    sys.exit(1);
+
+  if (not(checkFile(filename_05, "6a4f9dac386e2fae1bce00e0157ee8b1"))):
+    sys.exit(1);
 
 #-----------------------------------------------------------------------------
 # Hook to call main
