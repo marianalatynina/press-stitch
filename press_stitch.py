@@ -10,6 +10,7 @@ import pathlib
 import shutil
 import sys
 import zipfile
+import press_stitch_archive
 
 filename_03 = "Press-SwitchV0.3b-all";
 filename_04 = "Press-SwitchV0.4a-pc";
@@ -100,6 +101,8 @@ def main(argv):
 
   if (not(checkFile(filename_05, "6a4f9dac386e2fae1bce00e0157ee8b1"))):
     sys.exit(1);
+
+  press_stitch_archive.extractAllRPAFiles();
 
 #-----------------------------------------------------------------------------
 # Hook to call main

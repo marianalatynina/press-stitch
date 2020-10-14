@@ -65,15 +65,22 @@ def verifyFolders(folder):
         print("Data folders not present aborting")
         exit()
 
-#It's main yay. Calls above functions.
-def main(argv):
+#Extract all the RPA files. Called both by main and by the press-stitch.py script.
+def extractAllRPAFiles():
     if (not(os.path.exists(folderExtracted))):
         os.mkdir(folderExtracted)
     for ver in folderVersion:
-        createFolders(ver)
-        verifyFolders(ver)
-        unpackArchive(ver)
-    exit()
+        extractFolder = os.path.join(folderExtracted, folderName + ver)
+        if (not(os.path.exists(extractFolder))):
+            createFolders(ver)
+            verifyFolders(ver)
+            unpackArchive(ver)
+        else:
+            print("Extracted data folder " + extractFolder + " exists, skipping RPA extract");
+
+#It's main yay. Calls above functions.
+def main(argv):
+    extractAllRPAFiles()
 
 if __name__ == "__main__":
     main(sys.argv[1:])
