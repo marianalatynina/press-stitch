@@ -6,15 +6,18 @@ folderExtracted = "Extracted"
 folderName = "Press-SwitchV0"
 folderVersion = ['.3b-all', '.4a-pc', '.5c-pc']
 fileNameArchive = "archive.rpa"
-fileNameScripts = "scirpts.rpa"
+fileNameScripts = "scripts.rpa"
 cwd = os.getcwd()
 
-#Unpackages scripts and archive rpas using rpaExtract. These go from the Press-SwitchV0x folder to extracted\Press-SwitchV0x
+#Unpackages scripts and archive rpas using rpatool. These go from the Press-SwitchV0x folder to extracted\Press-SwitchV0x
 def unpackArchive(folder):
     folderArchive = (os.path.join(cwd , folderName + folder , "game", ""))
     print("Processing " + folder + " This might take a hot minute...")
-    #print("rpaExtract.exe -x " + (folderArchive + "archive.rpa -o " + folderExtracted +  folderName + folder))
-    subprocess.run("rpaExtract.exe -x " + (folderArchive + "archive.rpa -o " + folderExtracted +  folderName + folder))
+    destinationFolder = os.path.join(folderExtracted , folderName + folder)
+    executable = os.path.join(cwd, "rpatool")
+    command = executable + " -x " + (folderArchive + "archive.rpa -o " + destinationFolder)
+    print("Running command: " + command)
+    subprocess.run(command, shell=True)
 
 #Creates the folders to extract to
 def createFolders(folder):

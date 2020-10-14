@@ -88,6 +88,7 @@ def main(argv):
     removeDir(filename_03);
     removeDir(filename_04);
     removeDir(filename_05);
+    removeDir("Extracted");
     sys.exit(0);
 
   # Normal run
