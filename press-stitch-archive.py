@@ -1,6 +1,7 @@
 import os.path
 import subprocess
 import sys
+import rpatool
 
 folderExtracted = "Extracted"
 folderName = "Press-SwitchV0"
@@ -9,15 +10,48 @@ fileNameArchive = "archive.rpa"
 fileNameScripts = "scripts.rpa"
 cwd = os.getcwd()
 
+def extractRPAFile(rpaFilename, output):
+    print("Extracting RPA file " + rpaFilename + " to " + output)
+
+    try:
+        archive = rpatool.RenPyArchive(rpaFilename)
+    except IOError as e:
+        print('Could not open archive file {0} for reading: {1}'.format(archive, e), file=sys.stderr)
+        sys.exit(1)
+
+    files = archive.list()
+
+    # Create output directory if not present.
+    if not os.path.exists(output):
+        os.makedirs(output)
+
+    # Iterate over files to extract.
+    for filename in files:
+        if filename.find('=') != -1:
+            (outfile, filename) = filename.split('=', 2)
+        else:
+            outfile = filename
+
+        try:
+            contents = archive.read(filename)
+
+            # Create output directory for file if not present.
+            if not os.path.exists(os.path.dirname(os.path.join(output, outfile))):
+                os.makedirs(os.path.dirname(os.path.join(output, outfile)))
+
+            with open(os.path.join(output, outfile), 'wb') as file:
+                file.write(contents)
+        except Exception as e:
+            print('Could not extract file {0} from archive: {1}'.format(filename, e), file=sys.stderr)
+
 #Unpackages scripts and archive rpas using rpatool. These go from the Press-SwitchV0x folder to extracted\Press-SwitchV0x
 def unpackArchive(folder):
     folderArchive = (os.path.join(cwd , folderName + folder , "game", ""))
     print("Processing " + folder + " This might take a hot minute...")
     destinationFolder = os.path.join(folderExtracted , folderName + folder)
-    executable = os.path.join(cwd, "rpatool")
-    command = executable + " -x " + (folderArchive + "archive.rpa -o " + destinationFolder)
-    print("Running command: " + command)
-    subprocess.run(command, shell=True)
+    extractRPAFile(folderArchive + fileNameArchive, destinationFolder)
+    if (not(folder == ".3b-all")):
+        extractRPAFile(folderArchive + fileNameScripts, destinationFolder)
 
 #Creates the folders to extract to
 def createFolders(folder):
