@@ -71,6 +71,17 @@ def checkFile(dirname, checksum):
   return True;
 
 #-----------------------------------------------------------------------------
+def doMakeDir(path):
+  print("Creating directory " + path);
+  os.mkdir(path);
+
+#-----------------------------------------------------------------------------
+def doCopyFile(srcPath, dstPath, filename):
+  srcFile = os.path.join(srcPath, filename);
+  print("Copying file " + srcFile + " into " + dstPath);
+  shutil.copy(srcFile, dstPath);
+
+#-----------------------------------------------------------------------------
 # Main program
 def main(argv):
   doClean = False;
@@ -104,14 +115,25 @@ def main(argv):
 
   press_stitch_archive.extractAllRPAFiles();
 
+  extPath4 = os.path.join("Extracted", filename_04);
+  extPath5 = os.path.join("Extracted", filename_05);
+  dstPath  = os.path.join(filename_05, "game");
+
   # Day-0.rpy
   print("Patching Day-0.rpy...");
-  text_file = open(os.path.join("Extracted", filename_05, "Story", "Day-0.rpy"), "r");
+  text_file = open(os.path.join(extPath5, "Story", "Day-0.rpy"), "r");
   lines = text_file.readlines();
   lines.insert(2848, (" " * 28) + "\"Maybe I was too quick to reject Eliza...\":\n");
   lines.insert(2849, (" " * 32) + "jump eliza\n");
-  with open(os.path.join(filename_05, "game", "Story", "Day-0.rpy"), "w") as outfile:
+  with open(os.path.join(dstPath, "Story", "Day-0.rpy"), "w") as outfile:
     outfile.writelines(lines);
+
+  # Copy Eliza bedroom backgrounds
+  dstBackgrounds = os.path.join(dstPath, "Backgrounds");
+  doMakeDir(dstBackgrounds);
+  doCopyFile(os.path.join(extPath4, "Backgrounds"), dstBackgrounds, "Eliza_Bed_Day.jpg");
+  doCopyFile(os.path.join(extPath4, "Backgrounds"), dstBackgrounds, "Eliza_Bed_Dusk.jpg");
+  doCopyFile(os.path.join(extPath4, "Backgrounds"), dstBackgrounds, "Eliza_Bed_Night.jpg");
 
 #-----------------------------------------------------------------------------
 # Hook to call main
