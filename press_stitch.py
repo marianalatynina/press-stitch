@@ -104,6 +104,15 @@ def main(argv):
 
   press_stitch_archive.extractAllRPAFiles();
 
+  # Day-0.rpy
+  print("Patching Day-0.rpy...");
+  text_file = open(os.path.join("Extracted", filename_05, "Story", "Day-0.rpy"), "r");
+  lines = text_file.readlines();
+  lines.insert(2848, (" " * 28) + "\"Maybe I was too quick to reject Eliza...\":\n");
+  lines.insert(2849, (" " * 32) + "jump eliza\n");
+  with open(os.path.join(filename_05, "game", "Story", "Day-0.rpy"), "w") as outfile:
+    outfile.writelines(lines);
+
 #-----------------------------------------------------------------------------
 # Hook to call main
 if __name__ == "__main__":
