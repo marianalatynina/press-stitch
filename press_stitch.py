@@ -131,16 +131,25 @@ def main(argv):
   with open(os.path.join(dstPath, "Story", "Day-0.rpy"), "w") as outfile:
     outfile.writelines(lines);
 
-  # Copy Eliza bedroom backgrounds
-  srcBackgrounds = os.path.join(extPath4, "Backgrounds");
-  dstBackgrounds = os.path.join(dstPath,  "Backgrounds");
-  doMakeDir(dstBackgrounds);
-  doCopyFile(srcBackgrounds, dstBackgrounds, "Eliza_Bed_Day.jpg");
-  doCopyFile(srcBackgrounds, dstBackgrounds, "Eliza_Bed_Dusk.jpg");
-  doCopyFile(srcBackgrounds, dstBackgrounds, "Eliza_Bed_Night.jpg");
-  doCopyFile(srcBackgrounds, dstBackgrounds, "Main_Bed_Day.jpg");
-  doCopyFile(srcBackgrounds, dstBackgrounds, "Main_Bed_Dusk.jpg");
-  doCopyFile(srcBackgrounds, dstBackgrounds, "Main_Bed_Night.jpg");
+  # Read ElizaPath.rpy into memory
+  print("Patching ElizaPath.rpy...");
+  text_file = open(os.path.join(extPath5, "Story", "ElizaPath.rpy"), "r");
+  lines = text_file.readlines();
+
+  # Do simple search-and-replace patching
+  numLines = len(lines);
+  i = 0;
+  while i < numLines:
+    lines[i] = lines[i].replace(" bg elizabedday",   " bg mansionelizaday");
+    lines[i] = lines[i].replace(" bg elizabeddusk",  " bg mansionelizadusk");
+    lines[i] = lines[i].replace(" bg elizabednight", " bg mansionelizalit");
+    lines[i] = lines[i].replace(" bg mainbedday",    " bg mansioncalvinday");
+    lines[i] = lines[i].replace(" bg mainbeddusk",   " bg mansioncalvindusk");
+    i = i + 1;
+
+  # Write the updated ElizaPath.rpy back out
+  with open(os.path.join(dstPath, "Story", "ElizaPath.rpy"), "w") as outfile:
+    outfile.writelines(lines);
 
   # Copy Eliza character graphics
   srcCharEliza = os.path.join(extPath4, "Characters", "Eliza");
