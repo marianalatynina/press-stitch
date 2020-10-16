@@ -72,8 +72,11 @@ def checkFile(dirname, checksum):
 
 #-----------------------------------------------------------------------------
 def doMakeDir(path):
-  print("Creating directory " + path);
-  os.mkdir(path);
+  if (os.path.isdir(pathlib.Path(path))):
+    print("Directory " + path + " already exists, skipping creation");
+  else:
+    print("Creating directory " + path);
+    os.mkdir(path);
 
 #-----------------------------------------------------------------------------
 def doCopyFile(srcPath, dstPath, filename):
@@ -129,11 +132,58 @@ def main(argv):
     outfile.writelines(lines);
 
   # Copy Eliza bedroom backgrounds
-  dstBackgrounds = os.path.join(dstPath, "Backgrounds");
+  srcBackgrounds = os.path.join(extPath4, "Backgrounds");
+  dstBackgrounds = os.path.join(dstPath,  "Backgrounds");
   doMakeDir(dstBackgrounds);
-  doCopyFile(os.path.join(extPath4, "Backgrounds"), dstBackgrounds, "Eliza_Bed_Day.jpg");
-  doCopyFile(os.path.join(extPath4, "Backgrounds"), dstBackgrounds, "Eliza_Bed_Dusk.jpg");
-  doCopyFile(os.path.join(extPath4, "Backgrounds"), dstBackgrounds, "Eliza_Bed_Night.jpg");
+  doCopyFile(srcBackgrounds, dstBackgrounds, "Eliza_Bed_Day.jpg");
+  doCopyFile(srcBackgrounds, dstBackgrounds, "Eliza_Bed_Dusk.jpg");
+  doCopyFile(srcBackgrounds, dstBackgrounds, "Eliza_Bed_Night.jpg");
+  doCopyFile(srcBackgrounds, dstBackgrounds, "Main_Bed_Day.jpg");
+  doCopyFile(srcBackgrounds, dstBackgrounds, "Main_Bed_Dusk.jpg");
+  doCopyFile(srcBackgrounds, dstBackgrounds, "Main_Bed_Night.jpg");
+
+  # Copy Eliza character graphics
+  srcCharEliza = os.path.join(extPath4, "Characters", "Eliza");
+  dstCharEliza = os.path.join(dstPath,  "Characters", "Eliza");
+  doMakeDir(os.path.join(dstPath, "Characters"));
+  doMakeDir(dstCharEliza);
+  doCopyFile(srcCharEliza, dstCharEliza, "Eliza_Ex_017_003.png");
+  doCopyFile(srcCharEliza, dstCharEliza, "Eliza_Ex_018_003.png");
+  doCopyFile(srcCharEliza, dstCharEliza, "Eliza_Ex_019_003.png");
+  doCopyFile(srcCharEliza, dstCharEliza, "Eliza_Ex_020_003.png");
+  doCopyFile(srcCharEliza, dstCharEliza, "Eliza_Ex_021_003.png");
+  doCopyFile(srcCharEliza, dstCharEliza, "Eliza_Ex_022_003.png");
+  doCopyFile(srcCharEliza, dstCharEliza, "Eliza_Ex_Full_017_003.png");
+  doCopyFile(srcCharEliza, dstCharEliza, "Eliza_Ex_Full_018_003.png");
+  doCopyFile(srcCharEliza, dstCharEliza, "Eliza_Ex_Full_019_003.png");
+  doCopyFile(srcCharEliza, dstCharEliza, "Eliza_Ex_Full_020_003.png");
+  doCopyFile(srcCharEliza, dstCharEliza, "Eliza_Ex_Full_021_003.png");
+  doCopyFile(srcCharEliza, dstCharEliza, "Eliza_Ex_Full_022_003.png");
+
+  # Copy Michelle character graphics
+  srcCharMichelle = os.path.join(extPath4, "Characters", "Michelle");
+  dstCharMichelle = os.path.join(dstPath,  "Characters", "Michelle");
+  doMakeDir(dstCharMichelle);
+  doCopyFile(srcCharMichelle, dstCharMichelle, "Michelle_Ex_013_002.png");
+  doCopyFile(srcCharMichelle, dstCharMichelle, "Michelle_Ex_014_002.png");
+  doCopyFile(srcCharMichelle, dstCharMichelle, "Michelle_Ex_015_002.png");
+  doCopyFile(srcCharMichelle, dstCharMichelle, "Michelle_Ex_015_Open_002.png");
+  doCopyFile(srcCharMichelle, dstCharMichelle, "Michelle_Ex_016_002.png");
+  doCopyFile(srcCharMichelle, dstCharMichelle, "Michelle_Ex_017_003.png");
+  doCopyFile(srcCharMichelle, dstCharMichelle, "Michelle_Ex_018_003.png");
+  doCopyFile(srcCharMichelle, dstCharMichelle, "Michelle_Ex_019_003.png");
+  doCopyFile(srcCharMichelle, dstCharMichelle, "Michelle_Ex_020_003.png");
+  doCopyFile(srcCharMichelle, dstCharMichelle, "Michelle_Ex_021_003.png");
+  doCopyFile(srcCharMichelle, dstCharMichelle, "Michelle_Ex_Full_013_002.png");
+  doCopyFile(srcCharMichelle, dstCharMichelle, "Michelle_Ex_Full_014_002.png");
+  doCopyFile(srcCharMichelle, dstCharMichelle, "Michelle_Ex_Full_015_002.png");
+  doCopyFile(srcCharMichelle, dstCharMichelle, "Michelle_Ex_Full_015_Open_002.png");
+  doCopyFile(srcCharMichelle, dstCharMichelle, "Michelle_Ex_Full_016_002.png");
+  doCopyFile(srcCharMichelle, dstCharMichelle, "Michelle_Ex_Full_017_003.png");
+  doCopyFile(srcCharMichelle, dstCharMichelle, "Michelle_Ex_Full_018_003.png");
+  doCopyFile(srcCharMichelle, dstCharMichelle, "Michelle_Ex_Full_019_003.png");
+  doCopyFile(srcCharMichelle, dstCharMichelle, "Michelle_Ex_Full_020_003.png");
+  doCopyFile(srcCharMichelle, dstCharMichelle, "Michelle_Ex_Full_021_003.png");
 
 #-----------------------------------------------------------------------------
 # Hook to call main
