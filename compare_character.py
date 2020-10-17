@@ -112,9 +112,13 @@ def main(argv):
   # Build an index of the MD5 hashes for 0.5
   idx = buildIndex(srcDir5Crop);
 
+  # Sort the list of files in 0.4
+  fileList = os.listdir(srcDir4Crop);
+  fileList.sort();
+
   # Iterate 0.4
   fileWidth = 40;
-  for pic in os.listdir(srcDir4Crop):
+  for pic in fileList:
     if pic.endswith(".pnm"):
       chksum = md5(os.path.join(srcDir4Crop, pic));
 
