@@ -16,6 +16,17 @@ filename_03 = "Press-SwitchV0.3b-all";
 filename_04 = "Press-SwitchV0.4a-pc";
 filename_05 = "Press-SwitchV0.5c-pc";
 
+elizaPathReplacements = [
+ [" bg elizabedday",   " bg mansionelizaday"],
+ [" bg elizabeddusk",  " bg mansionelizadusk"],
+ [" bg elizabednight", " bg mansionelizalit"],
+ [" bg mainbedday",    " bg mansioncalvinday"],
+ [" bg mainbeddusk",   " bg mansioncalvindusk"],
+ ["show eliza 17",     "show eliza 3 irked"],
+ ["show eliza be1 19", "show eliza be1 16"],
+ ["show eliza 22",     "show eliza 9 open"]
+ ];
+
 #-----------------------------------------------------------------------------
 def showError(txt):
   print("Error: " + txt);
@@ -85,6 +96,18 @@ def doCopyFile(srcPath, dstPath, filename):
   shutil.copy(srcFile, dstPath);
 
 #-----------------------------------------------------------------------------
+# It's very important that this method only does one replacement.
+# For you can have a replacement list that looks like [[A->B], [B->A]]
+# and it will swap A and B without making loops.
+def elizaReplace(text):
+  for info in elizaPathReplacements:
+    s = info[0];
+    r = info[1];
+    if (s in text):
+      return text.replace(s, r);
+  return text;
+
+#-----------------------------------------------------------------------------
 # Main program
 def main(argv):
   doClean = False;
@@ -140,59 +163,12 @@ def main(argv):
   numLines = len(lines);
   i = 0;
   while i < numLines:
-    lines[i] = lines[i].replace(" bg elizabedday",   " bg mansionelizaday");
-    lines[i] = lines[i].replace(" bg elizabeddusk",  " bg mansionelizadusk");
-    lines[i] = lines[i].replace(" bg elizabednight", " bg mansionelizalit");
-    lines[i] = lines[i].replace(" bg mainbedday",    " bg mansioncalvinday");
-    lines[i] = lines[i].replace(" bg mainbeddusk",   " bg mansioncalvindusk");
+    lines[i] = elizaReplace(lines[i]);
     i = i + 1;
 
   # Write the updated ElizaPath.rpy back out
   with open(os.path.join(dstPath, "Story", "ElizaPath.rpy"), "w") as outfile:
     outfile.writelines(lines);
-
-  # Copy Eliza character graphics
-  srcCharEliza = os.path.join(extPath4, "Characters", "Eliza");
-  dstCharEliza = os.path.join(dstPath,  "Characters", "Eliza");
-  doMakeDir(os.path.join(dstPath, "Characters"));
-  doMakeDir(dstCharEliza);
-  doCopyFile(srcCharEliza, dstCharEliza, "Eliza_Ex_017_003.png");
-  doCopyFile(srcCharEliza, dstCharEliza, "Eliza_Ex_018_003.png");
-  doCopyFile(srcCharEliza, dstCharEliza, "Eliza_Ex_019_003.png");
-  doCopyFile(srcCharEliza, dstCharEliza, "Eliza_Ex_020_003.png");
-  doCopyFile(srcCharEliza, dstCharEliza, "Eliza_Ex_021_003.png");
-  doCopyFile(srcCharEliza, dstCharEliza, "Eliza_Ex_022_003.png");
-  doCopyFile(srcCharEliza, dstCharEliza, "Eliza_Ex_Full_017_003.png");
-  doCopyFile(srcCharEliza, dstCharEliza, "Eliza_Ex_Full_018_003.png");
-  doCopyFile(srcCharEliza, dstCharEliza, "Eliza_Ex_Full_019_003.png");
-  doCopyFile(srcCharEliza, dstCharEliza, "Eliza_Ex_Full_020_003.png");
-  doCopyFile(srcCharEliza, dstCharEliza, "Eliza_Ex_Full_021_003.png");
-  doCopyFile(srcCharEliza, dstCharEliza, "Eliza_Ex_Full_022_003.png");
-
-  # Copy Michelle character graphics
-  srcCharMichelle = os.path.join(extPath4, "Characters", "Michelle");
-  dstCharMichelle = os.path.join(dstPath,  "Characters", "Michelle");
-  doMakeDir(dstCharMichelle);
-  doCopyFile(srcCharMichelle, dstCharMichelle, "Michelle_Ex_013_002.png");
-  doCopyFile(srcCharMichelle, dstCharMichelle, "Michelle_Ex_014_002.png");
-  doCopyFile(srcCharMichelle, dstCharMichelle, "Michelle_Ex_015_002.png");
-  doCopyFile(srcCharMichelle, dstCharMichelle, "Michelle_Ex_015_Open_002.png");
-  doCopyFile(srcCharMichelle, dstCharMichelle, "Michelle_Ex_016_002.png");
-  doCopyFile(srcCharMichelle, dstCharMichelle, "Michelle_Ex_017_003.png");
-  doCopyFile(srcCharMichelle, dstCharMichelle, "Michelle_Ex_018_003.png");
-  doCopyFile(srcCharMichelle, dstCharMichelle, "Michelle_Ex_019_003.png");
-  doCopyFile(srcCharMichelle, dstCharMichelle, "Michelle_Ex_020_003.png");
-  doCopyFile(srcCharMichelle, dstCharMichelle, "Michelle_Ex_021_003.png");
-  doCopyFile(srcCharMichelle, dstCharMichelle, "Michelle_Ex_Full_013_002.png");
-  doCopyFile(srcCharMichelle, dstCharMichelle, "Michelle_Ex_Full_014_002.png");
-  doCopyFile(srcCharMichelle, dstCharMichelle, "Michelle_Ex_Full_015_002.png");
-  doCopyFile(srcCharMichelle, dstCharMichelle, "Michelle_Ex_Full_015_Open_002.png");
-  doCopyFile(srcCharMichelle, dstCharMichelle, "Michelle_Ex_Full_016_002.png");
-  doCopyFile(srcCharMichelle, dstCharMichelle, "Michelle_Ex_Full_017_003.png");
-  doCopyFile(srcCharMichelle, dstCharMichelle, "Michelle_Ex_Full_018_003.png");
-  doCopyFile(srcCharMichelle, dstCharMichelle, "Michelle_Ex_Full_019_003.png");
-  doCopyFile(srcCharMichelle, dstCharMichelle, "Michelle_Ex_Full_020_003.png");
-  doCopyFile(srcCharMichelle, dstCharMichelle, "Michelle_Ex_Full_021_003.png");
 
 #-----------------------------------------------------------------------------
 # Hook to call main
