@@ -16,9 +16,22 @@ import zipfile
 filename_04 = "Press-SwitchV0.4a-pc";
 filename_05 = "Press-SwitchV0.5c-pc";
 
+
+#-----------------------------------------------------------------------------
+def printGreen(s):
+  print("\033[1;32m" + s + "\033[0m");
+
+#-----------------------------------------------------------------------------
+def printRed(s):
+  print("\033[1;31m" + s + "\033[0m");
+
+#-----------------------------------------------------------------------------
+def printYellow(s):
+  print("\033[1;33m" + s + "\033[0m");
+
 #-----------------------------------------------------------------------------
 def showError(txt):
-  print("Error: " + txt);
+  printRed("Error: " + txt);
 
 #-----------------------------------------------------------------------------
 def md5(fname):
@@ -43,7 +56,7 @@ def doCrop(srcDir):
   for pic in os.listdir(srcDir):
     if pic.endswith(".png"):
       srcFile = os.path.join(srcDir, pic);
-      dstFile = os.path.join(dstDir, pic);
+      dstFile = os.path.join(dstDir, pic + ".pnm");
       print("Cropping " + srcFile);
       cmd = ["convert", "-size", "1024x1024", "xc:#ffffffff", srcFile,
              "-compose", "Over", "-composite", "-trim", dstFile];
@@ -51,6 +64,20 @@ def doCrop(srcDir):
       if (cmd_result.returncode != 0):
         showError("Imagemagick convert returned " + str(cmd_result.returncode));
         sys.exit(1);
+
+#-----------------------------------------------------------------------------
+def buildIndex(path):
+  print("Building index for " + path);
+  idx = {};
+  for pic in os.listdir(path):
+    if pic.endswith(".pnm"):
+      idx[md5(os.path.join(path, pic))] = pic;
+
+  return idx;
+
+#-----------------------------------------------------------------------------
+def leftAlign(s, l):
+  return s + (" " * (l - len(s)));
 
 #-----------------------------------------------------------------------------
 # Main program
@@ -71,13 +98,37 @@ def main(argv):
     showError("Character " + characterName + " not found in 0.5 Graphics directory");
     sys.exit(1);
 
+  srcDir4Crop = srcDir4 + "Cropped";
+  srcDir5Crop = srcDir5 + "Cropped";
+
   # Do we need to crop images for 0.4?
-  if (not(os.path.isdir(pathlib.Path(srcDir4 + "Cropped")))):
+  if (not(os.path.isdir(pathlib.Path(srcDir4Crop)))):
     doCrop(srcDir4);
 
   # Do we need to crop images for 0.5?
-  if (not(os.path.isdir(pathlib.Path(srcDir5 + "Cropped")))):
+  if (not(os.path.isdir(pathlib.Path(srcDir5Crop)))):
     doCrop(srcDir5);
+
+  # Build an index of the MD5 hashes for 0.5
+  idx = buildIndex(srcDir5Crop);
+
+  # Iterate 0.4
+  fileWidth = 40;
+  for pic in os.listdir(srcDir4Crop):
+    if pic.endswith(".pnm"):
+      chksum = md5(os.path.join(srcDir4Crop, pic));
+
+      if chksum in idx:
+        filename5 = idx.get(chksum);
+        if filename5 == pic:
+          print(leftAlign(pic, fileWidth) + ": Same");
+        else:
+          printGreen(leftAlign(pic, fileWidth) + ": Renamed to " + filename5);
+      else:
+        if os.path.exists(os.path.join(srcDir5Crop, pic)):
+          printYellow(leftAlign(pic, fileWidth) + ": Edited");
+        else:
+          printRed(leftAlign(pic, fileWidth) + ": Deleted");
 
 #-----------------------------------------------------------------------------
 # Hook to call main
