@@ -314,7 +314,7 @@ def processShow(line):
 
   newLine = "";
   indent = 0;
-  while fields[indent] == "":
+  while line[indent] == " ":
     newLine += " ";
     indent = indent + 1;
 
@@ -332,6 +332,7 @@ def processShow(line):
   if (line.strip()[-1] == ":"):
     newLine += ":";
 
+  newLine += "\n";
   return newLine;
 
 #-----------------------------------------------------------------------------
