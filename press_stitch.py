@@ -318,7 +318,7 @@ def processShow(line):
     newLine += " ";
     indent = indent + 1;
 
-  newLine += "show " + charName + base;
+  newLine += "show " + fields[1] + base;
 
   i = 2;
   while i < len(mappedFields) - 1:
