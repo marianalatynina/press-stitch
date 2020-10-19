@@ -1,5 +1,5 @@
 characterMapNelson = {
-  "Nelson_Base_001":                       "Nelson_Base_001",                       # Auto: Same
-  "Nelson_Ex_001_001":                     "Nelson_Ex_001_001",                     # Auto: Same
-  "Nelson_Ex_002_001":                     "Nelson_Ex_002_001",                     # Auto: Same
+  "nelson_base_001":                       "nelson_base_001",                       # Auto: Same
+  "nelson_ex_001_001":                     "nelson_ex_001_001",                     # Auto: Same
+  "nelson_ex_002_001":                     "nelson_ex_002_001",                     # Auto: Same
 }

@@ -80,8 +80,8 @@ def leftAlign(s, ln):
 
 #-----------------------------------------------------------------------------
 def printArrayEntry(src, dst, comment):
-  first  = leftAlign("\"" + src.split(".")[0] + "\":", 40);
-  second = leftAlign("\"" + dst.split(".")[0] + "\",", 40);
+  first  = leftAlign("\"" + src.split(".")[0].lower() + "\":", 40);
+  second = leftAlign("\"" + dst.split(".")[0].lower() + "\",", 40);
   print("  " + first + " " + second + " # Auto: " + comment);
 
 #-----------------------------------------------------------------------------

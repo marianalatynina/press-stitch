@@ -1,4 +1,4 @@
 characterMapJennifer = {
-  "Jennifer_Base_001":                     "Jennifer_Base_001",                     # Auto: Same
-  "Jennifer_Ex_001_001":                   "Jennifer_Ex_001_001",                   # Auto: Same
+  "jennifer_base_001":                     "jennifer_base_001",                     # Auto: Same
+  "jennifer_ex_001_001":                   "jennifer_ex_001_001",                   # Auto: Same
 }

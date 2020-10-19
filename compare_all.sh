@@ -1,0 +1,31 @@
+#!/bin/bash
+python3 ./compare_character.py Alma     --code > character_map_alma.py
+python3 ./compare_character.py Amber    --code > character_map_amber.py
+python3 ./compare_character.py Anna     --code > character_map_anna.py
+python3 ./compare_character.py April    --code > character_map_april.py
+python3 ./compare_character.py Candice  --code > character_map_candice.py
+python3 ./compare_character.py Chris    --code > character_map_chris.py
+python3 ./compare_character.py Ciel     --code > character_map_ciel.py
+python3 ./compare_character.py Cindy    --code > character_map_cindy.py
+python3 ./compare_character.py Donald   --code > character_map_donald.py
+python3 ./compare_character.py Eliza    --code > character_map_eliza.py
+python3 ./compare_character.py Erin     --code > character_map_erin.py
+python3 ./compare_character.py Hillary  --code > character_map_hillary.py
+python3 ./compare_character.py Jenna    --code > character_map_jenna.py
+python3 ./compare_character.py Jennifer --code > character_map_jennifer.py
+python3 ./compare_character.py Jillian  --code > character_map_jillian.py
+python3 ./compare_character.py Karyn    --code > character_map_karyn.py
+python3 ./compare_character.py Kayla    --code > character_map_kayla.py
+python3 ./compare_character.py Main     --code > character_map_main.py
+python3 ./compare_character.py Martha   --code > character_map_martha.py
+python3 ./compare_character.py Melina   --code > character_map_melina.py
+python3 ./compare_character.py Michelle --code > character_map_michelle.py
+python3 ./compare_character.py Mika     --code > character_map_mika.py
+python3 ./compare_character.py Mother   --code > character_map_mother.py
+python3 ./compare_character.py Nelson   --code > character_map_nelson.py
+python3 ./compare_character.py Nick     --code > character_map_nick.py
+python3 ./compare_character.py Nurse    --code > character_map_nurse.py
+python3 ./compare_character.py Sean     --code > character_map_sean.py
+python3 ./compare_character.py Vanessa  --code > character_map_vanessa.py
+python3 ./compare_character.py Waitress --code > character_map_waitress.py
+

@@ -266,17 +266,44 @@ def processShow(line):
       filenameMode = False;
     if (filenameMode):
       field = expandNumberField(fields[i]);
-      if (field == "full") or isNumberField(field):
+      if (field == "full"):
+        exFile = exFile + "_full";
+      elif isNumberField(field):
         baseMode = False;
+
       if (baseMode):
         base = base + " " + fields[i];
       else:
         exFile = exFile + "_" + field;
+
     else:
       modifiers = modifiers + " " + fields[i];
     i = i + 1;
 
   print(charName + ": Base" + base + "| " + exFile + " |" + modifiers);
+
+  mappedFile = "";
+  hasMapped = False;
+
+  if exFile+"_001" in characterImageMap[charName]:
+    mappedFile = characterImageMap[charName][exFile+"_001"];
+    hasMapped = True;
+  elif exFile+"_002" in characterImageMap[charName]:
+    mappedFile = characterImageMap[charName][exFile+"_002"];
+    hasMapped = True;
+  elif exFile+"_003" in characterImageMap[charName]:
+    mappedFile = characterImageMap[charName][exFile+"_003"];
+    hasMapped = True;
+
+  if not(hasMapped):
+    showError("Mapping failed, source file '" + exFile + "' not found. Line being processed is: " + str(fields));
+    sys.exit(1);
+
+  if mappedFile == "":
+    showError("Mapping failed, source file '" + exFile + "' exists but has no mapping. Line being processed is: " + str(fields));
+    sys.exit(1);
+
+  print("Mapped to " + mappedFile);
 
   return line;
 
