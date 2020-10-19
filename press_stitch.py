@@ -295,12 +295,12 @@ def processShow(line):
     hasMapped = True;
 
   if not(hasMapped):
-    showError("Mapping failed, source file '" + exFile + "' not found. Line being processed is: " + str(fields));
-    sys.exit(1);
+    print("Mapping failed, source file '" + exFile + "' not found. Line being processed is: " + str(fields));
+    return line;
 
   if mappedFile == "":
-    showError("Mapping failed, source file '" + exFile + "' exists but has no mapping. Line being processed is: " + str(fields));
-    sys.exit(1);
+    print("Mapping failed, source file '" + exFile + "' exists but has no mapping. Line being processed is: " + str(fields));
+    return line;
 
   mappedFields = mappedFile.split("_");
 
