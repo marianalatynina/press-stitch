@@ -84,10 +84,10 @@ characterMapKaryn = {
   "karyn_ex_004_grin_001":                 "karyn_ex_003_grin_001",                 # Auto: Renamed
   "karyn_ex_004_open_001":                 "karyn_ex_003_open_001",                 # Auto: Renamed
   "karyn_ex_005_001":                      "karyn_ex_004_open2_001",                # Auto: Renamed
-  "karyn_ex_005_closed_001":               "",                                      # Auto: Deleted
+  "karyn_ex_005_closed_001":               "Karyn_Ex_004_001",                                      # Auto: Deleted
   "karyn_ex_005_smile_001":                "karyn_ex_004_smile_001",                # Auto: Renamed
   "karyn_ex_006_001":                      "karyn_ex_006_open_001",                 # Auto: Renamed
-  "karyn_ex_006_closed_001":               "",                                      # Auto: Deleted
+  "karyn_ex_006_closed_001":               "Karyn_Ex_006_001",                                      # Auto: Deleted
   "karyn_ex_006_open2_001":                "karyn_ex_006_open2_001",                # Auto: Edited
   "karyn_ex_006_open_001":                 "karyn_ex_006_open_001",                 # Auto: Edited
   "karyn_ex_006_smile2_001":               "karyn_ex_006_smile2_001",               # Auto: Edited
@@ -105,9 +105,9 @@ characterMapKaryn = {
   "karyn_ex_017_003":                      "karyn_ex_017_003",                      # Auto: Edited
   "karyn_ex_018_003":                      "karyn_ex_018_003",                      # Auto: Edited
   "karyn_ex_019_003":                      "karyn_ex_019_003",                      # Auto: Edited
-  "karyn_ex_020_003":                      "",                                      # Auto: Deleted
-  "karyn_ex_021_003":                      "",                                      # Auto: Deleted
-  "karyn_ex_022_003":                      "",                                      # Auto: Deleted
+  "karyn_ex_020_003":                      "Karyn_Ex_017_003",                                      # Auto: Deleted
+  "karyn_ex_021_003":                      "karyn_ex_018_003",                                      # Auto: Deleted
+  "karyn_ex_022_003":                      "karyn_ex_019_003",                                      # Auto: Deleted
   "karyn_ex_full_001_001":                 "karyn_ex_full_001_001",                 # Auto: Same
   "karyn_ex_full_001_neutral_001":         "karyn_ex_full_001_neutral_001",         # Auto: Same
   "karyn_ex_full_001_open_001":            "karyn_ex_full_001_open_001",            # Auto: Same
