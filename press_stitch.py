@@ -295,7 +295,10 @@ def processShow(line):
     hasMapped = True;
 
   if not(hasMapped):
-    print("Mapping failed, source file '" + exFile + "' not found. Line being processed is: " + str(fields));
+    # The .rpy file is referencing a graphic that doesn't seem to exist in the 0.4 graphics directory.
+    # Something's obviously up, maybe old 0.3 content? For now, pass it through unaltered,
+    # but we might want to take note of this later.
+    #print("Mapping failed, source file '" + exFile + "' not found. Line being processed is: " + str(fields));
     return line;
 
   if mappedFile == "":
