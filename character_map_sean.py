@@ -1,0 +1,32 @@
+characterMapSean = {
+  "Sean_Base_001":                         "Sean_Base_001",                         # Auto: Edited
+  "Sean_Base_Y_001":                       "",                                      # Auto: Deleted
+  "Sean_Ex_001_001":                       "Sean_Ex_001_001",                       # Auto: Edited
+  "Sean_Ex_002_001":                       "Sean_Ex_002_001",                       # Auto: Edited
+  "Sean_Ex_003_001":                       "Sean_Ex_003_001",                       # Auto: Edited
+  "Sean_Ex_004_001":                       "Sean_Ex_004_001",                       # Auto: Edited
+  "Sean_Ex_005_001":                       "Sean_Ex_005_001",                       # Auto: Edited
+  "Sean_Ex_006_001":                       "Sean_Ex_006_001",                       # Auto: Edited
+  "Sean_Ex_007_001":                       "Sean_Ex_007_001",                       # Auto: Edited
+  "Sean_Ex_008_001":                       "Sean_Ex_008_001",                       # Auto: Edited
+  "Sean_Ex_009_001":                       "Sean_Ex_009_001",                       # Auto: Edited
+  "Sean_Ex_010_001":                       "Sean_Ex_010_001",                       # Auto: Edited
+  "Sean_Ex_011_001":                       "Sean_Ex_011_001",                       # Auto: Edited
+  "Sean_Ex_012_001":                       "Sean_Ex_012_001",                       # Auto: Edited
+  "Sean_Ex_013_001":                       "",                                      # Auto: Deleted
+  "Sean_Ex_014_001":                       "",                                      # Auto: Deleted
+  "Sean_Ex_Y_001_001":                     "",                                      # Auto: Deleted
+  "Sean_Ex_Y_002_001":                     "",                                      # Auto: Deleted
+  "Sean_Ex_Y_003_001":                     "",                                      # Auto: Deleted
+  "Sean_Ex_Y_004_001":                     "",                                      # Auto: Deleted
+  "Sean_Ex_Y_005_001":                     "",                                      # Auto: Deleted
+  "Sean_Ex_Y_006_001":                     "",                                      # Auto: Deleted
+  "Sean_Ex_Y_007_001":                     "",                                      # Auto: Deleted
+  "Sean_Ex_Y_008_001":                     "",                                      # Auto: Deleted
+  "Sean_Ex_Y_009_001":                     "",                                      # Auto: Deleted
+  "Sean_Ex_Y_010_001":                     "",                                      # Auto: Deleted
+  "Sean_Ex_Y_011_001":                     "",                                      # Auto: Deleted
+  "Sean_Ex_Y_012_001":                     "",                                      # Auto: Deleted
+  "Sean_Ex_Y_013_001":                     "",                                      # Auto: Deleted
+  "Sean_Ex_Y_014_001":                     "",                                      # Auto: Deleted
+}

@@ -1,0 +1,29 @@
+characterMapHillary = {
+  "Hillary_Base_Cas_001":                  "Hillary_Base_Casual_001",               # Auto: Renamed
+  "Hillary_Base_Maid_001":                 "Hillary_Base_Maid_001",                 # Auto: Same
+  "Hillary_Base_Naked_001":                "Hillary_Base_Naked_001",                # Auto: Same
+  "Hillary_Base_Night_001":                "Hillary_Base_Night_001",                # Auto: Same
+  "Hillary_Base_School_001":               "Hillary_Base_001",                      # Auto: Renamed
+  "Hillary_Base_Swim_001":                 "Hillary_Base_Swim_001",                 # Auto: Same
+  "Hillary_Base_Towel_001":                "Hillary_Base_Robe_001",                 # Auto: Renamed
+  "Hillary_Ex_001_001":                    "Hillary_Ex_001_001",                    # Auto: Same
+  "Hillary_Ex_001_Neutral_001":            "Hillary_Ex_001_Neutral_001",            # Auto: Same
+  "Hillary_Ex_001_Smile_001":              "Hillary_Ex_001_Smile_001",              # Auto: Same
+  "Hillary_Ex_002_001":                    "Hillary_Ex_002_Smile_001",              # Auto: Renamed
+  "Hillary_Ex_002_Smile_001":              "Hillary_Ex_002_001",                    # Auto: Renamed
+  "Hillary_Ex_003_001":                    "Hillary_Ex_003_001",                    # Auto: Same
+  "Hillary_Ex_004_001":                    "Hillary_Ex_003_Open2_001",              # Auto: Renamed
+  "Hillary_Ex_004_Grin2_001":              "Hillary_Ex_003_Grin2_001",              # Auto: Renamed
+  "Hillary_Ex_004_Grin_001":               "Hillary_Ex_003_Grin_001",               # Auto: Renamed
+  "Hillary_Ex_004_Open_001":               "Hillary_Ex_004_Open_001",               # Auto: Edited
+  "Hillary_Ex_005_001":                    "Hillary_Ex_009_001",                    # Auto: Renamed
+  "Hillary_Ex_005_Closed_001":             "",                                      # Auto: Deleted
+  "Hillary_Ex_006_001":                    "Hillary_Ex_004_Open_001",               # Auto: Renamed
+  "Hillary_Ex_007_001":                    "Hillary_Ex_007_001",                    # Auto: Edited
+  "Hillary_Ex_007_Smile_001":              "Hillary_Ex_004_Smile_001",              # Auto: Renamed
+  "Hillary_Ex_008_001":                    "Hillary_Ex_008_Open_001",               # Auto: Renamed
+  "Hillary_Ex_009_001":                    "Hillary_Ex_007_001",                    # Auto: Renamed
+  "Hillary_Ex_010_001":                    "Hillary_Ex_010_001",                    # Auto: Edited
+  "Hillary_Ex_010_Closed_001":             "",                                      # Auto: Deleted
+  "Hillary_Ex_011_001":                    "Hillary_Ex_011_001",                    # Auto: Edited
+}

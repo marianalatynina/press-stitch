@@ -67,7 +67,6 @@ def doCrop(srcDir):
 
 #-----------------------------------------------------------------------------
 def buildIndex(path):
-  print("Building index for " + path);
   idx = {};
   for pic in os.listdir(path):
     if pic.endswith(".pnm"):
@@ -76,8 +75,14 @@ def buildIndex(path):
   return idx;
 
 #-----------------------------------------------------------------------------
-def leftAlign(s, l):
-  return s + (" " * (l - len(s)));
+def leftAlign(s, ln):
+  return s + (" " * (ln - len(s)));
+
+#-----------------------------------------------------------------------------
+def printArrayEntry(src, dst, comment):
+  first  = leftAlign("\"" + src.split(".")[0] + "\":", 40);
+  second = leftAlign("\"" + dst.split(".")[0] + "\",", 40);
+  print("  " + first + " " + second + " # Auto: " + comment);
 
 #-----------------------------------------------------------------------------
 # Main program
@@ -85,6 +90,10 @@ def main(argv):
   if (len(argv) < 1):
     showError("Usage is: compare_character.py <character name>");
     sys.exit(1)
+
+  asArray = False;
+  if (len(argv) > 1) and (argv[1] == "--code"):
+    asArray = True;
 
   characterName = argv[0];
   srcDir4 = os.path.join("Extracted", filename_04, "Characters", characterName);
@@ -116,23 +125,46 @@ def main(argv):
   fileList = os.listdir(srcDir4Crop);
   fileList.sort();
 
+  if asArray:
+    print("characterMap" + characterName + " = {");
+
   # Iterate 0.4
   fileWidth = 40;
   for pic in fileList:
     if pic.endswith(".pnm"):
       chksum = md5(os.path.join(srcDir4Crop, pic));
 
-      if chksum in idx:
-        filename5 = idx.get(chksum);
-        if filename5 == pic:
-          print(leftAlign(pic, fileWidth) + ": Same");
+      if asArray:
+        if (chksum in idx):
+          filename5 = idx.get(chksum);
+          if filename5 == pic:
+            # Same
+            printArrayEntry(pic, pic, "Same");
+          else:
+            # Renamed
+            printArrayEntry(pic, filename5, "Renamed");
         else:
-          printGreen(leftAlign(pic, fileWidth) + ": Renamed to " + filename5);
+          if os.path.exists(os.path.join(srcDir5Crop, pic)):
+            # Edited
+            printArrayEntry(pic, pic, "Edited");
+          else:
+            # Deleted
+            printArrayEntry(pic, "", "Deleted");
       else:
-        if os.path.exists(os.path.join(srcDir5Crop, pic)):
-          printYellow(leftAlign(pic, fileWidth) + ": Edited");
+        if chksum in idx:
+          filename5 = idx.get(chksum);
+          if filename5 == pic:
+            print(leftAlign(pic, fileWidth) + ": Same");
+          else:
+            printGreen(leftAlign(pic, fileWidth) + ": Renamed to " + filename5);
         else:
-          printRed(leftAlign(pic, fileWidth) + ": Deleted");
+          if os.path.exists(os.path.join(srcDir5Crop, pic)):
+            printYellow(leftAlign(pic, fileWidth) + ": Edited");
+          else:
+            printRed(leftAlign(pic, fileWidth) + ": Deleted");
+
+  if asArray:
+    print("}");
 
 #-----------------------------------------------------------------------------
 # Hook to call main

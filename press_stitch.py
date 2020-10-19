@@ -11,20 +11,143 @@ import shutil
 import sys
 import zipfile
 import press_stitch_archive
+import character_map_alma
+import character_map_amber
+import character_map_anna
+import character_map_april
+import character_map_candice
+import character_map_chris
+import character_map_ciel
+import character_map_cindy
+import character_map_donald
+import character_map_eliza
+import character_map_erin
+import character_map_hillary
+import character_map_jenna
+import character_map_jennifer
+import character_map_jillian
+import character_map_karyn
+import character_map_kayla
+import character_map_main
+import character_map_martha
+import character_map_melina
+import character_map_michelle
+import character_map_mika
+import character_map_mother
+import character_map_nelson
+import character_map_nick
+import character_map_nurse
+import character_map_sean
+import character_map_vanessa
+import character_map_waitress
 
 filename_03 = "Press-SwitchV0.3b-all";
 filename_04 = "Press-SwitchV0.4a-pc";
 filename_05 = "Press-SwitchV0.5c-pc";
 
+# The key is the label used in an RPY "show" command to show a character.
+# The value is the character directory used to find the images.
+characterLabelMap = {
+  "alma":          "alma",
+  "amber":         "amber",
+  "amberd":        "amber",
+  "anna":          "anna",
+  "april":         "april",
+  "candice":       "candice",
+  "candiced":      "candice",
+  "chris":         "chris",
+  "chrisd":        "chris",
+  "chrisghost":    "chris",
+  "ciel":          "ciel",
+  "cindy":         "cindy",
+  "donald":        "donald",
+  "donaldd":       "donald",
+  "donaldflash":   "donald",
+  "eliza":         "eliza",
+  "elizad":        "eliza",
+  "elizaflash":    "eliza",
+  "elizaghost":    "eliza",
+  "erin":          "erin",
+  "erind":         "erin",
+  "eringhost":     "erin",
+  "hillary":       "hillary",
+  "hillaryd":      "hillary",
+  "jenna":         "jenna",
+  "jennifer":      "jennifer",
+  "jenniferd":     "jennifer",
+  "jillian":       "jillian",
+  "jilliand":      "jillian",
+  "karyn":         "karyn",
+  "karynd":        "karyn",
+  "karynflash":    "karyn",
+  "karynghost":    "karyn",
+  "kayla":         "kayla",
+  "kaylad":        "kayla",
+  "main":          "main",
+  "maind":         "main",
+  "mainflash":     "main",
+  "mainghost":     "main",
+  "martha":        "martha",
+  "marthad":       "martha",
+  "marthaghost":   "martha",
+  "melina":        "melina",
+  "michelle":      "michelle",
+  "michelled":     "michelle",
+  "michelleghost": "michelle",
+  "mika":          "mika",
+  "mikad":         "mika",
+  "mother":        "mother",
+  "nelson":        "nelson",
+  "nick":          "nick",
+  "nurse":         "nurse",
+  "sean":          "sean",
+  "vanessa":       "vanessa",
+  "vanessad":      "vanessa",
+  "waitress":      "waitress"
+};
+
+characterImageMap = {
+  "alma":     character_map_alma    .characterMapAlma,
+  "amber":    character_map_amber   .characterMapAmber,
+  "anna":     character_map_anna    .characterMapAnna,
+  "april":    character_map_april   .characterMapApril,
+  "candice":  character_map_candice .characterMapCandice,
+  "chris":    character_map_chris   .characterMapChris,
+  "ciel":     character_map_ciel    .characterMapCiel,
+  "cindy":    character_map_cindy   .characterMapCindy,
+  "donald":   character_map_donald  .characterMapDonald,
+  "eliza":    character_map_eliza   .characterMapEliza,
+  "erin":     character_map_erin    .characterMapErin,
+  "hillary":  character_map_hillary .characterMapHillary,
+  "jenna":    character_map_jenna   .characterMapJenna,
+  "jennifer": character_map_jennifer.characterMapJennifer,
+  "jillian":  character_map_jillian .characterMapJillian,
+  "karyn":    character_map_karyn   .characterMapKaryn,
+  "kayla":    character_map_kayla   .characterMapKayla,
+  "main":     character_map_main    .characterMapMain,
+  "martha":   character_map_martha  .characterMapMartha,
+  "melina":   character_map_melina  .characterMapMelina,
+  "michelle": character_map_michelle.characterMapMichelle,
+  "mika":     character_map_mika    .characterMapMika,
+  "mother":   character_map_mother  .characterMapMother,
+  "nelson":   character_map_nelson  .characterMapNelson,
+  "nick":     character_map_nick    .characterMapNick,
+  "nurse":    character_map_nurse   .characterMapNurse,
+  "sean":     character_map_sean    .characterMapSean,
+  "vanessa":  character_map_vanessa .characterMapVanessa,
+  "waitress": character_map_waitress.characterMapWaitress
+};
+
+# This should not be used for characters!
 elizaPathReplacements = [
  [" bg elizabedday",   " bg mansionelizaday"],
  [" bg elizabeddusk",  " bg mansionelizadusk"],
  [" bg elizabednight", " bg mansionelizalit"],
  [" bg mainbedday",    " bg mansioncalvinday"],
  [" bg mainbeddusk",   " bg mansioncalvindusk"],
- ["show eliza 17",     "show eliza 3 irked"],
- ["show eliza be1 19", "show eliza be1 16"],
- ["show eliza 22",     "show eliza 9 open"]
+ ["show eliza 17",     "show eliza 3 irked"],  # TODO: Convert to new method
+ ["show eliza be1 19", "show eliza be1 16"],   # TODO: Convert to new method
+ ["show eliza 22",     "show eliza 9 open"]    # TODO: Convert to new method
  ];
 
 #-----------------------------------------------------------------------------
