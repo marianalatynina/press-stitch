@@ -145,14 +145,15 @@ elizaPathReplacements = [
  [" bg elizabednight", " bg mansionelizalit"],
  [" bg mainbedday",    " bg mansioncalvinday"],
  [" bg mainbeddusk",   " bg mansioncalvindusk"],
- ["show eliza 17",     "show eliza 3 irked"],  # TODO: Convert to new method
- ["show eliza be1 19", "show eliza be1 16"],   # TODO: Convert to new method
- ["show eliza 22",     "show eliza 9 open"]    # TODO: Convert to new method
  ];
 
 #-----------------------------------------------------------------------------
+def printRed(s):
+  print("\033[1;31m" + s + "\033[0m");
+
+#-----------------------------------------------------------------------------
 def showError(txt):
-  print("Error: " + txt);
+  printRed("Error: " + txt);
 
 #-----------------------------------------------------------------------------
 def md5(fname):
@@ -280,8 +281,6 @@ def processShow(line):
       modifiers = modifiers + " " + fields[i];
     i = i + 1;
 
-  print(charName + ": Base" + base + "| " + exFile + " |" + modifiers);
-
   mappedFile = "";
   hasMapped = False;
 
@@ -303,9 +302,37 @@ def processShow(line):
     showError("Mapping failed, source file '" + exFile + "' exists but has no mapping. Line being processed is: " + str(fields));
     sys.exit(1);
 
-  print("Mapped to " + mappedFile);
+  mappedFields = mappedFile.split("_");
 
-  return line;
+  if not(mappedFields[0] == charName):
+    showError("Mapped to a different character! Source is '" + exFile + "', map is '" + mappedFile + "'");
+    sys.exit(1);
+
+  if not(mappedFields[1] == "ex"):
+    showError("Mapping is not to an expression graphic! Source is '" + exFile + "', map is '" + mappedFile + "'");
+    sys.exit(1);
+
+  newLine = "";
+  indent = 0;
+  while fields[indent] == "":
+    newLine += " ";
+    indent = indent + 1;
+
+  newLine += "show " + charName + base;
+
+  i = 2;
+  while i < len(mappedFields) - 1:
+    if isNumberField(mappedFields[i]):
+      newLine += " " + str(int(mappedFields[i]));
+    else:
+      newLine += " " + mappedFields[i];
+    i = i + 1;
+
+  newLine += modifiers;
+  if (line.strip()[-1] == ":"):
+    newLine += ":";
+
+  return newLine;
 
 #-----------------------------------------------------------------------------
 # Main program
