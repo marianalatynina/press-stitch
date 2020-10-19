@@ -1,4 +1,4 @@
-charactermapkaryn = {
+characterMapKaryn = {
   "karyn_be0_002":                         "karyn_be0_002",                         # auto: same
   "karyn_be0_cosplay_002":                 "karyn_be0_cosplay_002",                 # auto: same
   "karyn_be0_full_002":                    "karyn_be0_full_002",                    # auto: same
