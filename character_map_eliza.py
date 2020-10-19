@@ -109,7 +109,7 @@ characterMapEliza = {
   "eliza_ex_005_closed_001":               "eliza_ex_005_001",                      # Auto: Renamed
   "eliza_ex_006_001":                      "eliza_ex_003_001",                      # Auto: Renamed
   "eliza_ex_007_001":                      "eliza_ex_001_smile2_001",               # Auto: Renamed
-  "eliza_ex_008_001":                      "",                                      # Auto: Deleted
+  "eliza_ex_008_001":                      "eliza_ex_005_aroused_001",              # Manual
   "eliza_ex_008_smile_001":                "eliza_ex_005_aroused2_001",             # Auto: Renamed
   "eliza_ex_009_002":                      "eliza_ex_009_closed_002",               # Auto: Renamed
   "eliza_ex_010_002":                      "eliza_ex_010_002",                      # Auto: Same
@@ -141,7 +141,7 @@ characterMapEliza = {
   "eliza_ex_full_005_closed_001":          "eliza_ex_full_005_001",                 # Auto: Renamed
   "eliza_ex_full_006_001":                 "eliza_ex_full_003_001",                 # Auto: Renamed
   "eliza_ex_full_007_001":                 "eliza_ex_full_001_smile2_001",          # Auto: Renamed
-  "eliza_ex_full_008_001":                 "",                                      # Auto: Deleted
+  "eliza_ex_full_008_001":                 "eliza_ex_full_005_aroused_001",         # Manual
   "eliza_ex_full_008_smile_001":           "eliza_ex_full_005_aroused2_001",        # Auto: Renamed
   "eliza_ex_full_009_002":                 "eliza_ex_full_009_closed_002",          # Auto: Renamed
   "eliza_ex_full_010_002":                 "eliza_ex_full_010_002",                 # Auto: Same
