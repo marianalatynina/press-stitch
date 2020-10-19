@@ -231,6 +231,56 @@ def elizaReplace(text):
   return text;
 
 #-----------------------------------------------------------------------------
+def isNumberField(s):
+  for c in s:
+    if not(c in "0123456789"):
+      return False;
+  return True;
+
+#-----------------------------------------------------------------------------
+def expandNumberField(s):
+  if not(isNumberField(s)):
+    return s;
+  return s.zfill(3);
+
+#-----------------------------------------------------------------------------
+def processShow(line):
+  fields = line.strip().strip(":").split();
+
+  # At this point, 'fields' looks like this:
+  # ['show', 'maind', '17', 'with', 'dissolve']
+  # Character label is fields[1], get character name
+  if (not(fields[1] in characterLabelMap)):
+    return line;
+
+  charName = characterLabelMap[fields[1]];
+
+  filenameMode = True;
+  baseMode = True;
+  exFile = charName + "_ex";
+  modifiers = "";
+  base = "";
+  i = 2;
+  while i < len(fields):
+    if (fields[i] in ["as", "at", "behind", "with", "zorder"]):
+      filenameMode = False;
+    if (filenameMode):
+      field = expandNumberField(fields[i]);
+      if (field == "full") or isNumberField(field):
+        baseMode = False;
+      if (baseMode):
+        base = base + " " + fields[i];
+      else:
+        exFile = exFile + "_" + field;
+    else:
+      modifiers = modifiers + " " + fields[i];
+    i = i + 1;
+
+  print(charName + ": Base" + base + "| " + exFile + " |" + modifiers);
+
+  return line;
+
+#-----------------------------------------------------------------------------
 # Main program
 def main(argv):
   doClean = False;
@@ -287,6 +337,13 @@ def main(argv):
   i = 0;
   while i < numLines:
     lines[i] = elizaReplace(lines[i]);
+    i = i + 1;
+
+  # Search for "show" statements
+  i = 0;
+  while i < numLines:
+    if (lines[i].strip().startswith("show")):
+      lines[i] = processShow(lines[i]);
     i = i + 1;
 
   # Write the updated ElizaPath.rpy back out
