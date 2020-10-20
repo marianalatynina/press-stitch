@@ -5,7 +5,8 @@ import rpatool
 
 folderExtracted = "Extracted"
 folderName = "Press-SwitchV0"
-folderVersion = ['.3b-all', '.4a-pc', '.5c-pc']
+#folderVersion = ['.3b-all', '.4a-pc', '.5c-pc']
+folderVersion = ['.5c-pc']
 fileNameArchive = "archive.rpa"
 fileNameScripts = "scripts.rpa"
 cwd = os.getcwd()
