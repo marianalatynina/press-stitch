@@ -249,10 +249,10 @@ def processShow(line):
       print("Background '" + fields[2] + "' exists but has no mapping");
       return line;
 
-    newLine += "show bg " + backgrounds_map.backgroundMap[fields[2]];
+    newLine += fields[0] + " bg " + backgrounds_map.backgroundMap[fields[2]];
 
     i = 3;
-    while i < len(fields) - 1:
+    while i < len(fields):
       newLine += " " + fields[i];
       i = i + 1;
 
@@ -264,7 +264,9 @@ def processShow(line):
 
   # Try for a character
   # Character label is fields[1], get character name
-  if (not(fields[1] in characterLabelMap)):
+  if not(fields[0] == "show"):
+    return line;
+  if not(fields[1] in characterLabelMap):
     return line;
 
   charName = characterLabelMap[fields[1]];
@@ -285,8 +287,9 @@ def processShow(line):
       elif isNumberField(field):
         baseMode = False;
 
-      if (baseMode):
-        base = base + " " + fields[i];
+      if baseMode:
+        if not(field == "full"):
+          base = base + " " + fields[i];
       else:
         exFile = exFile + "_" + field;
 
@@ -407,7 +410,7 @@ def main(argv):
   numLines = len(lines);
   i = 0;
   while i < numLines:
-    if (lines[i].strip().startswith("show")):
+    if (lines[i].strip().startswith("show") or lines[i].strip().startswith("scene")):
       lines[i] = processShow(lines[i]);
     i = i + 1;
 
