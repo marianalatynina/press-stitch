@@ -212,8 +212,8 @@ backgroundMap = {
   "schoolnurseday":              "schoolnurseday",              # Auto: Edited
   "schoolnursedusk":             "schoolnursedusk",             # Auto: Edited
   "schoolnursenight":            "",                            # Auto: Deleted
-  "schooloutside":               "",                            # Auto: Deleted
-  "schooloutside2":              "",                            # Auto: Deleted
+  "schooloutside":               "schooloutsideday",
+  "schooloutside2":              "schooloutsideday",
   "schooloutsidedusk":           "schooloutsidedusk",           # Auto: Edited
   "schoolparkday":               "schoolparkday",               # Auto: Edited
   "schoolparkdusk":              "schoolparkdusk",              # Auto: Edited
