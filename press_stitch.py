@@ -414,8 +414,26 @@ def main(argv):
       lines[i] = processShow(lines[i]);
     i = i + 1;
 
+  # Patch the timer
+  lines[6396] = (" " * 20) + "if timer_value >= 30:\n";
+  lines[6552] = (" " * 20) + "if timer_value >= 30:\n";
+  lines[6713] = (" " * 20) + "if timer_value >= 30:\n";
+
   # Write the updated ElizaPath.rpy back out
   with open(os.path.join(dstPath, "Story", "ElizaPath.rpy"), "w") as outfile:
+    outfile.writelines(lines);
+
+  # Read effects.rpy into memory
+  print("Patching effects.rpy...");
+  text_file = open(os.path.join(extPath5, "effects.rpy"), "r");
+  lines = text_file.readlines();
+
+  # Patch the timer
+  lines[492] = "default timer_value = 0\n";
+  lines[495] = "    timer 1 repeat True action SetVariable(\"timer_value\", timer_value + 1)\n";
+
+  # Write the updated effects.rpy back out
+  with open(os.path.join(dstPath, "effects.rpy"), "w") as outfile:
     outfile.writelines(lines);
 
 #-----------------------------------------------------------------------------
