@@ -12,7 +12,7 @@ The scripts are developed and tested primarily on Linux, but they should work eq
 
 # Download and Installation
 1. Clone the git repository
-2. Download the `Press-SwitchV0.5c-pc.zip` file from [TFGames](https://tfgames.site/index.php?module=viewgame&id=282) and put in the base of the cloned repository
+2. Download the `Press-SwitchV0.5c-pc.zip` file from [TFGames](https://tfgames.site/index.php?module=viewgame&id=282) and put it in the base of the cloned repository
 3. Run the `press_stitch.py` file using Python3. On Linux this should be as easy as: `python3 ./press_stitch.py`
 4. The script will unzip, extract and patch the game into the directory `Press-SwitchV0.5c-pc`
 5. If everything completes correctly, the game will be playable in that directory.
