@@ -88,10 +88,10 @@ characterMapKaryn = {
   "karyn_ex_005_smile_001":                "karyn_ex_004_smile_001",                # auto: renamed
   "karyn_ex_006_001":                      "karyn_ex_006_open_001",                 # auto: renamed
   "karyn_ex_006_closed_001":               "karyn_ex_006_001",                                      # auto: deleted
-  "karyn_ex_006_open2_001":                "karyn_ex_006_open2_001",                # auto: edited
-  "karyn_ex_006_open_001":                 "karyn_ex_006_open_001",                 # auto: edited
-  "karyn_ex_006_smile2_001":               "karyn_ex_006_smile2_001",               # auto: edited
-  "karyn_ex_006_smile_001":                "karyn_ex_006_smile_001",                # auto: edited
+  "karyn_ex_006_open2_001":                "karyn_ex_005_open_001",
+  "karyn_ex_006_open_001":                 "karyn_ex_005_001",
+  "karyn_ex_006_smile2_001":               "karyn_ex_005_aroused2_001",
+  "karyn_ex_006_smile_001":                "karyn_ex_005_smile_001",                # auto: edited
   "karyn_ex_007_001":                      "karyn_ex_003_grit_001",                 # auto: renamed
   "karyn_ex_008_001":                      "karyn_ex_001_grin_001",                 # auto: renamed
   "karyn_ex_009_001":                      "karyn_ex_003_mad_001",                  # auto: renamed
@@ -102,49 +102,49 @@ characterMapKaryn = {
   "karyn_ex_014_002":                      "karyn_ex_0013_002",                     # auto: renamed
   "karyn_ex_015_002":                      "karyn_ex_014_002",                      # auto: renamed
   "karyn_ex_016_002":                      "karyn_ex_015_002",                      # auto: renamed
-  "karyn_ex_017_003":                      "karyn_ex_017_003",                      # auto: edited
-  "karyn_ex_018_003":                      "karyn_ex_018_003",                      # auto: edited
-  "karyn_ex_019_003":                      "karyn_ex_019_003",                      # auto: edited
+  "karyn_ex_017_003":                      "karyn_ex_016_003",
+  "karyn_ex_018_003":                      "karyn_ex_009_003",
+  "karyn_ex_019_003":                      "karyn_ex_011_003",
   "karyn_ex_020_003":                      "karyn_ex_017_003",                                      # auto: deleted
   "karyn_ex_021_003":                      "karyn_ex_018_003",                                      # auto: deleted
   "karyn_ex_022_003":                      "karyn_ex_019_003",                                      # auto: deleted
-  "karyn_ex_full_001_001":                 "karyn_ex_full_001_001",                 # auto: same
-  "karyn_ex_full_001_neutral_001":         "karyn_ex_full_001_neutral_001",         # auto: same
-  "karyn_ex_full_001_open_001":            "karyn_ex_full_001_open_001",            # auto: same
-  "karyn_ex_full_001_smile_001":           "karyn_ex_full_001_smile_001",           # auto: same
-  "karyn_ex_full_002_001":                 "karyn_ex_full_002_smile_001",           # auto: renamed
-  "karyn_ex_full_002_smile_001":           "karyn_ex_full_002_001",                 # auto: renamed
-  "karyn_ex_full_003_001":                 "karyn_ex_full_003_irked_001",           # auto: renamed
-  "karyn_ex_full_003_open_001":            "karyn_ex_full_003_irked2_001",          # auto: renamed
-  "karyn_ex_full_004_001":                 "karyn_ex_full_003_open2_001",           # auto: renamed
-  "karyn_ex_full_004_grin2_001":           "karyn_ex_full_003_grin2_001",           # auto: renamed
-  "karyn_ex_full_004_grin_001":            "karyn_ex_full_003_grin_001",            # auto: renamed
-  "karyn_ex_full_004_open_001":            "karyn_ex_full_003_open_001",            # auto: renamed
-  "karyn_ex_full_005_001":                 "karyn_ex_full_004_open2_001",           # auto: renamed
-  "karyn_ex_full_005_closed_001":          "karyn_ex_full_004_001",                 # auto: renamed
-  "karyn_ex_full_005_smile_001":           "karyn_ex_full_004_smile_001",           # auto: renamed
-  "karyn_ex_full_006_001":                 "karyn_ex_full_006_open_001",            # auto: renamed
-  "karyn_ex_full_006_closed_001":          "karyn_ex_full_006_001",                 # auto: renamed
-  "karyn_ex_full_006_open2_001":           "karyn_ex_full_005_open_001",            # auto: renamed
-  "karyn_ex_full_006_open_001":            "karyn_ex_full_005_001",                 # auto: renamed
-  "karyn_ex_full_006_smile2_001":          "karyn_ex_full_005_aroused2_001",        # auto: renamed
-  "karyn_ex_full_006_smile_001":           "karyn_ex_full_005_smile_001",           # auto: renamed
-  "karyn_ex_full_007_001":                 "karyn_ex_full_003_grit_001",            # auto: renamed
-  "karyn_ex_full_008_001":                 "karyn_ex_full_001_grin_001",            # auto: renamed
-  "karyn_ex_full_009_001":                 "karyn_ex_full_003_mad_001",             # auto: renamed
-  "karyn_ex_full_010_002":                 "karyn_ex_full_010_open_002",            # auto: renamed
-  "karyn_ex_full_011_002":                 "karyn_ex_full_012_002",                 # auto: renamed
-  "karyn_ex_full_012_002":                 "karyn_ex_full_008_002",                 # auto: renamed
-  "karyn_ex_full_013_002":                 "karyn_ex_full_008_open_002",            # auto: renamed
-  "karyn_ex_full_014_002":                 "karyn_ex_full_0013_002",                # auto: renamed
-  "karyn_ex_full_015_002":                 "karyn_ex_full_014_002",                 # auto: renamed
-  "karyn_ex_full_016_002":                 "karyn_ex_full_015_002",                 # auto: renamed
-  "karyn_ex_full_017_003":                 "karyn_ex_full_016_003",                 # auto: renamed
-  "karyn_ex_full_018_003":                 "karyn_ex_full_009_003",                 # auto: renamed
-  "karyn_ex_full_019_003":                 "karyn_ex_full_011_003",                 # auto: renamed
-  "karyn_ex_full_020_003":                 "karyn_ex_full_017_003",                 # auto: renamed
-  "karyn_ex_full_021_003":                 "karyn_ex_full_018_003",                 # auto: renamed
-  "karyn_ex_full_022_003":                 "karyn_ex_full_019_003",                 # auto: renamed
+  "karyn_ex_full_001_001":                 "karyn_ex_full_001_001",
+  "karyn_ex_full_001_neutral_001":         "karyn_ex_full_001_neutral_001",
+  "karyn_ex_full_001_open_001":            "karyn_ex_full_001_open_001",
+  "karyn_ex_full_001_smile_001":           "karyn_ex_full_001_smile_001",
+  "karyn_ex_full_002_001":                 "karyn_ex_full_002_smile_001",
+  "karyn_ex_full_002_smile_001":           "karyn_ex_full_002_001",
+  "karyn_ex_full_003_001":                 "karyn_ex_full_003_irked_001",
+  "karyn_ex_full_003_open_001":            "karyn_ex_full_003_irked2_001",
+  "karyn_ex_full_004_001":                 "karyn_ex_full_003_open2_001",
+  "karyn_ex_full_004_grin2_001":           "karyn_ex_full_003_grin2_001",
+  "karyn_ex_full_004_grin_001":            "karyn_ex_full_003_grin_001",
+  "karyn_ex_full_004_open_001":            "karyn_ex_full_003_open_001",
+  "karyn_ex_full_005_001":                 "karyn_ex_full_004_open2_001",
+  "karyn_ex_full_005_closed_001":          "karyn_ex_full_004_001",
+  "karyn_ex_full_005_smile_001":           "karyn_ex_full_004_smile_001",
+  "karyn_ex_full_006_001":                 "karyn_ex_full_006_open_001",
+  "karyn_ex_full_006_closed_001":          "karyn_ex_full_006_001",
+  "karyn_ex_full_006_open2_001":           "karyn_ex_full_005_open_001",
+  "karyn_ex_full_006_open_001":            "karyn_ex_full_005_001",
+  "karyn_ex_full_006_smile2_001":          "karyn_ex_full_005_aroused2_001",
+  "karyn_ex_full_006_smile_001":           "karyn_ex_full_005_smile_001",
+  "karyn_ex_full_007_001":                 "karyn_ex_full_003_grit_001",
+  "karyn_ex_full_008_001":                 "karyn_ex_full_001_grin_001",
+  "karyn_ex_full_009_001":                 "karyn_ex_full_003_mad_001",
+  "karyn_ex_full_010_002":                 "karyn_ex_full_010_open_002",
+  "karyn_ex_full_011_002":                 "karyn_ex_full_012_002",
+  "karyn_ex_full_012_002":                 "karyn_ex_full_008_002",
+  "karyn_ex_full_013_002":                 "karyn_ex_full_008_open_002",
+  "karyn_ex_full_014_002":                 "karyn_ex_full_0013_002",
+  "karyn_ex_full_015_002":                 "karyn_ex_full_014_002",
+  "karyn_ex_full_016_002":                 "karyn_ex_full_015_002",
+  "karyn_ex_full_017_003":                 "karyn_ex_full_016_003",
+  "karyn_ex_full_018_003":                 "karyn_ex_full_009_003",
+  "karyn_ex_full_019_003":                 "karyn_ex_full_011_003",
+  "karyn_ex_full_020_003":                 "karyn_ex_full_017_003",
+  "karyn_ex_full_021_003":                 "karyn_ex_full_018_003",
+  "karyn_ex_full_022_003":                 "karyn_ex_full_019_003",
   "karyn_ex_001":                          "karyn_ex_001",                          # Not in 0.4, not sure how this works
   "karyn_ex_003_grin_001":                 "karyn_ex_003_grin_001",                 # Not in 0.4, not sure how this works
   "karyn_ex_003_grin2_001":                "karyn_ex_003_grin2_001",                # Not in 0.4, not sure how this works
