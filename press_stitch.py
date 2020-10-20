@@ -288,7 +288,7 @@ def processShow(line):
         baseMode = False;
 
       if baseMode:
-        if not(field == "full"):
+        if not(field == "full") and not((charName == "hillary") and (fields[i] == "school")):
           base = base + " " + fields[i];
       else:
         exFile = exFile + "_" + field;
