@@ -11,6 +11,7 @@ import shutil
 import sys
 import zipfile
 import press_stitch_archive
+import backgrounds_map
 import character_map_alma
 import character_map_amber
 import character_map_anna
@@ -138,15 +139,6 @@ characterImageMap = {
   "waitress": character_map_waitress.characterMapWaitress
 };
 
-# This should not be used for characters!
-elizaPathReplacements = [
- [" bg elizabedday",   " bg mansionelizaday"],
- [" bg elizabeddusk",  " bg mansionelizadusk"],
- [" bg elizabednight", " bg mansionelizalit"],
- [" bg mainbedday",    " bg mansioncalvinday"],
- [" bg mainbeddusk",   " bg mansioncalvindusk"],
- ];
-
 #-----------------------------------------------------------------------------
 def printRed(s):
   print("\033[1;31m" + s + "\033[0m");
@@ -220,18 +212,6 @@ def doCopyFile(srcPath, dstPath, filename):
   shutil.copy(srcFile, dstPath);
 
 #-----------------------------------------------------------------------------
-# It's very important that this method only does one replacement.
-# For you can have a replacement list that looks like [[A->B], [B->A]]
-# and it will swap A and B without making loops.
-def elizaReplace(text):
-  for info in elizaPathReplacements:
-    s = info[0];
-    r = info[1];
-    if (s in text):
-      return text.replace(s, r);
-  return text;
-
-#-----------------------------------------------------------------------------
 def isNumberField(s):
   for c in s:
     if not(c in "0123456789"):
@@ -250,6 +230,39 @@ def processShow(line):
 
   # At this point, 'fields' looks like this:
   # ['show', 'maind', '17', 'with', 'dissolve']
+
+  # Check for backgrounds
+  if fields[1] == "bg":
+    if len(fields) < 3:
+      return line;
+    if not(fields[2] in backgrounds_map.backgroundMap):
+      return line;
+
+    newLine = "";
+    indent = 0;
+    while line[indent] == " ":
+      newLine += " ";
+      indent = indent + 1;
+
+    newbg = backgrounds_map.backgroundMap[fields[2]];
+    if (newbg == ""):
+      print("Background '" + fields[2] + "' exists but has no mapping");
+      return line;
+
+    newLine += "show bg " + backgrounds_map.backgroundMap[fields[2]];
+
+    i = 3;
+    while i < len(fields) - 1:
+      newLine += " " + fields[i];
+      i = i + 1;
+
+    if (line.strip()[-1] == ":"):
+      newLine += ":";
+
+    newLine += "\n";
+    return newLine;
+
+  # Try for a character
   # Character label is fields[1], get character name
   if (not(fields[1] in characterLabelMap)):
     return line;
@@ -390,14 +403,8 @@ def main(argv):
   text_file = open(os.path.join(extPath5, "Story", "ElizaPath.rpy"), "r");
   lines = text_file.readlines();
 
-  # Do simple search-and-replace patching
-  numLines = len(lines);
-  i = 0;
-  while i < numLines:
-    lines[i] = elizaReplace(lines[i]);
-    i = i + 1;
-
   # Search for "show" statements
+  numLines = len(lines);
   i = 0;
   while i < numLines:
     if (lines[i].strip().startswith("show")):
