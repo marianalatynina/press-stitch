@@ -4,24 +4,24 @@ characterMapDonald = {
   "donald_base_full_towel_001":            "",                                      # Auto: Deleted
   "donald_base_girl_001":                  "donald_base_girl_001",                  # Auto: Same
   "donald_base_towel_001":                 "donald_base_towel_001",                 # Auto: Edited
-  "donald_ex_001_001":                     "donald_ex_001_001",                     # Auto: Edited
-  "donald_ex_002_001":                     "donald_ex_002_001",                     # Auto: Edited
-  "donald_ex_003_001":                     "donald_ex_003_001",                     # Auto: Edited
-  "donald_ex_004_001":                     "donald_ex_004_001",                     # Auto: Edited
-  "donald_ex_005_001":                     "donald_ex_005_001",                     # Auto: Edited
-  "donald_ex_006_001":                     "donald_ex_006_001",                     # Auto: Edited
-  "donald_ex_007_001":                     "donald_ex_007_001",                     # Auto: Edited
+  "donald_ex_001_001":                     "donald_ex_001_neutral_001",
+  "donald_ex_002_001":                     "donald_ex_001_001",
+  "donald_ex_003_001":                     "donald_ex_003_001",                     # Not exact match
+  "donald_ex_004_001":                     "donald_ex_003_001",
+  "donald_ex_005_001":                     "donald_ex_003_open2_001",
+  "donald_ex_006_001":                     "donald_ex_006_open_001",
+  "donald_ex_007_001":                     "donald_ex_010_001",
   "donald_ex_008_001":                     "donald_ex_008_001",                     # Auto: Edited
-  "donald_ex_009_001":                     "donald_ex_009_001",                     # Auto: Edited
-  "donald_ex_full_001_001":                "",                                      # Auto: Deleted
-  "donald_ex_full_002_001":                "",                                      # Auto: Deleted
-  "donald_ex_full_003_001":                "",                                      # Auto: Deleted
-  "donald_ex_full_004_001":                "",                                      # Auto: Deleted
-  "donald_ex_full_005_001":                "",                                      # Auto: Deleted
-  "donald_ex_full_006_001":                "",                                      # Auto: Deleted
-  "donald_ex_full_007_001":                "",                                      # Auto: Deleted
-  "donald_ex_full_008_001":                "",                                      # Auto: Deleted
-  "donald_ex_full_009_001":                "",                                      # Auto: Deleted
+  "donald_ex_009_001":                     "donald_ex_008_open_001",
+  "donald_ex_full_001_001":                "donald_ex_001_neutral_001",
+  "donald_ex_full_002_001":                "donald_ex_001_001",
+  "donald_ex_full_003_001":                "donald_ex_003_001",
+  "donald_ex_full_004_001":                "donald_ex_003_001",
+  "donald_ex_full_005_001":                "donald_ex_003_open2_001",
+  "donald_ex_full_006_001":                "donald_ex_006_open_001",
+  "donald_ex_full_007_001":                "donald_ex_010_001",
+  "donald_ex_full_008_001":                "donald_ex_008_001",
+  "donald_ex_full_009_001":                "donald_ex_008_open_001",
   "donald_ex_girl_001_001":                "donald_ex_girl_001_001",                # Auto: Same
   "donald_ex_girl_001_neutral_001":        "donald_ex_girl_001_neutral_001",        # Auto: Same
   "donald_ex_girl_001_open_001":           "donald_ex_girl_001_open_001",           # Auto: Same
