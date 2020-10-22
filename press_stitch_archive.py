@@ -47,11 +47,14 @@ def extractRPAFile(rpaFilename, output):
 
 #Unpackages scripts and archive rpas using rpatool. These go from the Press-SwitchV0x folder to extracted\Press-SwitchV0x
 def unpackArchive(folder):
-    folderArchive = (os.path.join(cwd , folderName + folder , "game", ""))
-    print("Processing " + folder + " This might take a hot minute...")
-    destinationFolder = os.path.join(folderExtracted , folderName + folder)
+    folderArchive = (os.path.join(cwd , folder , "game", ""))
+    destinationFolder = os.path.join(folderExtracted , folder)
+    if os.path.exists(destinationFolder):
+        print("Extracted data folder " + destinationFolder + " exists, skipping RPA extract");
+        return
+    print("Extracting " + folder + ", please wait...")
     extractRPAFile(folderArchive + fileNameArchive, destinationFolder)
-    if (not(folder == ".3b-all")):
+    if (not(folder == folderName + ".3b-all")):
         extractRPAFile(folderArchive + fileNameScripts, destinationFolder)
 
 #Creates the folders to extract to
@@ -75,7 +78,7 @@ def extractAllRPAFiles():
         if (not(os.path.exists(extractFolder))):
             createFolders(ver)
             verifyFolders(ver)
-            unpackArchive(ver)
+            unpackArchive(folderName + ver)
         else:
             print("Extracted data folder " + extractFolder + " exists, skipping RPA extract");
 

@@ -180,18 +180,18 @@ def unzipFile(filename):
 
 #-----------------------------------------------------------------------------
 def removeDir(filename):
-  if (os.path.isdir(pathlib.Path(filename))):
+  if os.path.isdir(pathlib.Path(filename)):
     print("Removing directory " + filename + "...");
     shutil.rmtree(filename);
 
 #-----------------------------------------------------------------------------
 def checkFile(dirname, checksum):
-  if (os.path.isdir(pathlib.Path(dirname))):
+  if os.path.isdir(pathlib.Path(dirname)):
     print("Directory " + dirname + " exists, ZIP extract skipped");
     return True;
 
   filename = dirname + ".zip";
-  if (not(verifySingleFile(filename, checksum))):
+  if not(verifySingleFile(filename, checksum)):
     return False;
 
   unzipFile(filename);
@@ -377,18 +377,25 @@ def main(argv):
     sys.exit(0);
 
   # Normal run
-  #if (not(checkFile(filename_03, "e01bfc54520e8251bc73c7ee128836e2"))):
-  #  sys.exit(1);
+  have3 = False;
+  have4 = False;
+  if os.path.exists(filename_03 + ".zip"):
+    if not(checkFile(filename_03, "e01bfc54520e8251bc73c7ee128836e2")):
+      sys.exit(1);
+    have3 = True;
+    press_stitch_archive.unpackArchive(filename_03);
 
-  #if (not(checkFile(filename_04, "ca7ee44f40f802009a6d49659c8a760d"))):
-  #  sys.exit(1);
+  if os.path.exists(filename_03 + ".zip"):
+    if not(checkFile(filename_04, "ca7ee44f40f802009a6d49659c8a760d")):
+      sys.exit(1);
+    have4 = True;
+    press_stitch_archive.unpackArchive(filename_04);
 
-  if (not(checkFile(filename_05, "6a4f9dac386e2fae1bce00e0157ee8b1"))):
+  if not(checkFile(filename_05, "6a4f9dac386e2fae1bce00e0157ee8b1")):
     sys.exit(1);
 
-  press_stitch_archive.extractAllRPAFiles();
+  press_stitch_archive.unpackArchive(filename_05);
 
-  #extPath4 = os.path.join("Extracted", filename_04);
   extPath5 = os.path.join("Extracted", filename_05);
   dstPath  = os.path.join(filename_05, "game");
 
