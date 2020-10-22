@@ -410,7 +410,7 @@ def main(argv):
 
   # Read ElizaPath.rpy into memory
   print("Patching ElizaPath.rpy...");
-  text_file = open(os.path.join(extPath5, "Story", "ElizaPath.rpy"), "r");
+  text_file = open(os.path.join(extPath5, "Story", "ElizaPath.rpy"), "r", encoding="utf8");
   lines = text_file.readlines();
 
   # Search for "show" statements
@@ -427,7 +427,7 @@ def main(argv):
   lines[6713] = (" " * 20) + "if timer_value >= 30:\n";
 
   # Write the updated ElizaPath.rpy back out
-  with open(os.path.join(dstPath, "Story", "ElizaPath.rpy"), "w") as outfile:
+  with open(os.path.join(dstPath, "Story", "ElizaPath.rpy"), "w", encoding="utf8") as outfile:
     outfile.writelines(lines);
 
   # Read effects.rpy into memory
