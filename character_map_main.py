@@ -21,12 +21,12 @@ characterMapMain = {
   "main_ex_007_open_001":                  "main_ex_005_open_001",                  # Auto: Renamed
   "main_ex_007_smile2_001":                "main_ex_005_smile2_001",                # Auto: Renamed
   "main_ex_007_smile_001":                 "main_ex_005_smile_001",                 # Auto: Renamed
-  "main_ex_008_001":                       "main_ex_008_001",                       # Auto: Edited
+  "main_ex_008_001":                       "main_ex_012_001",
   "main_ex_008_open_001":                  "main_ex_008_open_001",                  # Auto: Same
   "main_ex_009_001":                       "main_ex_009_closed_001",                # Auto: Renamed
   "main_ex_009_open_001":                  "main_ex_006_open2_001",                 # Auto: Renamed
   "main_ex_009_smile_001":                 "main_ex_006_smile2_001",                # Auto: Renamed
-  "main_ex_010_001":                       "main_ex_010_001",                       # Auto: Edited
+  "main_ex_010_001":                       "main_ex_005_aroused_001",
   "main_ex_010_open_001":                  "main_ex_005_open2_001",                 # Auto: Renamed
   "main_ex_010_smile_001":                 "main_ex_005_aroused2_001",              # Auto: Renamed
   "main_ex_011_001":                       "main_ex_014_001",                       # Auto: Renamed
@@ -102,12 +102,12 @@ characterMapMain = {
   "main_ex_full_007_open_001":             "main_ex_full_005_open_001",             # Auto: Renamed
   "main_ex_full_007_smile2_001":           "main_ex_full_005_smile2_001",           # Auto: Renamed
   "main_ex_full_007_smile_001":            "main_ex_full_005_smile_001",            # Auto: Renamed
-  "main_ex_full_008_001":                  "main_ex_full_008_001",                  # Auto: Edited
+  "main_ex_full_008_001":                  "main_ex_full_012_001",
   "main_ex_full_008_open_001":             "main_ex_full_008_open_001",             # Auto: Same
   "main_ex_full_009_001":                  "main_ex_full_009_closed_001",           # Auto: Renamed
   "main_ex_full_009_open_001":             "main_ex_full_006_open2_001",            # Auto: Renamed
   "main_ex_full_009_smile_001":            "main_ex_full_006_smile2_001",           # Auto: Renamed
-  "main_ex_full_010_001":                  "main_ex_full_010_001",                  # Auto: Edited
+  "main_ex_full_010_001":                  "main_ex_full_005_aroused_001",
   "main_ex_full_010_open_001":             "main_ex_full_005_open2_001",            # Auto: Renamed
   "main_ex_full_010_smile_001":            "main_ex_full_005_aroused2_001",         # Auto: Renamed
   "main_ex_full_011_001":                  "main_ex_full_014_001",                  # Auto: Renamed
