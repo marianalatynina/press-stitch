@@ -10,6 +10,7 @@ python3 ./compare_character.py Cindy    --code > character_map_cindy.py
 python3 ./compare_character.py Donald   --code > character_map_donald.py
 python3 ./compare_character.py Eliza    --code > character_map_eliza.py
 python3 ./compare_character.py Erin     --code > character_map_erin.py
+python3 ./compare_character.py Ermach   --code > character_map_ermach.py
 python3 ./compare_character.py Hillary  --code > character_map_hillary.py
 python3 ./compare_character.py Jenna    --code > character_map_jenna.py
 python3 ./compare_character.py Jennifer --code > character_map_jennifer.py

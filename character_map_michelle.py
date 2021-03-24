@@ -108,6 +108,7 @@ characterMapMichelle = {
   "michelle_ex_004_closed_001":            "michelle_ex_004_001",                   # Auto: Renamed
   "michelle_ex_004_smile_001":             "michelle_ex_004_smile_001",             # Auto: Same
   "michelle_ex_005_001":                   "michelle_ex_004_open2_001",             # Auto: Renamed
+  "michelle_ex_005_closed_001":            "michelle_ex_004_001",
   "michelle_ex_006_001":                   "michelle_ex_003_001",                   # Auto: Renamed
   "michelle_ex_007_001":                   "michelle_ex_005_aroused2_001",          # Auto: Renamed
   "michelle_ex_008_001":                   "michelle_ex_003_grit2_001",             # Auto: Renamed

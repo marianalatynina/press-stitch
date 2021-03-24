@@ -24,6 +24,7 @@ characterMapMartha = {
   "martha_base_under_002":                 "martha_base_under_002",                 # Auto: Edited
   "martha_base_under_003":                 "martha_base_under_003",                 # Auto: Edited
   "martha_ex_001_001":                     "martha_ex_001_001",                     # Auto: Edited
+  "martha_ex_001_neutral_001":             "martha_ex_001_001",
   "martha_ex_001_smile_001":               "martha_ex_001_smile_001",               # Auto: Edited
   "martha_ex_002_001":                     "martha_ex_002_smile_001",
   "martha_ex_002_smile_001":               "martha_ex_002_001",
@@ -61,6 +62,7 @@ characterMapMartha = {
   "martha_ex_028_003":                     "martha_ex_024_003",
   "martha_ex_029_003":                     "martha_ex_023_003",
   "martha_ex_full_001_001":                "martha_ex_full_001_001",
+  "martha_ex_full_001_neutral_001":        "martha_ex_full_001_001",
   "martha_ex_full_001_smile_001":          "martha_ex_full_001_smile_001",
   "martha_ex_full_002_001":                "martha_ex_full_002_smile_001",
   "martha_ex_full_002_smile_001":          "martha_ex_full_002_001",
