@@ -576,7 +576,7 @@ def processShow(rpFile, thread, lineNum):
   if fields[1] == "bg":
     if len(fields) < 3:
       return line;
-    if not(fields[2] in backgrounds_map.backgroundMap):
+    if not(fields[2] in rpFile.backMap):
       return line;
 
     newLine = "";
@@ -585,12 +585,12 @@ def processShow(rpFile, thread, lineNum):
       newLine += " ";
       indent = indent + 1;
 
-    newbg = backgrounds_map.backgroundMap[fields[2]];
+    newbg = rpFile.backMap[fields[2]];
     if (newbg == ""):
       print("Background '" + fields[2] + "' exists but has no mapping");
       return line;
 
-    newLine += fields[0] + " bg " + backgrounds_map.backgroundMap[fields[2]];
+    newLine += fields[0] + " bg " + newbg;
 
     i = 3;
     while i < len(fields):
@@ -820,6 +820,7 @@ def main(argv):
   # Read ElizaPath.rpy into memory
   print("Patching ElizaPath.rpy...");
   elizaPath = rpp.RenPyFile();
+  elizaPath.backMap = backgrounds_map.backgroundMap45;
   elizaPath.readFile(os.path.join(extPath5, "Story", "ElizaPath.rpy"));
   lines = elizaPath.lines;
 

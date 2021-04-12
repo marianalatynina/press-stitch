@@ -57,6 +57,7 @@ class RenPyFile():
     self.lines     = [];
     self.numLines  = 0;
     self.labelList = {};
+    self.backMap   = {};
 
   def readFile(self, fn):
     text_file = open(fn, "r", encoding="utf8");

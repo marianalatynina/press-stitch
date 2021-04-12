@@ -1,7 +1,7 @@
 #-----------------------------------------------------------------------------
 # compare_backgrounds.py
 # Checks an extracted background's graphics to see what's changed between
-# version 0.4 and 0.5
+# version 0.3 and 0.5
 #-----------------------------------------------------------------------------
 
 import getopt
@@ -13,7 +13,7 @@ import subprocess
 import sys
 import zipfile
 
-filename_04 = "Press-SwitchV0.4a-pc";
+filename_03 = "Press-SwitchV0.3b-all";
 filename_05 = "Press-SwitchV0.5c-pc";
 
 
@@ -71,12 +71,12 @@ def printArrayEntry(src, dst, comment):
 #-----------------------------------------------------------------------------
 # Main program
 def main(argv):
-  srcDir4 = os.path.join("Extracted", filename_04, "Backgrounds");
+  srcDir3 = os.path.join("Extracted", filename_03, "Backgrounds");
   srcDir5 = os.path.join("Extracted", filename_05, "Backgrounds");
 
   # Sanity check
-  if (not(os.path.isdir(pathlib.Path(srcDir4)))):
-    showError("Directory " + srcDir4 + " not found");
+  if (not(os.path.isdir(pathlib.Path(srcDir3)))):
+    showError("Directory " + srcDir3 + " not found");
     sys.exit(1);
   if (not(os.path.isdir(pathlib.Path(srcDir5)))):
     showError("Directory " + srcDir5 + " not found");
@@ -85,17 +85,17 @@ def main(argv):
   # Build an index of the MD5 hashes for 0.5
   idx = buildIndex(srcDir5);
 
-  # Sort the list of files in 0.4
-  fileList = os.listdir(srcDir4);
+  # Sort the list of files in 0.3
+  fileList = os.listdir(srcDir3);
   fileList.sort();
 
   print("backgroundMap = {");
 
-  # Iterate 0.4
+  # Iterate 0.3
   fileWidth = 40;
   for pic in fileList:
     if pic.endswith(".jpg"):
-      chksum = md5(os.path.join(srcDir4, pic));
+      chksum = md5(os.path.join(srcDir3, pic));
 
       if (chksum in idx):
         filename5 = idx.get(chksum);
