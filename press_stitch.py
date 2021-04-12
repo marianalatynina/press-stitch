@@ -15,36 +15,36 @@ import zipfile
 import press_stitch_archive
 import rpp
 import backgrounds_map
-import character_map_alma
-import character_map_amber
-import character_map_anna
-import character_map_april
-import character_map_candice
-import character_map_chris
-import character_map_ciel
-import character_map_cindy
-import character_map_donald
-import character_map_eliza
-import character_map_erin
-import character_map_ermach
-import character_map_hillary
-import character_map_jenna
-import character_map_jennifer
-import character_map_jillian
-import character_map_karyn
-import character_map_kayla
-import character_map_main
-import character_map_martha
-import character_map_melina
-import character_map_michelle
-import character_map_mika
-import character_map_mother
-import character_map_nelson
-import character_map_nick
-import character_map_nurse
-import character_map_sean
-import character_map_vanessa
-import character_map_waitress
+import character_map_45_alma
+import character_map_45_amber
+import character_map_45_anna
+import character_map_45_april
+import character_map_45_candice
+import character_map_45_chris
+import character_map_45_ciel
+import character_map_45_cindy
+import character_map_45_donald
+import character_map_45_eliza
+import character_map_45_erin
+import character_map_45_ermach
+import character_map_45_hillary
+import character_map_45_jenna
+import character_map_45_jennifer
+import character_map_45_jillian
+import character_map_45_karyn
+import character_map_45_kayla
+import character_map_45_main
+import character_map_45_martha
+import character_map_45_melina
+import character_map_45_michelle
+import character_map_45_mika
+import character_map_45_mother
+import character_map_45_nelson
+import character_map_45_nick
+import character_map_45_nurse
+import character_map_45_sean
+import character_map_45_vanessa
+import character_map_45_waitress
 
 filename_03 = "Press-SwitchV0.3b-all";
 filename_04 = "Press-SwitchV0.4a-pc";
@@ -171,37 +171,37 @@ characterDoRemap = {
   "waitress":      False,
 };
 
-characterImageMap = {
-  "alma":     character_map_alma    .characterMapAlma,
-  "amber":    character_map_amber   .characterMapAmber,
-  "anna":     character_map_anna    .characterMapAnna,
-  "april":    character_map_april   .characterMapApril,
-  "candice":  character_map_candice .characterMapCandice,
-  "chris":    character_map_chris   .characterMapChris,
-  "ciel":     character_map_ciel    .characterMapCiel,
-  "cindy":    character_map_cindy   .characterMapCindy,
-  "donald":   character_map_donald  .characterMapDonald,
-  "eliza":    character_map_eliza   .characterMapEliza,
-  "erin":     character_map_erin    .characterMapErin,
-  "ermach":   character_map_ermach  .characterMapErmach,
-  "hillary":  character_map_hillary .characterMapHillary,
-  "jenna":    character_map_jenna   .characterMapJenna,
-  "jennifer": character_map_jennifer.characterMapJennifer,
-  "jillian":  character_map_jillian .characterMapJillian,
-  "karyn":    character_map_karyn   .characterMapKaryn,
-  "kayla":    character_map_kayla   .characterMapKayla,
-  "main":     character_map_main    .characterMapMain,
-  "martha":   character_map_martha  .characterMapMartha,
-  "melina":   character_map_melina  .characterMapMelina,
-  "michelle": character_map_michelle.characterMapMichelle,
-  "mika":     character_map_mika    .characterMapMika,
-  "mother":   character_map_mother  .characterMapMother,
-  "nelson":   character_map_nelson  .characterMapNelson,
-  "nick":     character_map_nick    .characterMapNick,
-  "nurse":    character_map_nurse   .characterMapNurse,
-  "sean":     character_map_sean    .characterMapSean,
-  "vanessa":  character_map_vanessa .characterMapVanessa,
-  "waitress": character_map_waitress.characterMapWaitress
+characterImageMap45 = {
+  "alma":     character_map_45_alma    .characterMapAlma,
+  "amber":    character_map_45_amber   .characterMapAmber,
+  "anna":     character_map_45_anna    .characterMapAnna,
+  "april":    character_map_45_april   .characterMapApril,
+  "candice":  character_map_45_candice .characterMapCandice,
+  "chris":    character_map_45_chris   .characterMapChris,
+  "ciel":     character_map_45_ciel    .characterMapCiel,
+  "cindy":    character_map_45_cindy   .characterMapCindy,
+  "donald":   character_map_45_donald  .characterMapDonald,
+  "eliza":    character_map_45_eliza   .characterMapEliza,
+  "erin":     character_map_45_erin    .characterMapErin,
+  "ermach":   character_map_45_ermach  .characterMapErmach,
+  "hillary":  character_map_45_hillary .characterMapHillary,
+  "jenna":    character_map_45_jenna   .characterMapJenna,
+  "jennifer": character_map_45_jennifer.characterMapJennifer,
+  "jillian":  character_map_45_jillian .characterMapJillian,
+  "karyn":    character_map_45_karyn   .characterMapKaryn,
+  "kayla":    character_map_45_kayla   .characterMapKayla,
+  "main":     character_map_45_main    .characterMapMain,
+  "martha":   character_map_45_martha  .characterMapMartha,
+  "melina":   character_map_45_melina  .characterMapMelina,
+  "michelle": character_map_45_michelle.characterMapMichelle,
+  "mika":     character_map_45_mika    .characterMapMika,
+  "mother":   character_map_45_mother  .characterMapMother,
+  "nelson":   character_map_45_nelson  .characterMapNelson,
+  "nick":     character_map_45_nick    .characterMapNick,
+  "nurse":    character_map_45_nurse   .characterMapNurse,
+  "sean":     character_map_45_sean    .characterMapSean,
+  "vanessa":  character_map_45_vanessa .characterMapVanessa,
+  "waitress": character_map_45_waitress.characterMapWaitress
 };
 
 # Initial state of RenPy variables
@@ -662,14 +662,14 @@ def processShow(rpFile, thread, lineNum):
   mappedFile = "";
   hasMapped = False;
 
-  if exFile+"_001" in characterImageMap[swappedCharName]:
-    mappedFile = characterImageMap[swappedCharName][exFile+"_001"];
+  if exFile+"_001" in rpFile.charMap[swappedCharName]:
+    mappedFile = rpFile.charMap[swappedCharName][exFile+"_001"];
     hasMapped = True;
-  elif exFile+"_002" in characterImageMap[swappedCharName]:
-    mappedFile = characterImageMap[swappedCharName][exFile+"_002"];
+  elif exFile+"_002" in rpFile.charMap[swappedCharName]:
+    mappedFile = rpFile.charMap[swappedCharName][exFile+"_002"];
     hasMapped = True;
-  elif exFile+"_003" in characterImageMap[swappedCharName]:
-    mappedFile = characterImageMap[swappedCharName][exFile+"_003"];
+  elif exFile+"_003" in rpFile.charMap[swappedCharName]:
+    mappedFile = rpFile.charMap[swappedCharName][exFile+"_003"];
     hasMapped = True;
 
   if not(hasMapped):
@@ -821,6 +821,7 @@ def main(argv):
   print("Patching ElizaPath.rpy...");
   elizaPath = rpp.RenPyFile();
   elizaPath.backMap = backgrounds_map.backgroundMap45;
+  elizaPath.charMap = characterImageMap45;
   elizaPath.readFile(os.path.join(extPath5, "Story", "ElizaPath.rpy"));
   lines = elizaPath.lines;
 
