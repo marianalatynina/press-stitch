@@ -817,18 +817,24 @@ def main(argv):
   global threads;
 
   doClean = False;
+  doEliza = True;
+  doCiel  = False;
 
   try:
-    opts, args = getopt.getopt(argv, "", ["clean","inlineerrors"])
+    opts, args = getopt.getopt(argv, "", ["cielpath","clean","inlineerrors","noeliza"])
   except getopt.GetoptError:
     showError('Usage is: press-stitch.py [--clean]');
     sys.exit(1);
 
   for opt, arg in opts:
-    if (opt == "--clean"):
+    if (opt == "--cielpath"):
+      doCiel = True;
+    elif (opt == "--clean"):
       doClean = True;
     elif (opt == "--inlineerrors"):
       inlineErrors = True;
+    elif (opt == "--noeliza"):
+      doEliza = False;
 
   if (doClean):
     removeDir(filename_03);
@@ -866,6 +872,10 @@ def main(argv):
   dayzero.readFile(os.path.join(extPath5, "Story", "Day-0.rpy"));
   dayzero.lines.insert(2848, (" " * 28) + "\"Maybe I was too quick to reject Eliza...\":\n");
   dayzero.lines.insert(2849, (" " * 32) + "jump eliza\n");
+  if doCiel:
+    dayzero.lines[2851] = (" " * 20) + "\"Hide it until tomorrow.\":\n";
+    dayzero.lines[2863] = (" " * 20) + "\"Leave it on my desk and sleep.\":\n";
+    dayzero.lines[2864] = (" " * 24) + "jump leftit\n";
   dayzero.writeFile(os.path.join(dstPath, "Story", "Day-0.rpy"));
 
   # Read ElizaPath.rpy into memory
@@ -890,13 +900,14 @@ def main(argv):
       lineModifiedFlags[i] = False;
     i = i + 1;
 
-  # Process the 'eliza' label, it's the toplevel.
-  # We need two calls, one for the timer < 30 and one for > 30
-  pyVariables["tim"] = 0;   # Less than 30
-  addLabelCall(elizaPath, "eliza", rpp.RenPyThread(pyVariables.copy(), []));
-  pyVariables["tim"] = 60;  # Greater than 30
-  addLabelCall(elizaPath, "eliza", rpp.RenPyThread(pyVariables.copy(), []));
-  iterateLabelCalls(elizaPath);
+  if doEliza:
+    # Process the 'eliza' label, it's the toplevel.
+    # We need two calls, one for the timer < 30 and one for > 30
+    pyVariables["tim"] = 0;   # Less than 30
+    addLabelCall(elizaPath, "eliza", rpp.RenPyThread(pyVariables.copy(), []));
+    pyVariables["tim"] = 60;  # Greater than 30
+    addLabelCall(elizaPath, "eliza", rpp.RenPyThread(pyVariables.copy(), []));
+    iterateLabelCalls(elizaPath);
 
   # Patch the timer
   lines[6396] = (" " * 20) + "if timer_value >= 30:\n";
