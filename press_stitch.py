@@ -887,6 +887,9 @@ def main(argv):
     cielPath.charMap = characterImageMap35;
     cielPath.readFile(os.path.join(extPath5, "Story", "Cielpath.rpy"));
 
+    # Patch the initial hide of Calvin
+    cielPath.lines[5] = "    hide maind\n";
+
     # Search for labels
     cielPath.findLabels();
 

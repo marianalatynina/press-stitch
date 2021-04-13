@@ -355,6 +355,7 @@ backgroundMap35 = {
   "lockerroomday":               "",                            # Auto: Deleted
   "lockerroomdusk":              "",                            # Auto: Deleted
   "lockerroomnight":             "",                            # Auto: Deleted
+  "mainbedday":                  "mansioncalvinday",
   "mansionatticbedroomday":      "mansionatticbedday",          # Auto: Renamed
   "mansionatticbedroomdusk":     "mansionatticbeddusk",         # Auto: Renamed
   "mansionatticbedroomnight":    "mansionatticbednight",        # Auto: Renamed
@@ -363,6 +364,7 @@ backgroundMap35 = {
   "mansioncalvinbedroomday":     "mansioncalvinday",            # Auto: Renamed
   "mansioncalvinbedroomdusk":    "mansioncalvindusk",           # Auto: Renamed
   "mansioncalvinbedroomnight":   "mansioncalvinnightlit",       # Auto: Renamed
+  "mansiondiningday":            "mansiondiningday",
   "mansiondiningroomday":        "mansiondiningday",            # Auto: Renamed
   "mansiondiningroomdusk":       "mansiondiningdusk",           # Auto: Renamed
   "mansiondiningroomnight":      "mansiondiningnightlit",       # Auto: Renamed
@@ -393,6 +395,7 @@ backgroundMap35 = {
   "mansionkitchenday":           "mansionkitchenday",           # Auto: Same
   "mansionkitchendusk":          "mansionkitchendusk",          # Auto: Same
   "mansionkitchennight":         "mansionkitchennightlit",      # Auto: Renamed
+  "mansionlivingday":            "mansionlivingday",
   "mansionlivingroomday":        "mansionlivingday",            # Auto: Renamed
   "mansionlivingroomdusk":       "mansionlivingdusk",           # Auto: Renamed
   "mansionlivingroomnight":      "mansionlivingnightlit",       # Auto: Renamed
