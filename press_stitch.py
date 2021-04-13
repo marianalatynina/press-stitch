@@ -766,6 +766,37 @@ def processLabelCall(rpFile, l, v):
   threads.append(thread);
 
 #-----------------------------------------------------------------------------
+def iterateLabelCalls(rpFile):
+  global threads;
+  global labelCalls;
+
+  iterations = 1;
+  duplicates = 0;
+  numThreads = 0;
+  while ((len(labelCalls) > 0) or (len(threads) > 0)):
+    print("---------- Depth " + str(iterations) + " ----------");
+    print("Label calls: " + str(len(labelCalls)));
+
+    # Process label calls
+    while(len(labelCalls) > 0):
+      labelCall = labelCalls.pop();
+      if not(labelCall in labelCalls):
+        processLabelCall(rpFile, labelCall.label, labelCall.vars);
+      else:
+        print("Ignoring duplicate call");
+        duplicates += 1;
+
+    # Process threads
+    print("Paths: " + str(len(threads)));
+    while(len(threads) > 0):
+      processNextThread(rpFile);
+      numThreads += 1;
+      if (len(threads) % 10) == 0:
+        print("[Depth " + str(iterations) + "] Paths: " + str(duplicates) + " dupe, " + str(numThreads) + " total, " + str(len(threads)) + " left this depth");
+
+    iterations += 1;
+
+#-----------------------------------------------------------------------------
 # Main program
 def main(argv):
   global inlineErrors;
@@ -852,32 +883,7 @@ def main(argv):
   addLabelCall(elizaPath, "eliza", rpp.RenPyThread(pyVariables.copy(), []));
   pyVariables["tim"] = 60;  # Greater than 30
   addLabelCall(elizaPath, "eliza", rpp.RenPyThread(pyVariables.copy(), []));
-
-  iterations = 1;
-  duplicates = 0;
-  numThreads = 0;
-  while ((len(labelCalls) > 0) or (len(threads) > 0)):
-    print("---------- Depth " + str(iterations) + " ----------");
-    print("Label calls: " + str(len(labelCalls)));
-
-    # Process label calls
-    while(len(labelCalls) > 0):
-      labelCall = labelCalls.pop();
-      if not(labelCall in labelCalls):
-        processLabelCall(elizaPath, labelCall.label, labelCall.vars);
-      else:
-        print("Ignoring duplicate call");
-        duplicates += 1;
-
-    # Process threads
-    print("Paths: " + str(len(threads)));
-    while(len(threads) > 0):
-      processNextThread(elizaPath);
-      numThreads += 1;
-      if (len(threads) % 10) == 0:
-        print("[Depth " + str(iterations) + "] Paths: " + str(duplicates) + " dupe, " + str(numThreads) + " total, " + str(len(threads)) + " left this depth");
-
-    iterations += 1;
+  iterateLabelCalls(elizaPath);
 
   # Patch the timer
   lines[6396] = (" " * 20) + "if timer_value >= 30:\n";
