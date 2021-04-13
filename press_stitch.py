@@ -15,6 +15,8 @@ import zipfile
 import press_stitch_archive
 import rpp
 import backgrounds_map
+import character_map_35_ciel
+import character_map_35_main
 import character_map_45_alma
 import character_map_45_amber
 import character_map_45_anna
@@ -169,6 +171,11 @@ characterDoRemap = {
   "vanessa":       False,
   "vanessad":      True,
   "waitress":      False,
+};
+
+characterImageMap35 = {
+  "ciel":     character_map_35_ciel    .characterMapCiel,
+  "main":     character_map_35_main    .characterMapMain,
 };
 
 characterImageMap45 = {

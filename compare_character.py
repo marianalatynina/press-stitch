@@ -1,7 +1,7 @@
 #-----------------------------------------------------------------------------
 # compare_character.py
 # Checks an extracted character's graphics to see what's changed between
-# version 0.4 and 0.5
+# version 0.3 and 0.5
 #-----------------------------------------------------------------------------
 
 import getopt
@@ -13,6 +13,7 @@ import subprocess
 import sys
 import zipfile
 
+filename_03 = "Press-SwitchV0.3b-all";
 filename_04 = "Press-SwitchV0.4a-pc";
 filename_05 = "Press-SwitchV0.5c-pc";
 
@@ -85,6 +86,11 @@ def printArrayEntry(src, dst, comment):
   print("  " + first + " " + second + " # Auto: " + comment);
 
 #-----------------------------------------------------------------------------
+def insertNumber(filename, numToInsert):
+  fields = filename.split('.');
+  return(fields[0] + numToInsert + "." + fields[1] + "." + fields[2]);
+
+#-----------------------------------------------------------------------------
 # Main program
 def main(argv):
   if (len(argv) < 1):
@@ -96,23 +102,23 @@ def main(argv):
     asArray = True;
 
   characterName = argv[0];
-  srcDir4 = os.path.join("Extracted", filename_04, "Characters", characterName);
+  srcDir3 = os.path.join("Extracted", filename_03, "Character images", characterName);
   srcDir5 = os.path.join("Extracted", filename_05, "Characters", characterName);
 
   # Sanity check
-  if (not(os.path.isdir(pathlib.Path(srcDir4)))):
-    showError("Character " + characterName + " not found in 0.4 Graphics directory");
+  if (not(os.path.isdir(pathlib.Path(srcDir3)))):
+    showError("Character " + characterName + " not found in 0.3 Graphics directory");
     sys.exit(1);
   if (not(os.path.isdir(pathlib.Path(srcDir5)))):
     showError("Character " + characterName + " not found in 0.5 Graphics directory");
     sys.exit(1);
 
-  srcDir4Crop = srcDir4 + "Cropped";
+  srcDir3Crop = srcDir3 + "Cropped";
   srcDir5Crop = srcDir5 + "Cropped";
 
-  # Do we need to crop images for 0.4?
-  if (not(os.path.isdir(pathlib.Path(srcDir4Crop)))):
-    doCrop(srcDir4);
+  # Do we need to crop images for 0.3?
+  if (not(os.path.isdir(pathlib.Path(srcDir3Crop)))):
+    doCrop(srcDir3);
 
   # Do we need to crop images for 0.5?
   if (not(os.path.isdir(pathlib.Path(srcDir5Crop)))):
@@ -121,18 +127,21 @@ def main(argv):
   # Build an index of the MD5 hashes for 0.5
   idx = buildIndex(srcDir5Crop);
 
-  # Sort the list of files in 0.4
-  fileList = os.listdir(srcDir4Crop);
+  # Sort the list of files in 0.3
+  fileList = os.listdir(srcDir3Crop);
   fileList.sort();
 
   if asArray:
     print("characterMap" + characterName + " = {");
 
-  # Iterate 0.4
+  # Iterate 0.3
   fileWidth = 40;
   for pic in fileList:
     if pic.endswith(".pnm"):
-      chksum = md5(os.path.join(srcDir4Crop, pic));
+      chksum = md5(os.path.join(srcDir3Crop, pic));
+      file1 = insertNumber(pic, "_001");
+      file2 = insertNumber(pic, "_002");
+      file3 = insertNumber(pic, "_003");
 
       if asArray:
         if (chksum in idx):
@@ -147,6 +156,15 @@ def main(argv):
           if os.path.exists(os.path.join(srcDir5Crop, pic)):
             # Edited
             printArrayEntry(pic, pic, "Edited");
+          elif os.path.exists(os.path.join(srcDir5Crop, file1)):
+            # Edited and renamed
+            printArrayEntry(pic, file1, "Edited and renamed");
+          elif os.path.exists(os.path.join(srcDir5Crop, file2)):
+            # Edited and renamed
+            printArrayEntry(pic, file2, "Edited and renamed");
+          elif os.path.exists(os.path.join(srcDir5Crop, file3)):
+            # Edited and renamed
+            printArrayEntry(pic, file3, "Edited and renamed");
           else:
             # Deleted
             printArrayEntry(pic, "", "Deleted");
