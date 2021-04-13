@@ -15,8 +15,15 @@ import zipfile
 import press_stitch_archive
 import rpp
 import backgrounds_map
+
+# Mappings for 0.3 -> 0.5
 import character_map_35_ciel
+import character_map_35_eliza
 import character_map_35_main
+import character_map_35_mother
+import character_map_35_nick
+
+# Mappings for 0.4 -> 0.5
 import character_map_45_alma
 import character_map_45_amber
 import character_map_45_anna
@@ -175,7 +182,10 @@ characterDoRemap = {
 
 characterImageMap35 = {
   "ciel":     character_map_35_ciel    .characterMapCiel,
+  "eliza":    character_map_35_eliza   .characterMapEliza,
   "main":     character_map_35_main    .characterMapMain,
+  "mother":   character_map_35_mother  .characterMapMother,
+  "nick":     character_map_35_nick    .characterMapNick,
 };
 
 characterImageMap45 = {
@@ -669,7 +679,10 @@ def processShow(rpFile, thread, lineNum):
   mappedFile = "";
   hasMapped = False;
 
-  if exFile+"_001" in rpFile.charMap[swappedCharName]:
+  if exFile in rpFile.charMap[swappedCharName]:
+    mappedFile = rpFile.charMap[swappedCharName][exFile];
+    hasMapped = True;
+  elif exFile+"_001" in rpFile.charMap[swappedCharName]:
     mappedFile = rpFile.charMap[swappedCharName][exFile+"_001"];
     hasMapped = True;
   elif exFile+"_002" in rpFile.charMap[swappedCharName]:

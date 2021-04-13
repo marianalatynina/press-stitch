@@ -255,7 +255,7 @@ backgroundMap35 = {
   "ashleyroomlight":             "degardashleylight",           # Auto: Renamed
   "ashleyroomlit":               "degardashleylit",             # Auto: Renamed
   "ashleyroomnight":             "degardashleynight",           # Auto: Renamed
-  "black":                       "",                            # Auto: Deleted
+  "black":                       "black",
   "chastitybedroomday":          "degardchastityday",           # Auto: Renamed
   "chastitybedroomdusk":         "degardchastitydusk",          # Auto: Renamed
   "chastitybedroomnight":        "degardchastitynightlit",      # Auto: Renamed
