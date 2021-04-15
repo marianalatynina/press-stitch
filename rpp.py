@@ -59,6 +59,9 @@ class RenPyFile():
     self.labelList = {};
     self.backMap   = {};
     self.charMap   = {};
+    self.charFlip  = [];
+    self.visLines  = [];
+    self.trackVis  = False;
 
   def readFile(self, fn):
     text_file = open(fn, "r", encoding="utf8");
@@ -102,4 +105,66 @@ class RenPyFile():
         return i;
       i = i + 1;
     return i;
+
+  def getIndentOf(self, line):
+    indent = 0;
+    lineLen = len(line);
+
+    while((indent < lineLen) and (line[indent] == ' ')):
+      indent = indent + 1;
+    return indent;
+
+  # Ensures a 'show' line has an 'xzoom' instruction
+  # Existing xzoom isn't changed, missing gets xzoom 1
+  def addXZoom(self, lineNum):
+    line = self.lines[lineNum];
+    fields = line.strip().strip(":").split();
+    if (fields[1] == "bg"):
+      return;
+    if not(fields[1] in self.charFlip):
+      return;
+
+    indent = self.getIndentOf(line) + 4;
+    if not(line.strip()[-1] == ':'):
+      self.lines[lineNum] = line.strip('\n').strip('\r') + ":\n";
+      self.lines.insert(lineNum + 1, (" " * indent) + "xzoom 1\n");
+      return;
+
+    # The character has following lines
+    lineNum += 1;
+    insertLineNum = lineNum;
+    line = self.lines[lineNum];
+    while (lineNum < self.numLines) and (self.getIndentOf(line) == indent):
+      if (line.strip().startswith("xzoom ")):
+        return;
+      lineNum += 1;
+      line = self.lines[lineNum];
+
+    # Need to insert
+    self.lines.insert(insertLineNum, (" " * indent) + "xzoom 1\n");
+
+  # Reverses an xzoom line in a 'show' statement
+  def reverseXZoom(self, lineNum):
+    line = self.lines[lineNum];
+    fields = line.strip().strip(":").split();
+    if (fields[1] == "bg"):
+      return;
+    if not(fields[1] in self.charFlip):
+      return;
+    if not(line.strip()[-1] == ':'):
+      return;
+
+    # The character has following lines
+    indent = self.getIndentOf(line) + 4;
+    lineNum += 1;
+    line = self.lines[lineNum];
+    while (lineNum < self.numLines) and (self.getIndentOf(line) == indent):
+      if (line.strip().startswith("xzoom -1")):
+        self.lines[lineNum] = (" " * indent) + "xzoom 1\n";
+        return;
+      if (line.strip().startswith("xzoom 1")):
+        self.lines[lineNum] = (" " * indent) + "xzoom -1\n";
+        return;
+      lineNum += 1;
+      line = self.lines[lineNum];
 

@@ -515,6 +515,11 @@ def processBlockStep(rpFile, thread):
     # We hit the goopy path, no need to process this
     thread.stack = [];  # Kill the thread
     return;
+  elif (strippedLine.startswith("hide")):
+    person = strippedLine.split()[1];
+    if rpFile.trackVis and not(person == "bg"):
+      thread.vars["_visible_" + person] = "0";
+    i += 1;
   elif (strippedLine.startswith("jump")):
     label = strippedLine.split()[1];
     jumpDest = rpFile.labelList[label];
@@ -525,6 +530,10 @@ def processBlockStep(rpFile, thread):
     else:
       i = i + 1;
   elif (strippedLine.startswith("show") or strippedLine.startswith("scene")):
+    if rpFile.trackVis and strippedLine.startswith("scene"):
+      for varName in thread.vars:
+        if varName.startswith("_visible_"):
+          thread.vars[varName] = "0";
     if not(lineModifiedFlags[i]):
       rpFile.lines[i] = processShow(rpFile, thread, i);
       lineModifiedFlags[i] = True;
@@ -626,6 +635,14 @@ def processShow(rpFile, thread, lineNum):
     return line;
   if not(fields[1] in characterLabelMap):
     return line;
+
+  if (rpFile.trackVis):
+    varName = "_visible_" + fields[1];
+    if not(varName in thread.vars) or (thread.vars[varName] == "0"):
+      # Person has become visible
+      if (fields[1] in rpFile.charFlip) and not(lineNum in rpFile.visLines):
+        rpFile.visLines.append(lineNum);
+    thread.vars[varName] = "1";
 
   # If it's got no parameters, like "show michelled:", then just return it
   # as there's no mapping to do
@@ -732,8 +749,6 @@ def processShow(rpFile, thread, lineNum):
   newLine += modifiers;
   if (line.strip()[-1] == ":"):
     newLine += ":";
-
-  newLine += " # EDIT";
 
   newLine += "\n";
   return newLine;
@@ -885,6 +900,8 @@ def main(argv):
     cielPath = rpp.RenPyFile();
     cielPath.backMap = backgrounds_map.backgroundMap35;
     cielPath.charMap = characterImageMap35;
+    cielPath.charFlip = ["main", "mother", "nick"];
+    cielPath.trackVis = True;
     cielPath.readFile(os.path.join(extPath5, "Story", "Cielpath.rpy"));
 
     # Patch the initial hide of Calvin
@@ -906,9 +923,22 @@ def main(argv):
     addLabelCall(cielPath, "leftit", rpp.RenPyThread({}, []));
     iterateLabelCalls(cielPath);
 
+    # Make sure all 'show' lines where characters become visible have xzoom 1
+    for lineNum in sorted(cielPath.visLines, reverse=True):
+      cielPath.addXZoom(lineNum);
+
+    cielPath.numLines = len(cielPath.lines);
+
+    # Reverse all xzoom calls for affected characters
+    i = 0;
+    while i < cielPath.numLines:
+      strippedLine = cielPath.lines[i].strip();
+      if (strippedLine.startswith("show")):
+        cielPath.reverseXZoom(i);
+      i = i + 1;
+
     # Write the updated Cielpath.rpy back out
-    with open(os.path.join(dstPath, "Story", "Cielpath.rpy"), "w", encoding="utf8") as outfile:
-      outfile.writelines(cielPath.lines);
+    cielPath.writeFile(os.path.join(dstPath, "Story", "Cielpath.rpy"));
 
   if doEliza:
     # Read ElizaPath.rpy into memory
@@ -948,8 +978,7 @@ def main(argv):
     lines[6713] = (" " * 20) + "if timer_value >= 30:\n";
 
     # Write the updated ElizaPath.rpy back out
-    with open(os.path.join(dstPath, "Story", "ElizaPath.rpy"), "w", encoding="utf8") as outfile:
-      outfile.writelines(lines);
+    elizaPath.writeFile(os.path.join(dstPath, "Story", "ElizaPath.rpy"));
 
   # Read effects.rpy into memory
   print("Patching effects.rpy...");
