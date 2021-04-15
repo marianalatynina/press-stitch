@@ -834,21 +834,21 @@ def main(argv):
 
   doClean = False;
   doEliza = True;
-  doCiel  = False;
+  doCiel  = True;
 
   try:
-    opts, args = getopt.getopt(argv, "", ["cielpath","clean","inlineerrors","noeliza"])
+    opts, args = getopt.getopt(argv, "", ["clean","inlineerrors","nociel","noeliza"])
   except getopt.GetoptError:
     showError('Usage is: press-stitch.py [--clean]');
     sys.exit(1);
 
   for opt, arg in opts:
-    if (opt == "--cielpath"):
-      doCiel = True;
-    elif (opt == "--clean"):
+    if (opt == "--clean"):
       doClean = True;
     elif (opt == "--inlineerrors"):
       inlineErrors = True;
+    elif (opt == "--nociel"):
+      doCiel = False;
     elif (opt == "--noeliza"):
       doEliza = False;
 
