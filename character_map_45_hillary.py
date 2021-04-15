@@ -9,8 +9,8 @@ characterMapHillary = {
   "hillary_ex_001_001":                    "hillary_ex_001_001",                    # Auto: Same
   "hillary_ex_001_neutral_001":            "hillary_ex_001_neutral_001",            # Auto: Same
   "hillary_ex_001_smile_001":              "hillary_ex_001_smile_001",              # Auto: Same
-  "hillary_ex_002_001":                    "hillary_ex_002_001",
-  "hillary_ex_002_smile_001":              "hillary_ex_002_smile_001",
+  "hillary_ex_002_001":                    "hillary_ex_002_smile_001",
+  "hillary_ex_002_smile_001":              "hillary_ex_002_001",
   "hillary_ex_003_001":                    "hillary_ex_003_001",                    # Auto: Same
   "hillary_ex_004_001":                    "hillary_ex_003_open2_001",              # Auto: Renamed
   "hillary_ex_004_grin2_001":              "hillary_ex_003_grin2_001",              # Auto: Renamed
