@@ -912,7 +912,6 @@ def main(argv):
     print("Patching ElizaPath.rpy...");
     elizaPath = rpp.RenPyFileEliza(backgrounds_map.backgroundMap45, characterImageMap45);
     elizaPath.readFile(os.path.join(extPath5, "Story", "ElizaPath.rpy"));
-    lines = elizaPath.lines;
 
     # Search for labels
     elizaPath.findLabels();
