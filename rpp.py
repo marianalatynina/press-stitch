@@ -195,6 +195,9 @@ class RenPyFile():
   def labelIsAcceptable(self, label):
     return True;
 
+  def hookIf(self, thread):
+    pass;
+
 #-----------------------------------------------------------------------------
 class RenPyFileCiel(RenPyFile):
   def __init__(self, b, c):
@@ -230,3 +233,29 @@ class RenPyFileEliza(RenPyFile):
 
   def labelIsAcceptable(self, label):
     return not("goopy" in label);
+
+  def hookIf(self, thread):
+    # Short-circuit the recursion in the joke Christine endings
+    obj = thread.stack[-1];
+    if (obj.lineNum == 10181):
+      thread.vars["JokeEnding"] = "5";
+
+#-----------------------------------------------------------------------------
+class RenPyFileGoopy(RenPyFile):
+  def __init__(self, b, c):
+    super().__init__();
+    self.backMap = b;
+    self.charMap = c;
+    self.charFlip = ["main", "mother", "nick"];
+    self.trackVis = True;
+
+  def readFile(self, fn):
+    super().readFile(fn);
+
+    # Patch the menu to enable the Goopy path
+    self.lines[85] = "        \"Tried to become a clone of her.\":\n";
+    self.lines[86] = "\n";
+    self.lines[87] = "\n";
+    self.lines[89] = "\n";
+
+

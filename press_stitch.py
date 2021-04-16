@@ -460,9 +460,8 @@ def processIfStep(rpFile, thread):
     thread.stack.pop();  # Kill the IF
     return;
 
-  # Hack to short-circuit the recursion in the joke Christine endings
-  if (obj.lineNum == 10181):
-    thread.vars["JokeEnding"] = "5";
+  # Call the "if" hook to see if the file has special processing
+  rpFile.hookIf(thread);
 
   if((fields[0] == "if") or (fields[0] == "elif")):
     condition = calculateCondition(thread, obj.lineNum, fields);
@@ -826,9 +825,10 @@ def main(argv):
   doClean = False;
   doEliza = True;
   doCiel  = True;
+  doGoopy = False;
 
   try:
-    opts, args = getopt.getopt(argv, "", ["clean","inlineerrors","nociel","noeliza"])
+    opts, args = getopt.getopt(argv, "", ["clean","goopy","inlineerrors","nociel","noeliza"])
   except getopt.GetoptError:
     showError('Usage is: press-stitch.py [--clean]');
     sys.exit(1);
@@ -836,6 +836,8 @@ def main(argv):
   for opt, arg in opts:
     if (opt == "--clean"):
       doClean = True;
+    elif (opt == "--goopy"):
+      doGoopy = True;
     elif (opt == "--inlineerrors"):
       inlineErrors = True;
     elif (opt == "--nociel"):
@@ -909,7 +911,7 @@ def main(argv):
 
   if doEliza:
     # Read ElizaPath.rpy into memory
-    print("Patching ElizaPath.rpy...");
+    print("Patching ElizaPath.rpy... (0.4 content)");
     elizaPath = rpp.RenPyFileEliza(backgrounds_map.backgroundMap45, characterImageMap45);
     elizaPath.readFile(os.path.join(extPath5, "Story", "ElizaPath.rpy"));
 
@@ -929,6 +931,27 @@ def main(argv):
 
     # Write the updated ElizaPath.rpy back out
     elizaPath.writeFile(os.path.join(dstPath, "Story", "ElizaPath.rpy"));
+
+  if doGoopy:
+    # By default we're processing the file we just made for the 0.4 Eliza content...
+    srcFile = os.path.join(dstPath, "Story", "ElizaPath.rpy");
+    if not(doEliza):
+      # ...but if we've not done Eliza this time, we'll take a saved copy
+      srcFile = "ElizaPath-NoGoopy.rpy";
+
+    # Read ElizaPath.rpy into memory. GoopyPath is ElizaPath but with v0.3 mappings
+    print("Patching ElizaPath.rpy... (Goopy path)");
+    goopyPath = rpp.RenPyFileGoopy(backgrounds_map.backgroundMap35, characterImageMap35);
+    goopyPath.readFile(srcFile);
+
+    # Search for labels
+    goopyPath.findLabels();
+
+    # Search for "show" statements
+    goopyPath.findShows();
+
+    # Write the updated ElizaPath.rpy back out
+    goopyPath.writeFile(os.path.join(dstPath, "Story", "ElizaPath.rpy"));
 
   # Read effects.rpy into memory
   print("Patching effects.rpy...");
