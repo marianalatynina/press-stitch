@@ -269,9 +269,6 @@ personDispVars = {
   "vanessa":  "v.display"
 };
 
-# Map for lines that need to be altered. Stores (int line_num, bool has_modified)
-lineModifiedFlags = {};
-
 # List of active threads
 threads = [];
 
@@ -534,9 +531,9 @@ def processBlockStep(rpFile, thread):
       for varName in thread.vars:
         if varName.startswith("_visible_"):
           thread.vars[varName] = "0";
-    if not(lineModifiedFlags[i]):
+    if not(rpFile.lineModifiedFlags[i]):
       rpFile.lines[i] = processShow(rpFile, thread, i);
-      lineModifiedFlags[i] = True;
+      rpFile.lineModifiedFlags[i] = True;
     i = i + 1;
   elif (strippedLine.startswith("$")):
     processCommand(rpFile, thread, i, strippedLine.strip('$').strip());
@@ -771,12 +768,7 @@ def processNextThread(rpFile):
 
 #-----------------------------------------------------------------------------
 def addLabelCall(rpFile, l, thread):
-  if ("goopy" in l):
-    #print("Goopy path hit (" + l + ")");
-    #print("Vars are: " + str(thread.vars));
-    #print("Stack is: " + str(thread.stack));
-    #flagError(rpFile, -1, "Goopy path");
-    #sys.exit(1);
+  if not(rpFile.labelIsAcceptable(l)):
     return;
 
   labelCalls.append(rpp.RenPyLabelCall(l, thread.vars.copy()));
@@ -830,7 +822,6 @@ def main(argv):
   global inlineErrors;
   global pyVariables;
   global threads;
-  global lineModifiedFlags;
 
   doClean = False;
   doEliza = True;
@@ -897,45 +888,21 @@ def main(argv):
   if doCiel:
     # Read Cielpath.rpy into memory
     print("Patching Cielpath.rpy...");
-    cielPath = rpp.RenPyFile();
-    cielPath.backMap = backgrounds_map.backgroundMap35;
-    cielPath.charMap = characterImageMap35;
-    cielPath.charFlip = ["main", "mother", "nick"];
-    cielPath.trackVis = True;
+    cielPath = rpp.RenPyFileCiel(backgrounds_map.backgroundMap35, characterImageMap35);
     cielPath.readFile(os.path.join(extPath5, "Story", "Cielpath.rpy"));
-
-    # Patch the initial hide of Calvin
-    cielPath.lines[5] = "    hide maind\n";
 
     # Search for labels
     cielPath.findLabels();
 
     # Search for "show" statements
-    i = 0;
-    lineModifiedFlags = {};
-    while i < cielPath.numLines:
-      strippedLine = cielPath.lines[i].strip();
-      if (strippedLine.startswith("show") or strippedLine.startswith("scene")):
-        lineModifiedFlags[i] = False;
-      i = i + 1;
+    cielPath.findShows();
 
     # Process the 'leftit' label, it's the toplevel.
     addLabelCall(cielPath, "leftit", rpp.RenPyThread({}, []));
     iterateLabelCalls(cielPath);
 
-    # Make sure all 'show' lines where characters become visible have xzoom 1
-    for lineNum in sorted(cielPath.visLines, reverse=True):
-      cielPath.addXZoom(lineNum);
-
-    cielPath.numLines = len(cielPath.lines);
-
-    # Reverse all xzoom calls for affected characters
-    i = 0;
-    while i < cielPath.numLines:
-      strippedLine = cielPath.lines[i].strip();
-      if (strippedLine.startswith("show")):
-        cielPath.reverseXZoom(i);
-      i = i + 1;
+    # Flip the affected V3 characters
+    cielPath.doFlips();
 
     # Write the updated Cielpath.rpy back out
     cielPath.writeFile(os.path.join(dstPath, "Story", "Cielpath.rpy"));
@@ -943,39 +910,23 @@ def main(argv):
   if doEliza:
     # Read ElizaPath.rpy into memory
     print("Patching ElizaPath.rpy...");
-    elizaPath = rpp.RenPyFile();
-    elizaPath.backMap = backgrounds_map.backgroundMap45;
-    elizaPath.charMap = characterImageMap45;
+    elizaPath = rpp.RenPyFileEliza(backgrounds_map.backgroundMap45, characterImageMap45);
     elizaPath.readFile(os.path.join(extPath5, "Story", "ElizaPath.rpy"));
     lines = elizaPath.lines;
-
-    # Patch the "Karyn" if switched menu option in kpathendroundup
-    lines[68980] = "            jump kpathendroundup2\n";
 
     # Search for labels
     elizaPath.findLabels();
 
     # Search for "show" statements
-    i = 0;
-    lineModifiedFlags = {};
-    while i < elizaPath.numLines:
-      strippedLine = lines[i].strip();
-      if (strippedLine.startswith("show") or strippedLine.startswith("scene")):
-        lineModifiedFlags[i] = False;
-      i = i + 1;
+    elizaPath.findShows();
 
     # Process the 'eliza' label, it's the toplevel.
     # We need two calls, one for the timer < 30 and one for > 30
-    pyVariables["tim"] = 0;   # Less than 30
+    pyVariables["timer_value"] = 0;   # Less than 30
     addLabelCall(elizaPath, "eliza", rpp.RenPyThread(pyVariables.copy(), []));
-    pyVariables["tim"] = 60;  # Greater than 30
+    pyVariables["timer_value"] = 60;  # Greater than 30
     addLabelCall(elizaPath, "eliza", rpp.RenPyThread(pyVariables.copy(), []));
     iterateLabelCalls(elizaPath);
-
-    # Patch the timer
-    lines[6396] = (" " * 20) + "if timer_value >= 30:\n";
-    lines[6552] = (" " * 20) + "if timer_value >= 30:\n";
-    lines[6713] = (" " * 20) + "if timer_value >= 30:\n";
 
     # Write the updated ElizaPath.rpy back out
     elizaPath.writeFile(os.path.join(dstPath, "Story", "ElizaPath.rpy"));

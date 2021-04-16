@@ -62,6 +62,7 @@ class RenPyFile():
     self.charFlip  = [];
     self.visLines  = [];
     self.trackVis  = False;
+    self.lineModifiedFlags = {};
 
   def readFile(self, fn):
     text_file = open(fn, "r", encoding="utf8");
@@ -143,6 +144,20 @@ class RenPyFile():
     # Need to insert
     self.lines.insert(insertLineNum, (" " * indent) + "xzoom 1\n");
 
+  # Flip all V3 affected characters left-to-right
+  def doFlips(self):
+    for lineNum in sorted(self.visLines, reverse=True):
+      self.addXZoom(lineNum);
+    self.numLines = len(self.lines);
+
+    # Reverse all xzoom calls for affected characters
+    i = 0;
+    while i < self.numLines:
+      strippedLine = self.lines[i].strip();
+      if (strippedLine.startswith("show")):
+        self.reverseXZoom(i);
+      i = i + 1;
+
   # Reverses an xzoom line in a 'show' statement
   def reverseXZoom(self, lineNum):
     line = self.lines[lineNum];
@@ -168,3 +183,50 @@ class RenPyFile():
       lineNum += 1;
       line = self.lines[lineNum];
 
+  def findShows(self):
+    i = 0;
+    self.lineModifiedFlags = {};
+    while i < self.numLines:
+      strippedLine = self.lines[i].strip();
+      if (strippedLine.startswith("show") or strippedLine.startswith("scene")):
+        self.lineModifiedFlags[i] = False;
+      i = i + 1;
+
+  def labelIsAcceptable(self, label):
+    return True;
+
+#-----------------------------------------------------------------------------
+class RenPyFileCiel(RenPyFile):
+  def __init__(self, b, c):
+    super().__init__();
+    self.backMap = b;
+    self.charMap = c;
+    self.charFlip = ["main", "mother", "nick"];
+    self.trackVis = True;
+
+  def readFile(self, fn):
+    super().readFile(fn);
+
+    # Patch the initial hide of Calvin
+    self.lines[5] = "    hide maind\n";
+
+#-----------------------------------------------------------------------------
+class RenPyFileEliza(RenPyFile):
+  def __init__(self, b, c):
+    super().__init__();
+    self.backMap = b;
+    self.charMap = c;
+
+  def readFile(self, fn):
+    super().readFile(fn);
+
+    # Patch the timer
+    self.lines[6396] = (" " * 20) + "if timer_value >= 30:\n";
+    self.lines[6552] = (" " * 20) + "if timer_value >= 30:\n";
+    self.lines[6713] = (" " * 20) + "if timer_value >= 30:\n";
+
+    # Patch the "Karyn" if switched menu option in kpathendroundup
+    self.lines[68980] = "            jump kpathendroundup2\n";
+
+  def labelIsAcceptable(self, label):
+    return not("goopy" in label);
