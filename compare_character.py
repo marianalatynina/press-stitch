@@ -102,7 +102,10 @@ def main(argv):
     asArray = True;
 
   characterName = argv[0];
-  srcDir3 = os.path.join("Extracted", filename_03, "Character images", characterName);
+  v3char = characterName;
+  if (characterName == "Chris"):
+    v3char = "Christine";
+  srcDir3 = os.path.join("Extracted", filename_03, "Character images", v3char);
   srcDir5 = os.path.join("Extracted", filename_05, "Characters", characterName);
 
   # Sanity check

@@ -17,11 +17,16 @@ import rpp
 import backgrounds_map
 
 # Mappings for 0.3 -> 0.5
+import character_map_35_chris
 import character_map_35_ciel
 import character_map_35_eliza
+import character_map_35_karyn
 import character_map_35_main
+import character_map_35_martha
+import character_map_35_michelle
 import character_map_35_mother
 import character_map_35_nick
+import character_map_35_vanessa
 
 # Mappings for 0.4 -> 0.5
 import character_map_45_alma
@@ -181,11 +186,16 @@ characterDoRemap = {
 };
 
 characterImageMap35 = {
+  "chris":    character_map_35_chris   .characterMapChris,
   "ciel":     character_map_35_ciel    .characterMapCiel,
   "eliza":    character_map_35_eliza   .characterMapEliza,
+  "karyn":    character_map_35_karyn   .characterMapKaryn,
   "main":     character_map_35_main    .characterMapMain,
+  "martha":   character_map_35_martha  .characterMapMartha,
+  "michelle": character_map_35_michelle.characterMapMichelle,
   "mother":   character_map_35_mother  .characterMapMother,
   "nick":     character_map_35_nick    .characterMapNick,
+  "vanessa":  character_map_35_vanessa .characterMapVanessa,
 };
 
 characterImageMap45 = {
@@ -949,6 +959,13 @@ def main(argv):
 
     # Search for "show" statements
     goopyPath.findShows();
+
+    # Process the path
+    addLabelCall(goopyPath, "elizagoopypath", rpp.RenPyThread({}, []));
+    iterateLabelCalls(goopyPath);
+
+    # Flip the affected V3 characters
+    goopyPath.doFlips();
 
     # Write the updated ElizaPath.rpy back out
     goopyPath.writeFile(os.path.join(dstPath, "Story", "ElizaPath.rpy"));
