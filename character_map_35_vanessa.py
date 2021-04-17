@@ -88,12 +88,12 @@ characterMapVanessa = {
   "vanessa_ex_003_smile":                  "vanessa_ex_004_smile_001",              # Auto: Renamed
   "vanessa_ex_004":                        "vanessa_ex_004_open2_001",              # Auto: Renamed
   "vanessa_ex_005":                        "vanessa_ex_006_open_001",               # Auto: Renamed
-  "vanessa_ex_006":                        "vanessa_ex_006_001",                    # Auto: Edited and renamed
+  "vanessa_ex_006":                        "vanessa_ex_005_open_001",
   "vanessa_ex_007":                        "vanessa_ex_005_aroused2_001",           # Auto: Renamed
   "vanessa_ex_008":                        "vanessa_ex_002_smile2_001",             # Auto: Renamed
   "vanessa_ex_009":                        "vanessa_ex_009_002",                    # Auto: Renamed
   "vanessa_ex_010":                        "vanessa_ex_011_002",                    # Auto: Renamed
-  "vanessa_ex_011":                        "vanessa_ex_011_002",                    # Auto: Edited and renamed
+  "vanessa_ex_011":                        "vanessa_ex_012_002",
   "vanessa_ex_012":                        "vanessa_ex_012_002",                    # Auto: Renamed
   "vanessa_ex_013":                        "vanessa_ex_008_002",                    # Auto: Renamed
   "vanessa_ex_014":                        "vanessa_ex_010_open_002",               # Auto: Renamed
@@ -106,7 +106,7 @@ characterMapVanessa = {
   "vanessa_ex_019":                        "vanessa_ex_003_open2_003",              # Auto: Renamed
   "vanessa_ex_019_grin":                   "vanessa_ex_003_grin_003",               # Auto: Renamed
   "vanessa_ex_019_grin2":                  "vanessa_ex_003_grin2_003",              # Auto: Renamed
-  "vanessa_ex_020":                        "",                                      # Auto: Deleted
+  "vanessa_ex_020":                        "vanessa_ex_007_003",
   "vanessa_ex_021":                        "vanessa_ex_011_open_003",               # Auto: Renamed
   "vanessa_ex_full_001":                   "vanessa_ex_full_001_001",               # Auto: Renamed
   "vanessa_ex_full_001_neutral":           "vanessa_ex_full_001_neutral_001",       # Auto: Edited and renamed
@@ -117,12 +117,12 @@ characterMapVanessa = {
   "vanessa_ex_full_003_smile":             "vanessa_ex_full_004_smile_001",         # Auto: Renamed
   "vanessa_ex_full_004":                   "vanessa_ex_full_004_open2_001",         # Auto: Renamed
   "vanessa_ex_full_005":                   "vanessa_ex_full_006_open_001",          # Auto: Renamed
-  "vanessa_ex_full_006":                   "vanessa_ex_full_006_001",               # Auto: Edited and renamed
+  "vanessa_ex_full_006":                   "vanessa_ex_full_005_open_001",
   "vanessa_ex_full_007":                   "vanessa_ex_full_005_aroused2_001",      # Auto: Renamed
   "vanessa_ex_full_008":                   "vanessa_ex_full_002_smile2_001",        # Auto: Renamed
   "vanessa_ex_full_009":                   "vanessa_ex_full_009_002",               # Auto: Renamed
   "vanessa_ex_full_010":                   "vanessa_ex_full_011_002",               # Auto: Renamed
-  "vanessa_ex_full_011":                   "vanessa_ex_full_011_002",               # Auto: Edited and renamed
+  "vanessa_ex_full_011":                   "vanessa_ex_full_012_002",
   "vanessa_ex_full_012":                   "vanessa_ex_full_012_002",               # Auto: Renamed
   "vanessa_ex_full_013":                   "vanessa_ex_full_008_002",               # Auto: Renamed
   "vanessa_ex_full_014":                   "vanessa_ex_full_010_open_002",          # Auto: Renamed

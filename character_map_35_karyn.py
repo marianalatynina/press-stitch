@@ -95,12 +95,12 @@ characterMapKaryn = {
   "karyn_ex_014":                          "karyn_ex_0013_002",                     # Auto: Renamed
   "karyn_ex_015":                          "karyn_ex_014_002",                      # Auto: Renamed
   "karyn_ex_016":                          "karyn_ex_015_002",                      # Auto: Renamed
-  "karyn_ex_017":                          "karyn_ex_017_003",                      # Auto: Edited and renamed
-  "karyn_ex_018":                          "karyn_ex_018_003",                      # Auto: Edited and renamed
-  "karyn_ex_019":                          "karyn_ex_019_003",                      # Auto: Edited and renamed
-  "karyn_ex_020":                          "",                                      # Auto: Deleted
-  "karyn_ex_021":                          "",                                      # Auto: Deleted
-  "karyn_ex_022":                          "",                                      # Auto: Deleted
+  "karyn_ex_017":                          "karyn_ex_016_003",                      # Auto: Edited and renamed
+  "karyn_ex_018":                          "karyn_ex_009_003",
+  "karyn_ex_019":                          "karyn_ex_011_003",
+  "karyn_ex_020":                          "karyn_ex_017_003",
+  "karyn_ex_021":                          "karyn_ex_018_003",
+  "karyn_ex_022":                          "karyn_ex_019_003",
   "karyn_ex_full_001":                     "karyn_ex_full_001_001",                 # Auto: Renamed
   "karyn_ex_full_001_smile":               "karyn_ex_full_001_smile_001",           # Auto: Renamed
   "karyn_ex_full_002":                     "karyn_ex_full_002_smile_001",           # Auto: Renamed

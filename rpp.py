@@ -61,6 +61,7 @@ class RenPyFile():
     self.charMap   = {};
     self.charFlip  = [];
     self.visLines  = [];
+    self.showLines = [];
     self.trackVis  = False;
     self.lineModifiedFlags = {};
 
@@ -151,8 +152,7 @@ class RenPyFile():
     self.numLines = len(self.lines);
 
     # Reverse all xzoom calls for affected characters
-    i = 0;
-    while i < self.numLines:
+    for i in self.showLines:
       strippedLine = self.lines[i].strip();
       if (strippedLine.startswith("show")):
         self.reverseXZoom(i);

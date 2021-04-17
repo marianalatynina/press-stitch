@@ -642,6 +642,9 @@ def processShow(rpFile, thread, lineNum):
   if not(fields[1] in characterLabelMap):
     return line;
 
+  if not(lineNum in rpFile.showLines):
+    rpFile.showLines.append(lineNum);
+
   if (rpFile.trackVis):
     varName = "_visible_" + fields[1];
     if not(varName in thread.vars) or (thread.vars[varName] == "0"):
