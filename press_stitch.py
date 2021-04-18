@@ -634,6 +634,10 @@ def processShow(rpFile, thread, lineNum):
     newLine += "\n";
     return newLine;
 
+  # Check for 0.3 style "show cg" statements
+  if (fields[0] == "show") and (fields[1] == "cg"):
+    return rpFile.processCG(line);
+
   # Try for a character
   # Character label is fields[1], get character name
   if not(fields[0] == "show"):

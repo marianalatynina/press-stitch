@@ -198,6 +198,9 @@ class RenPyFile():
   def hookIf(self, thread):
     pass;
 
+  def processCG(self, line):
+    return line;
+
 #-----------------------------------------------------------------------------
 class RenPyFileCiel(RenPyFile):
   def __init__(self, b, c):
@@ -262,3 +265,18 @@ class RenPyFileGoopy(RenPyFile):
     self.lines.insert(69381, "        hide maind\n");
     self.numLines = len(self.lines);
 
+    # Alter the Eliza bed CG
+    self.lines[69698] = "                scene cgbase eliza sleep 1\n";
+    self.lines[69699] = "                show cgex eliza sleep 1\n";
+
+    # The Eliza H pic is missing in 0.5, patch it out
+    self.lines[69774] = "                        show cgex eliza sleep 6\n";
+    self.lines[69775] = "\n";
+
+  def processCG(self, line):
+    fields = line.strip().strip(":").split();
+    fields[1] = "cgex";
+    rv = (" " * self.getIndentOf(line)) + " ".join(fields);
+    if ":" in line:
+      rv += ":";
+    return rv + "\n";
