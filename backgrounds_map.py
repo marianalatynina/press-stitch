@@ -236,6 +236,7 @@ backgroundMap45 = {
   "streettomikaday":             "townstreetmikaday",           # Auto: Renamed
   "streettomikadusk":            "townstreetmikadusk",          # Auto: Renamed
   "streettomikanight":           "townstreetmikanight",         # Auto: Renamed
+  "white":                       "white",
 };
 
 backgroundMap35 = {
