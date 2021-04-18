@@ -609,7 +609,7 @@ def processShow(rpFile, thread, lineNum):
     if len(fields) < 3:
       return line;
     if not(fields[2] in rpFile.backMap):
-      return line;
+      return flagError(rpFile, lineNum, "Background " + fields[2] + " has no mapping table entry");
 
     newLine = "";
     indent = 0;
@@ -619,8 +619,7 @@ def processShow(rpFile, thread, lineNum):
 
     newbg = rpFile.backMap[fields[2]];
     if (newbg == ""):
-      print("Background '" + fields[2] + "' exists but has no mapping");
-      return line;
+      return flagError(rpFile, lineNum, "Background '" + fields[2] + "' exists but has no mapping");
 
     newLine += fields[0] + " bg " + newbg;
 

@@ -274,6 +274,9 @@ backgroundMap35 = {
   "dancehallday":                "schooldanceday",              # Auto: Renamed
   "dancehallnight":              "schooldancenightlit",         # Auto: Renamed
   "earth":                       "earth",                       # Auto: Same
+  "elizabedday":                 "mansionelizaday",
+  "elizabeddusk":                "mansionelizadusk",
+  "elizabednight":               "mansionelizalit",
   "elizaschoolcafeday":          "elizaschoolcafeday",          # Auto: Renamed
   "elizaschoolcafedusk":         "elizaschoolcafedusk",         # Auto: Renamed
   "elizaschoolclassroomday":     "elizaschoolclassroomday",     # Auto: Renamed
@@ -315,6 +318,7 @@ backgroundMap35 = {
   "gymclosetnight":              "",                            # Auto: Deleted
   "gymday":                      "",                            # Auto: Deleted
   "gymdusk":                     "",                            # Auto: Deleted
+  "heatherhomeofficeday":        "mansionofficeday",
   "heatherofficeday":            "heatherofficeday",            # Auto: Same
   "heatherofficedusk":           "heatherofficedusk",           # Auto: Same
   "highrestaurant":              "restaurant2insideday",        # Auto: Renamed
@@ -356,6 +360,7 @@ backgroundMap35 = {
   "lockerroomdusk":              "",                            # Auto: Deleted
   "lockerroomnight":             "",                            # Auto: Deleted
   "mainbedday":                  "mansioncalvinday",
+  "mainbeddusk":                 "mansioncalvindusk",
   "mansionatticbedroomday":      "mansionatticbedday",          # Auto: Renamed
   "mansionatticbedroomdusk":     "mansionatticbeddusk",         # Auto: Renamed
   "mansionatticbedroomnight":    "mansionatticbednight",        # Auto: Renamed
@@ -380,6 +385,10 @@ backgroundMap35 = {
   "mansionfrontday":             "mansionfrontday",             # Auto: Same
   "mansionfrontdusk":            "mansionfrontdusk",            # Auto: Same
   "mansionfrontnight":           "mansionfrontnightlit",        # Auto: Renamed
+  "mansionhalldark":             "mansionhallnight",
+  "mansionhallday":              "mansionhallday",
+  "mansionhalldusk":             "mansionhalldusk",
+  "mansionhallnight":            "mansionhallnightlit",
   "mansionhallwaydark":          "mansionhallnight",            # Auto: Renamed
   "mansionhallwayday":           "mansionhallday",              # Auto: Renamed
   "mansionhallwaydusk":          "mansionhalldusk",             # Auto: Renamed
