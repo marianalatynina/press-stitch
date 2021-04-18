@@ -8,11 +8,14 @@ The script patches Press Switch 0.5c to additionally contain:
 
 * All paths from Press Switch 0.4, i.e. the main Eliza path and everything leading off it
 * The Ciel path from Press Switch 0.3
+* The Eliza / Elena clone path from Press Switch 0.3
 
 The resulting game has all paths fully playable, including the 0.5 paths.
 
 ## Content from 0.4
 The 0.4 Eliza route starts with Eliza in her bedroom, but in 0.5 Eliza comes in to your room in the evening instead. So to access the 0.4 routes you must first kick Eliza out of your room, and then you will get a choice to reconsider. This leads to the 0.4 content.
+
+This is also the way to access the Eliza / Elena cloning path.
 
 ## Content from 0.3
 In 0.3 Ciel had blue hair and blue name text, but in 0.5 she is a brunette with brown name text. In the combined game she will appear as she does in 0.5 at all times, so this will look different to how it did in 0.3.
