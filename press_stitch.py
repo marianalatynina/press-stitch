@@ -967,7 +967,7 @@ def main(argv):
     iterateLabelCalls(goopyPath);
 
     # Flip the affected V3 characters
-    goopyPath.doFlips();
+    #goopyPath.doFlips();
 
     # Write the updated ElizaPath.rpy back out
     goopyPath.writeFile(os.path.join(dstPath, "Story", "ElizaPath.rpy"));

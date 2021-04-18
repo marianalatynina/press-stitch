@@ -258,4 +258,7 @@ class RenPyFileGoopy(RenPyFile):
     self.lines[87] = "\n";
     self.lines[89] = "\n";
 
+    # Make sure 'maind' displayable is hidden on entry
+    self.lines.insert(69381, "        hide maind\n");
+    self.numLines = len(self.lines);
 
