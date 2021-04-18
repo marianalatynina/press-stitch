@@ -841,10 +841,10 @@ def main(argv):
   doClean = False;
   doEliza = True;
   doCiel  = True;
-  doGoopy = False;
+  doGoopy = True;
 
   try:
-    opts, args = getopt.getopt(argv, "", ["clean","goopy","inlineerrors","nociel","noeliza"])
+    opts, args = getopt.getopt(argv, "", ["clean","inlineerrors","nociel","noeliza","nogoopy"])
   except getopt.GetoptError:
     showError('Usage is: press-stitch.py [--clean]');
     sys.exit(1);
@@ -852,14 +852,14 @@ def main(argv):
   for opt, arg in opts:
     if (opt == "--clean"):
       doClean = True;
-    elif (opt == "--goopy"):
-      doGoopy = True;
     elif (opt == "--inlineerrors"):
       inlineErrors = True;
     elif (opt == "--nociel"):
       doCiel = False;
     elif (opt == "--noeliza"):
       doEliza = False;
+    elif (opt == "--nogoopy"):
+      doGoopy = False;
 
   if (doClean):
     removeDir(filename_03);
