@@ -538,6 +538,10 @@ def processBlockStep(rpFile, thread):
     i += 1;
   elif (strippedLine.startswith("jump")):
     label = strippedLine.split()[1];
+    if not(label in rpFile.labelList):
+      print("External jump: " + label);
+      thread.stack = [];  # Kill this thread, it jumped out of the file
+      return;
     jumpDest = rpFile.labelList[label];
     if (not((label == "kpathendroundup2") or label.startswith("endingclone")) or (jumpDest > blk.lineNum)):
       addLabelCall(rpFile, label, thread);
@@ -719,17 +723,22 @@ def processShow(rpFile, thread, lineNum):
   mappedFile = "";
   hasMapped = False;
 
-  if exFile in rpFile.charMap[swappedCharName]:
-    mappedFile = rpFile.charMap[swappedCharName][exFile];
-    hasMapped = True;
-  elif exFile+"_001" in rpFile.charMap[swappedCharName]:
-    mappedFile = rpFile.charMap[swappedCharName][exFile+"_001"];
-    hasMapped = True;
-  elif exFile+"_002" in rpFile.charMap[swappedCharName]:
-    mappedFile = rpFile.charMap[swappedCharName][exFile+"_002"];
-    hasMapped = True;
-  elif exFile+"_003" in rpFile.charMap[swappedCharName]:
-    mappedFile = rpFile.charMap[swappedCharName][exFile+"_003"];
+  if (swappedCharName in rpFile.charMap):
+    if exFile in rpFile.charMap[swappedCharName]:
+      mappedFile = rpFile.charMap[swappedCharName][exFile];
+      hasMapped = True;
+    elif exFile+"_001" in rpFile.charMap[swappedCharName]:
+      mappedFile = rpFile.charMap[swappedCharName][exFile+"_001"];
+      hasMapped = True;
+    elif exFile+"_002" in rpFile.charMap[swappedCharName]:
+      mappedFile = rpFile.charMap[swappedCharName][exFile+"_002"];
+      hasMapped = True;
+    elif exFile+"_003" in rpFile.charMap[swappedCharName]:
+      mappedFile = rpFile.charMap[swappedCharName][exFile+"_003"];
+      hasMapped = True;
+  else:
+    # We're not doing a V3 or V4 mapping for this character, fake that we've done one
+    mappedFile = exFile;
     hasMapped = True;
 
   if not(hasMapped):
@@ -941,6 +950,14 @@ def main(argv):
     dayzero.lines[2851] = (" " * 20) + "\"Hide it until tomorrow.\":\n";
     dayzero.lines[2863] = (" " * 20) + "\"Leave it on my desk and sleep.\":\n";
     dayzero.lines[2864] = (" " * 24) + "jump leftit\n";
+
+  if doV6:
+    dayzero.v6map = v6map;
+    dayzero.findLabels();
+    dayzero.findShows();
+    addLabelCall(dayzero, "GameStart", rpp.RenPyThread(pyVariables.copy(), []));
+    iterateLabelCalls(dayzero);
+
   dayzero.writeFile(os.path.join(dstPath, "Story", "Day-0.rpy"));
 
   if doCiel:
