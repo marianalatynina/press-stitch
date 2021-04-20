@@ -60,6 +60,9 @@ import character_map_45_sean
 import character_map_45_vanessa
 import character_map_45_waitress
 
+# Mappings for 0.5 -> 0.6
+import character_map_56_eliza
+
 filename_03 = "Press-SwitchV0.3b-all";
 filename_04 = "Press-SwitchV0.4a-pc";
 filename_05 = "Press-SwitchV0.5c-pc";
@@ -229,6 +232,10 @@ characterImageMap45 = {
   "sean":     character_map_45_sean    .characterMapSean,
   "vanessa":  character_map_45_vanessa .characterMapVanessa,
   "waitress": character_map_45_waitress.characterMapWaitress
+};
+
+characterImageMap56 = {
+  "eliza":    character_map_56_eliza   .characterMapEliza,
 };
 
 # Initial state of RenPy variables
@@ -724,13 +731,19 @@ def processShow(rpFile, thread, lineNum):
 
   if not(hasMapped):
     # The .rpy file is referencing a graphic that doesn't seem to exist in the 0.4 graphics directory.
-    # Something's obviously up, maybe old 0.3 content? For now, pass it through unaltered,
-    # but we might want to take note of this later.
     print("DBG: Vars are: " + str(thread.vars));
     return(flagError(rpFile, lineNum, "Mapping failed, source file '" + exFile + "' not found. Line being processed is: " + str(fields)));
 
   if mappedFile == "":
     return(flagError(rpFile, lineNum, "Mapping failed, source file '" + exFile + "' exists but has no mapping. Line being processed is: " + str(fields)));
+
+  # Map V6 if present
+  if (swappedCharName in rpFile.v6Map):
+    if not(mappedFile in rpFile.v6Map[swappedCharName]):
+      return(flagError(rpFile, lineNum, "No V6 mapping for V5 file '" + mappedFile + "', source file '" + exFile + "'"));
+    v6File = rpFile.v6Map[swappedCharName][mappedFile];
+    #print("Mapped V5 " + mappedFile + " to V6 " + v6File);
+    mappedFile = v6File;
 
   mappedFields = mappedFile.split("_");
 
@@ -843,9 +856,10 @@ def main(argv):
   doEliza = True;
   doCiel  = True;
   doGoopy = True;
+  doV6    = False;
 
   try:
-    opts, args = getopt.getopt(argv, "", ["clean","inlineerrors","nociel","noeliza","nogoopy"])
+    opts, args = getopt.getopt(argv, "", ["clean","inlineerrors","nociel","noeliza","nogoopy","v6"])
   except getopt.GetoptError:
     showError('Usage is: press-stitch.py [--clean]');
     sys.exit(1);
@@ -861,6 +875,9 @@ def main(argv):
       doEliza = False;
     elif (opt == "--nogoopy"):
       doGoopy = False;
+    elif (opt == "--v6"):
+      doV6 = True;
+      doCiel = False;  # Cielpath disabled for 0.6
 
   if (doClean):
     removeDir(filename_03);
@@ -892,6 +909,10 @@ def main(argv):
   extPath5 = os.path.join("Extracted", filename_05);
   dstPath  = os.path.join(filename_05, "game");
 
+  v6map = characterImageMap56;
+  if not(doV6):
+    v6Map = {};
+
   # Day-0.rpy
   print("Patching Day-0.rpy...");
   dayzero = rpp.RenPyFile();
@@ -907,7 +928,7 @@ def main(argv):
   if doCiel:
     # Read Cielpath.rpy into memory
     print("Patching Cielpath.rpy...");
-    cielPath = rpp.RenPyFileCiel(backgrounds_map.backgroundMap35, characterImageMap35);
+    cielPath = rpp.RenPyFileCiel(backgrounds_map.backgroundMap35, characterImageMap35, v6map);
     cielPath.readFile(os.path.join(extPath5, "Story", "Cielpath.rpy"));
 
     # Search for labels
@@ -929,7 +950,7 @@ def main(argv):
   if doEliza:
     # Read ElizaPath.rpy into memory
     print("Patching ElizaPath.rpy... (0.4 content)");
-    elizaPath = rpp.RenPyFileEliza(backgrounds_map.backgroundMap45, characterImageMap45);
+    elizaPath = rpp.RenPyFileEliza(backgrounds_map.backgroundMap45, characterImageMap45, v6map);
     elizaPath.readFile(os.path.join(extPath5, "Story", "ElizaPath.rpy"));
 
     # Search for labels
@@ -958,7 +979,7 @@ def main(argv):
 
     # Read ElizaPath.rpy into memory. GoopyPath is ElizaPath but with v0.3 mappings
     print("Patching ElizaPath.rpy... (Goopy path)");
-    goopyPath = rpp.RenPyFileGoopy(backgrounds_map.backgroundMap35, characterImageMap35);
+    goopyPath = rpp.RenPyFileGoopy(backgrounds_map.backgroundMap35, characterImageMap35, v6map);
     goopyPath.readFile(srcFile);
 
     # Search for labels

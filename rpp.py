@@ -59,6 +59,7 @@ class RenPyFile():
     self.labelList = {};
     self.backMap   = {};
     self.charMap   = {};
+    self.v6Map     = {};
     self.charFlip  = [];
     self.visLines  = [];
     self.showLines = [];
@@ -203,10 +204,11 @@ class RenPyFile():
 
 #-----------------------------------------------------------------------------
 class RenPyFileCiel(RenPyFile):
-  def __init__(self, b, c):
+  def __init__(self, b, c, v6):
     super().__init__();
     self.backMap = b;
     self.charMap = c;
+    self.v6Map = v6;
     self.charFlip = ["main", "mother", "nick"];
     self.trackVis = True;
 
@@ -218,10 +220,11 @@ class RenPyFileCiel(RenPyFile):
 
 #-----------------------------------------------------------------------------
 class RenPyFileEliza(RenPyFile):
-  def __init__(self, b, c):
+  def __init__(self, b, c, v6):
     super().__init__();
     self.backMap = b;
     self.charMap = c;
+    self.v6Map = v6;
 
   def readFile(self, fn):
     super().readFile(fn);
@@ -245,10 +248,11 @@ class RenPyFileEliza(RenPyFile):
 
 #-----------------------------------------------------------------------------
 class RenPyFileGoopy(RenPyFile):
-  def __init__(self, b, c):
+  def __init__(self, b, c, v6):
     super().__init__();
     self.backMap = b;
     self.charMap = c;
+    self.v6Map = v6;
     self.charFlip = ["main", "mother", "nick"];
     self.trackVis = True;
 
