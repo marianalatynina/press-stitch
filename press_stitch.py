@@ -67,6 +67,7 @@ import character_map_56_main
 filename_03 = "Press-SwitchV0.3b-all";
 filename_04 = "Press-SwitchV0.4a-pc";
 filename_05 = "Press-SwitchV0.5c-pc";
+filename_06 = "Press-SwitchV0.6";
 
 # The key is the label used in an RPY "show" command to show a character.
 # The value is the character directory used to find the images.
@@ -924,10 +925,11 @@ def main(argv):
 
   extPath5 = os.path.join("Extracted", filename_05);
   dstPath  = os.path.join(filename_05, "game");
+  v6map = {};
 
-  v6map = characterImageMap56;
-  if not(doV6):
-    v6Map = {};
+  if doV6:
+    v6map = characterImageMap56;
+    dstPath  = os.path.join(filename_06, "game");
 
   # Day-0.rpy
   print("Patching Day-0.rpy...");
