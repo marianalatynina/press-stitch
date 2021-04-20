@@ -62,6 +62,7 @@ import character_map_45_waitress
 
 # Mappings for 0.5 -> 0.6
 import character_map_56_eliza
+import character_map_56_main
 
 filename_03 = "Press-SwitchV0.3b-all";
 filename_04 = "Press-SwitchV0.4a-pc";
@@ -236,6 +237,7 @@ characterImageMap45 = {
 
 characterImageMap56 = {
   "eliza":    character_map_56_eliza   .characterMapEliza,
+  "main":     character_map_56_main    .characterMapMain,
 };
 
 # Initial state of RenPy variables
@@ -739,9 +741,23 @@ def processShow(rpFile, thread, lineNum):
 
   # Map V6 if present
   if (swappedCharName in rpFile.v6Map):
-    if not(mappedFile in rpFile.v6Map[swappedCharName]):
-      return(flagError(rpFile, lineNum, "No V6 mapping for V5 file '" + mappedFile + "', source file '" + exFile + "'"));
-    v6File = rpFile.v6Map[swappedCharName][mappedFile];
+    hasMapped = False;
+    v6File = "";
+    if mappedFile in rpFile.v6Map[swappedCharName]:
+      v6File = rpFile.v6Map[swappedCharName][mappedFile];
+      hasMapped = True;
+    elif mappedFile+"_001" in rpFile.v6Map[swappedCharName]:
+      v6File = rpFile.v6Map[swappedCharName][mappedFile+"_001"];
+      hasMapped = True;
+    elif mappedFile+"_002" in rpFile.v6Map[swappedCharName]:
+      v6File = rpFile.v6Map[swappedCharName][mappedFile+"_002"];
+      hasMapped = True;
+    elif mappedFile+"_003" in rpFile.v6Map[swappedCharName]:
+      v6File = rpFile.v6Map[swappedCharName][mappedFile+"_003"];
+      hasMapped = True;
+
+    if not(hasMapped):
+      return(flagError(rpFile, lineNum, "No V6 mapping for V5 file '" + mappedFile + "', source file '" + exFile + "', char name " + swappedCharName + ", original char " + charName));
     #print("Mapped V5 " + mappedFile + " to V6 " + v6File);
     mappedFile = v6File;
 
