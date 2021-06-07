@@ -35,7 +35,7 @@ The scripts are developed and tested primarily on Linux, but they should work eq
 5. In the `press-stitch-main` folder, double-click the `press_stitch.py` script, and you should see it start to run in a command window. It will print lots of numbers and statistics as it runs, this is normal and you can ignore this. _PLEASE NOTE!_ This will take a long time, sometimes up to 15 minutes depending on your PC speed.
 7. If everything completes correctly, there will now be a new folder called `Press-SwitchV0.5c-pc` which contains the patched game. Go into there and click on the `Press-Switch` application to play the game.
 
-Note that you only need to do the steps above once! If you want to come back and play the game again, you can just run it like in step 7.
+Note that you only need to do the steps above once! If you want to come back and play the game again, you can just run it like in step 6.
 
 ## Linux
 On Linux you can use the system's Python 3, ensure it's installed using your system's package manager. For example, on Ubuntu you'd use `sudo apt install python3`. Otherwise the steps are the same as for Windows and the patched game can be run using the `Press-Switch.sh` script.
