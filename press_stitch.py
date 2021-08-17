@@ -882,10 +882,11 @@ def main(argv):
   doEliza = True;
   doCiel  = True;
   doGoopy = True;
+  doScan  = True;
   doV6    = False;
 
   try:
-    opts, args = getopt.getopt(argv, "", ["clean","inlineerrors","nociel","noeliza","nogoopy","v6"])
+    opts, args = getopt.getopt(argv, "", ["clean","inlineerrors","nociel","noeliza","nogoopy","noscan","v6"])
   except getopt.GetoptError:
     showError('Usage is: press-stitch.py [--clean]');
     sys.exit(1);
@@ -901,6 +902,8 @@ def main(argv):
       doEliza = False;
     elif (opt == "--nogoopy"):
       doGoopy = False;
+    elif (opt == "--noscan"):
+      doScan = False;
     elif (opt == "--v6"):
       doV6 = True;
       doCiel = False;  # Cielpath disabled for 0.6
@@ -994,13 +997,14 @@ def main(argv):
     # Search for "show" statements
     elizaPath.findShows();
 
-    # Process the 'eliza' label, it's the toplevel.
-    # We need two calls, one for the timer < 30 and one for > 30
-    pyVariables["timer_value"] = 0;   # Less than 30
-    addLabelCall(elizaPath, "eliza", rpp.RenPyThread(pyVariables.copy(), []));
-    pyVariables["timer_value"] = 60;  # Greater than 30
-    addLabelCall(elizaPath, "eliza", rpp.RenPyThread(pyVariables.copy(), []));
-    iterateLabelCalls(elizaPath);
+    if doScan:
+      # Process the 'eliza' label, it's the toplevel.
+      # We need two calls, one for the timer < 34 and one for > 30
+      pyVariables["timer_value"] = 0;   # Less than 30
+      addLabelCall(elizaPath, "eliza", rpp.RenPyThread(pyVariables.copy(), []));
+      pyVariables["timer_value"] = 60;  # Greater than 30
+      addLabelCall(elizaPath, "eliza", rpp.RenPyThread(pyVariables.copy(), []));
+      iterateLabelCalls(elizaPath);
 
     # Write the updated ElizaPath.rpy back out
     elizaPath.writeFile(os.path.join(dstPath, "Story", "ElizaPath.rpy"));

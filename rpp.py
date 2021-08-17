@@ -237,6 +237,10 @@ class RenPyFileEliza(RenPyFile):
     # Patch the "Karyn" if switched menu option in kpathendroundup
     self.lines[68980] = "            jump kpathendroundup2\n";
 
+    # Patch Michelle's age
+    self.lines[587] = self.lines[587].replace("14", "15");
+    self.lines[589] = self.lines[589].replace("14", "15");
+
   def labelIsAcceptable(self, label):
     return not("goopy" in label);
 
