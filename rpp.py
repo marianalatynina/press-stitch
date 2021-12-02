@@ -1,23 +1,28 @@
 #-----------------------------------------------------------------------------
 # rpp.py
 # RenPy processor classes
+# pylint: disable=bad-indentation
 #-----------------------------------------------------------------------------
 
 #-----------------------------------------------------------------------------
 class RenPyLabelCall():
   def __init__(self, l, v):
+    #type: (str, dict[str, str]) -> None
     self.label = l;
     self.vars  = v;
 
   def __repr__(self):
+    #type: () -> str
     return(self.label + ", " + str(self.vars));
 
   def __eq__(self, other):
+    #type: (RenPyLabelCall) -> bool
     return self.vars == other.vars and self.label == other.label;
 
 #-----------------------------------------------------------------------------
 class RenPyObject():
   def __init__(self, ln, ind):
+    #type: (int, int) -> None
     self.objType = "Object";
     self.done    = False;
     self.lineNum = ln;
@@ -26,10 +31,12 @@ class RenPyObject():
 #-----------------------------------------------------------------------------
 class RenPyBlock(RenPyObject):
   def __init__(self, ln, ind):
+    #type: (int, int) -> None
     super().__init__(ln, ind);
     self.objType = "Block";
 
   def __repr__(self):
+    #type: () -> str
     return("blk(" + str(self.lineNum) + "," + str(self.indent) + ")");
 
 #-----------------------------------------------------------------------------
@@ -45,33 +52,37 @@ class RenPyIf(RenPyObject):
 #-----------------------------------------------------------------------------
 class RenPyThread():
   def __init__(self, v, s):
+    #type: (dict[str,str], list[RenPyObject]) -> None
     self.vars  = v;
     self.stack = s;
 
   def __eq__(self, other):
+    #type: (RenPyThread) -> bool
     return self.vars == other.vars and self.stack == other.stack;
 
 #-----------------------------------------------------------------------------
 class RenPyFile():
   def __init__(self):
-    self.lines     = [];
-    self.numLines  = 0;
-    self.labelList = {};
-    self.backMap   = {};
-    self.charMap   = {};
-    self.v6Map     = {};
-    self.charFlip  = [];
-    self.visLines  = [];
-    self.showLines = [];
+    self.lines     = [] #type: list[str]
+    self.numLines  = 0
+    self.labelList = {} #type: dict[str, int]
+    self.backMap   = {} #type: dict[str, str]
+    self.charMap   = {} #type: dict[str, dict[str,str]]
+    self.v6Map     = {} #type: dict[str, dict[str,str]]
+    self.charFlip  = [] #type: list[str]
+    self.visLines  = [] #type: list[int]
+    self.showLines = [] #type: list[int]
     self.trackVis  = False;
-    self.lineModifiedFlags = {};
+    self.lineModifiedFlags = {} #type: dict[int, bool]
 
   def readFile(self, fn):
+    #type: (str) -> None
     text_file = open(fn, "r", encoding="utf8");
     self.lines = text_file.readlines();
     self.numLines = len(self.lines);
 
   def writeFile(self, fn):
+    #type: (str) -> None
     with open(fn, "w", encoding="utf8") as outfile:
       outfile.writelines(self.lines);
 
@@ -88,6 +99,7 @@ class RenPyFile():
       i = i + 1;
 
   def indentIsGood(self, lineNum, indent):
+    #type: (int, int) -> bool
     i = 0;
     line = self.lines[lineNum];
     lineLen = len(line);
@@ -102,6 +114,7 @@ class RenPyFile():
     return True;
 
   def blockEndLine(self, lineNum, indent):
+    #type: (int, int) -> int
     i = lineNum;
     while(i < self.numLines):
       if (not(self.indentIsGood(i, indent))):
@@ -110,6 +123,7 @@ class RenPyFile():
     return i;
 
   def getIndentOf(self, line):
+    #type: (str) -> int
     indent = 0;
     lineLen = len(line);
 
@@ -120,6 +134,7 @@ class RenPyFile():
   # Ensures a 'show' line has an 'xzoom' instruction
   # Existing xzoom isn't changed, missing gets xzoom 1
   def addXZoom(self, lineNum):
+    #type: (int) -> None
     line = self.lines[lineNum];
     fields = line.strip().strip(":").split();
     if (fields[1] == "bg"):
@@ -161,6 +176,7 @@ class RenPyFile():
 
   # Reverses an xzoom line in a 'show' statement
   def reverseXZoom(self, lineNum):
+    #type: (int) -> None
     line = self.lines[lineNum];
     fields = line.strip().strip(":").split();
     if (fields[1] == "bg"):
@@ -194,17 +210,21 @@ class RenPyFile():
       i = i + 1;
 
   def labelIsAcceptable(self, label):
+    #type: (str) -> bool
     return True;
 
   def hookIf(self, thread):
+    #type: (RenPyThread) -> None
     pass;
 
   def processCG(self, line):
+    #type: (str) -> str
     return line;
 
 #-----------------------------------------------------------------------------
 class RenPyFileCiel(RenPyFile):
   def __init__(self, b, c, v6):
+    #type: (dict[str, str], dict[str, dict[str,str]], dict[str, dict[str,str]]) -> None
     super().__init__();
     self.backMap = b;
     self.charMap = c;
@@ -213,6 +233,7 @@ class RenPyFileCiel(RenPyFile):
     self.trackVis = True;
 
   def readFile(self, fn):
+    #type: (str) -> None
     super().readFile(fn);
 
     # Patch the initial hide of Calvin
@@ -221,12 +242,14 @@ class RenPyFileCiel(RenPyFile):
 #-----------------------------------------------------------------------------
 class RenPyFileEliza(RenPyFile):
   def __init__(self, b, c, v6):
+    #type: (dict[str, str], dict[str, dict[str,str]], dict[str, dict[str,str]]) -> None
     super().__init__();
     self.backMap = b;
     self.charMap = c;
     self.v6Map = v6;
 
   def readFile(self, fn):
+    #type: (str) -> None
     super().readFile(fn);
 
     # Patch the timer
@@ -242,9 +265,11 @@ class RenPyFileEliza(RenPyFile):
     self.lines[589] = self.lines[589].replace("14", "15");
 
   def labelIsAcceptable(self, label):
+    #type: (str) -> bool  
     return not("goopy" in label);
 
   def hookIf(self, thread):
+    #type: (RenPyThread) -> None
     # Short-circuit the recursion in the joke Christine endings
     obj = thread.stack[-1];
     if (obj.lineNum == 10181):
@@ -253,6 +278,7 @@ class RenPyFileEliza(RenPyFile):
 #-----------------------------------------------------------------------------
 class RenPyFileGoopy(RenPyFile):
   def __init__(self, b, c, v6):
+    #type: (dict[str, str], dict[str, dict[str,str]], dict[str, dict[str,str]]) -> None
     super().__init__();
     self.backMap = b;
     self.charMap = c;
@@ -261,6 +287,7 @@ class RenPyFileGoopy(RenPyFile):
     self.trackVis = True;
 
   def readFile(self, fn):
+    #type: (str) -> None
     super().readFile(fn);
 
     # Patch the menu to enable the Goopy path
@@ -282,6 +309,7 @@ class RenPyFileGoopy(RenPyFile):
     self.lines[69775] = "\n";
 
   def processCG(self, line):
+    #type: (str) -> str
     fields = line.strip().strip(":").split();
     fields[1] = "cgex";
     rv = (" " * self.getIndentOf(line)) + " ".join(fields);
