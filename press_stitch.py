@@ -1,6 +1,7 @@
 #-----------------------------------------------------------------------------
 # press-stitch.py
 # Merges the three Press Switch games together
+# pylint: disable=bad-indentation
 #-----------------------------------------------------------------------------
 
 import getopt
@@ -299,14 +300,17 @@ inlineErrors = False;
 
 #-----------------------------------------------------------------------------
 def printRed(s):
+  #type: (str) -> None
   print("\033[1;31m" + s + "\033[0m");
 
 #-----------------------------------------------------------------------------
 def showError(txt):
+  #type: (str) -> None
   printRed("Error: " + txt);
 
 #-----------------------------------------------------------------------------
 def flagError(rpFile, lineNum, txt):
+  #type: (rpp.RenPyFile, int, str) -> str
   showError("Line " + str(lineNum) + ": " + txt);
   if inlineErrors:
     return rpFile.lines[lineNum].strip('\n') + "  # ERROR: " + txt + "\n";
@@ -315,6 +319,7 @@ def flagError(rpFile, lineNum, txt):
 
 #-----------------------------------------------------------------------------
 def md5(fname):
+  #type: (str) -> str
   hash_md5 = hashlib.md5()
   with open(fname, "rb") as f:
     for chunk in iter(lambda: f.read(4096), b""):
@@ -323,6 +328,7 @@ def md5(fname):
 
 #-----------------------------------------------------------------------------
 def verifySingleFile(filename, desiredHash):
+  #type: (str, str) -> bool
   print("Verifying " + filename + "...");
   if (not(os.path.exists(filename))):
     showError("File does not exist!");
@@ -340,18 +346,21 @@ def verifySingleFile(filename, desiredHash):
 
 #-----------------------------------------------------------------------------
 def unzipFile(filename):
+  #type: (str) -> None
   print("Unzipping file " + filename + "...");
   with zipfile.ZipFile(filename, 'r') as zip_ref:
     zip_ref.extractall(".")
 
 #-----------------------------------------------------------------------------
 def removeDir(filename):
+  #type: (str) -> None
   if os.path.isdir(pathlib.Path(filename)):
     print("Removing directory " + filename + "...");
     shutil.rmtree(filename);
 
 #-----------------------------------------------------------------------------
 def checkFile(dirname, checksum):
+  #type: (str, str) -> bool
   if os.path.isdir(pathlib.Path(dirname)):
     print("Directory " + dirname + " exists, ZIP extract skipped");
     return True;
@@ -365,6 +374,7 @@ def checkFile(dirname, checksum):
 
 #-----------------------------------------------------------------------------
 def doMakeDir(path):
+  #type: (str) -> None
   if (os.path.isdir(pathlib.Path(path))):
     print("Directory " + path + " already exists, skipping creation");
   else:
@@ -373,12 +383,14 @@ def doMakeDir(path):
 
 #-----------------------------------------------------------------------------
 def doCopyFile(srcPath, dstPath, filename):
+  #type: (str, str, str) -> None
   srcFile = os.path.join(srcPath, filename);
   print("Copying file " + srcFile + " into " + dstPath);
   shutil.copy(srcFile, dstPath);
 
 #-----------------------------------------------------------------------------
 def isNumberField(s):
+  #type: (str) -> bool
   for c in s:
     if not(c in "0123456789"):
       return False;
@@ -386,12 +398,14 @@ def isNumberField(s):
 
 #-----------------------------------------------------------------------------
 def expandNumberField(s):
+  #type: (str) -> str
   if not(isNumberField(s)):
     return s;
   return s.zfill(3);
 
 #-----------------------------------------------------------------------------
 def getIndentOf(line):
+  #type: (str) -> int
   indent = 0;
   lineLen = len(line);
 
@@ -401,6 +415,7 @@ def getIndentOf(line):
 
 #-----------------------------------------------------------------------------
 def processCommand(rpFile, thread, lineNum, line):
+  #type: (rpp.RenPyFile, rpp.RenPyThread, int, str) -> None
   fields = list(csv.reader([line], delimiter=' '))[0];
 
   if (len(fields) < 2):
@@ -437,6 +452,7 @@ def processCommand(rpFile, thread, lineNum, line):
 
 #-----------------------------------------------------------------------------
 def calculateCondition(thread, lineNum, fields):
+  #type: (rpp.RenPyThread, int, list[str]) -> bool
   offset = 1;
   while(offset < len(fields)):
     varname   = fields[offset];
@@ -471,6 +487,7 @@ def calculateCondition(thread, lineNum, fields):
 
 #-----------------------------------------------------------------------------
 def processIfStep(rpFile, thread):
+  #type: (rpp.RenPyFile, rpp.RenPyThread) -> None
   obj = thread.stack[-1];
   line = rpFile.lines[obj.lineNum].split(':')[0];
   fields = line.split();
@@ -504,6 +521,7 @@ def processIfStep(rpFile, thread):
 
 #-----------------------------------------------------------------------------
 def processBlockStep(rpFile, thread):
+  #type: (rpp.RenPyFile, rpp.RenPyThread) -> None
   blk = thread.stack[-1];
   i = blk.lineNum;
   indent = blk.indent;
@@ -569,6 +587,7 @@ def processBlockStep(rpFile, thread):
 #-----------------------------------------------------------------------------
 # On entry, lineNum points to the menu: line
 def processMenuStep(rpFile, thread, lineNum):
+  #type: (rpp.RenPyFile, rpp.RenPyThread, int) -> None
   global threads;
 
   indent = getIndentOf(rpFile.lines[lineNum]) + 4;
@@ -612,6 +631,7 @@ def processMenuStep(rpFile, thread, lineNum):
 
 #-----------------------------------------------------------------------------
 def processShow(rpFile, thread, lineNum):
+  #type: (rpp.RenPyFile, rpp.RenPyThread, int) -> str
   line = rpFile.lines[lineNum];
   fields = line.strip().strip(":").split();
 
@@ -807,6 +827,7 @@ def processShow(rpFile, thread, lineNum):
 
 #-----------------------------------------------------------------------------
 def processNextThread(rpFile):
+  #type: (rpp.RenPyFile) -> None
   global threads;
 
   thread = threads.pop();
@@ -823,6 +844,7 @@ def processNextThread(rpFile):
 
 #-----------------------------------------------------------------------------
 def addLabelCall(rpFile, l, thread):
+  #type: (rpp.RenPyFile, str, rpp.RenPyThread) -> None
   if not(rpFile.labelIsAcceptable(l)):
     return;
 
@@ -830,6 +852,7 @@ def addLabelCall(rpFile, l, thread):
 
 #-----------------------------------------------------------------------------
 def processLabelCall(rpFile, l, v):
+  #type: (rpp.RenPyFile, str, dict[str, str]) -> None
   global threads;
 
   lineNum = rpFile.labelList[l] + 1;
@@ -842,6 +865,7 @@ def processLabelCall(rpFile, l, v):
 
 #-----------------------------------------------------------------------------
 def iterateLabelCalls(rpFile):
+  #type: (rpp.RenPyFile) -> None
   global threads;
   global labelCalls;
 
