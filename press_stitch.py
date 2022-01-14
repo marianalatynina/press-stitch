@@ -736,7 +736,7 @@ def processShow(rpFile, thread, lineNum):
       modifiers = modifiers + " " + fields[i];
     i = i + 1;
 
-  if (exFile == (swappedCharName + "_ex")):
+  if (exFile == (swappedCharName + "_ex")) or (exFile == (swappedCharName + "_ex_full")):
     # It's something like "show candice with dissolve", with no fields so nothing to do
     return line;
 

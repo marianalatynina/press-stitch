@@ -145,16 +145,4 @@ characterMapKaryn = {
   "karyn_ex_full_020_003":                 "karyn_ex_full_017_003",
   "karyn_ex_full_021_003":                 "karyn_ex_full_018_003",
   "karyn_ex_full_022_003":                 "karyn_ex_full_019_003",
-  "karyn_ex_001":                          "karyn_ex_001",                          # Not in 0.4, not sure how this works
-  "karyn_ex_003_grin_001":                 "karyn_ex_003_grin_001",                 # Not in 0.4, not sure how this works
-  "karyn_ex_003_grin2_001":                "karyn_ex_003_grin2_001",                # Not in 0.4, not sure how this works
-  "karyn_ex_007_open_001":                 "karyn_ex_007_open_001",                 # Not in 0.4, not sure how this works
-  "karyn_ex_007_smile_001":                "karyn_ex_007_smile_001",                # Not in 0.4, not sure how this works
-  "karyn_ex_007_smile2_001":               "karyn_ex_007_smile2_001",               # Not in 0.4, not sure how this works
-  "karyn_ex_008_open_001":                 "karyn_ex_008_open_001",                 # Not in 0.4, not sure how this works
-  "karyn_ex_009_open_001":                 "karyn_ex_009_open_001",                 # Not in 0.4, not sure how this works
-  "karyn_ex_009_smile_001":                "karyn_ex_009_smile_001",                # Not in 0.4, not sure how this works
-  "karyn_ex_010_open_001":                 "karyn_ex_010_open_001",                 # Not in 0.4, not sure how this works
-  "karyn_ex_010_smile_001":                "karyn_ex_010_smile_001",                # Not in 0.4, not sure how this works
-  "karyn_ex_full_001":                     "karyn_ex_full_001",                     # Not in 0.4, not sure how this works
 }
