@@ -1108,6 +1108,28 @@ def main(argv):
   # Write the updated effects.rpy back out
   effectsFile.writeFile(os.path.join(dstPath, "effects.rpy"));
 
+  # Read options.rpy into memory
+  print("Patching effects.rpy...");
+  optionsFile = rpp.RenPyFile();
+  optionsFile.readFile(os.path.join(extPath5, "options.rpy"));
+
+  # Patch the version number
+  optionsFile.lines[25] = "    config.version = \"0.5c-merged\"\n";
+
+  # Write the updated effects.rpy back out
+  optionsFile.writeFile(os.path.join(dstPath, "options.rpy"));
+
+  # Read screens.rpy into memory
+  print("Patching screens.rpy...");
+  screensFile = rpp.RenPyFile();
+  screensFile.readFile(os.path.join(extPath5, "screens.rpy"));
+
+  # Patch the version number
+  screensFile.lines[190] = "        text \"{=bio_font}{size=+10}{color=32eeff}Press-Switch V:0.5c-merged{/color}{/size}{/bio_font}\":\n";
+
+  # Write the updated effects.rpy back out
+  screensFile.writeFile(os.path.join(dstPath, "screens.rpy"));
+
 #-----------------------------------------------------------------------------
 # Hook to call main
 if __name__ == "__main__":
