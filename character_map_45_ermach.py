@@ -14,7 +14,7 @@ characterMapErmach = {
   "ermach_ex_004_001":                     "ermach_ex_004_001",                     # Auto: Edited
   "ermach_ex_004_open2_001":               "ermach_ex_004_open2_001",               # Auto: Edited
   "ermach_ex_004_open_001":                "ermach_ex_004_open_001",                # Auto: Edited
-  "ermach_ex_004_smile_001":               "ermach_ex_004_smile_001",
+  "ermach_ex_004_smile_001":               "ermach_ex_004__smile_001",
   "ermach_ex_005_001":                     "ermach_ex_005_001",                     # Auto: Edited
   "ermach_ex_005_aroused2_001":            "ermach_ex_005_aroused2_001",            # Auto: Edited
   "ermach_ex_005_aroused_001":             "ermach_ex_005_aroused_001",             # Auto: Edited
@@ -34,7 +34,7 @@ characterMapErmach = {
   "ermach_ex_full_004_001":                "ermach_ex_full_004_001",                # Auto: Edited
   "ermach_ex_full_004_open2_001":          "ermach_ex_full_004_open2_001",          # Auto: Edited
   "ermach_ex_full_004_open_001":           "ermach_ex_full_004_open_001",           # Auto: Edited
-  "ermach_ex_full_004_smile_001":          "ermach_ex_full_004_smile_001",
+  "ermach_ex_full_004_smile_001":          "ermach_ex_full_004__smile_001",
   "ermach_ex_full_005_001":                "ermach_ex_full_005_001",                # Auto: Edited
   "ermach_ex_full_005_aroused2_001":       "ermach_ex_full_005_aroused2_001",       # Auto: Edited
   "ermach_ex_full_005_aroused_001":        "ermach_ex_full_005_aroused_001",        # Auto: Edited

@@ -38,7 +38,7 @@ characterMapMelina = {
   "melina_ex_full_009_002":                "melina_ex_full_008_open_002",
   "melina_ex_full_010_002":                "melina_ex_full_010_002",                # Auto: Edited
   "melina_ex_full_011_002":                "melina_ex_full_009_002",
-  "melina_ex_full_012_002":                "melina_ex_full_09_closed2_002",
+  "melina_ex_full_012_002":                "melina_ex_full_009_closed2_002",
   "melina_ex_full_013_002":                "melina_ex_full_011_002",
   "melina_ex_full_014_002":                "melina_ex_full_012_002",
   "melina_mut_headband_001":               "",                                      # Auto: Deleted

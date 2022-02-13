@@ -896,6 +896,35 @@ def iterateLabelCalls(rpFile):
     iterations += 1;
 
 #-----------------------------------------------------------------------------
+def verifySingleCharacterMapping(charName, desc, mapTable, charactersDir):
+  charUpper = charName.capitalize();
+  imageDir = os.path.join(charactersDir, charUpper);
+
+  # Make a list of filenames converted to lowercase
+  filesLower = [];
+  for filename in os.listdir(imageDir):
+    filesLower.append(filename.lower());
+
+  for k in mapTable:
+    if not(mapTable[k] == ""):
+      if not(mapTable[k] + ".png" in filesLower):
+        printRed("ERROR: Key '" + k + "', value '" + mapTable[k] + "': Map destination file not found");
+        return False;
+
+      # Fix up double underscores in v4 Melina filenames
+      mapTable[k] = mapTable[k].replace("__", "_");
+
+  return True;
+
+#-----------------------------------------------------------------------------
+def verifyCharacterMapping(desc, mapTable, extractedDir):
+  imageDir = os.path.join(extractedDir, "Characters");
+  for charName in mapTable:
+    if not(verifySingleCharacterMapping(charName, desc, mapTable[charName], imageDir)):
+      return False;
+  return True;
+
+#-----------------------------------------------------------------------------
 # Main program
 def main(argv):
   global inlineErrors;
@@ -962,6 +991,12 @@ def main(argv):
   extPath5 = os.path.join("Extracted", filename_05);
   dstPath  = os.path.join(filename_05, "game");
   v6map = {};
+
+  if not(verifyCharacterMapping("v3 to v5", characterImageMap35, extPath5)):
+    sys.exit(1);
+
+  if not(verifyCharacterMapping("v4 to v5", characterImageMap45, extPath5)):
+    sys.exit(1);
 
   if doV6:
     v6map = characterImageMap56;
@@ -1056,7 +1091,7 @@ def main(argv):
     iterateLabelCalls(goopyPath);
 
     # Flip the affected V3 characters
-    #goopyPath.doFlips();
+    goopyPath.doFlips();
 
     # Write the updated ElizaPath.rpy back out
     goopyPath.writeFile(os.path.join(dstPath, "Story", "ElizaPath.rpy"));

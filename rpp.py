@@ -165,14 +165,10 @@ class RenPyFile():
   def doFlips(self):
     for lineNum in sorted(self.visLines, reverse=True):
       self.addXZoom(lineNum);
-    self.numLines = len(self.lines);
-
-    # Reverse all xzoom calls for affected characters
-    for i in self.showLines:
-      strippedLine = self.lines[i].strip();
+      strippedLine = self.lines[lineNum].strip();
       if (strippedLine.startswith("show")):
-        self.reverseXZoom(i);
-      i = i + 1;
+        self.reverseXZoom(lineNum);
+    self.numLines = len(self.lines);
 
   # Reverses an xzoom line in a 'show' statement
   def reverseXZoom(self, lineNum):
