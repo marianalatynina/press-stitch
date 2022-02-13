@@ -808,7 +808,7 @@ def processShow(rpFile, thread, lineNum):
     newLine += " ";
     indent = indent + 1;
 
-  newLine += "show " + fields[1] + base;
+  newLine += "show " + rpFile.addMutators(fields[1]) + base;
 
   i = 2;
   while i < len(mappedFields) - 1:

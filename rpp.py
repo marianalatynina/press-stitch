@@ -217,6 +217,10 @@ class RenPyFile():
     #type: (str) -> str
     return line;
 
+  def addMutators(self, charName):
+    #type: (str) -> str
+    return charName;
+
 #-----------------------------------------------------------------------------
 class RenPyFileCiel(RenPyFile):
   def __init__(self, b, c, v6):
@@ -234,6 +238,12 @@ class RenPyFileCiel(RenPyFile):
 
     # Patch the initial hide of Calvin
     self.lines[5] = "    hide maind\n";
+
+  def addMutators(self, charName):
+    #type: (str) -> str
+    if (charName == "ciel"):
+      return "ciel hair headband";
+    return charName;
 
 #-----------------------------------------------------------------------------
 class RenPyFileEliza(RenPyFile):
@@ -312,3 +322,9 @@ class RenPyFileGoopy(RenPyFile):
     if ":" in line:
       rv += ":";
     return rv + "\n";
+
+  def addMutators(self, charName):
+    #type: (str) -> str
+    if (charName == "ciel"):
+      return "ciel hair headband";
+    return charName;
