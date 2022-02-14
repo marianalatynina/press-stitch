@@ -270,6 +270,11 @@ class RenPyFileEliza(RenPyFile):
     self.lines[587] = self.lines[587].replace("14", "15");
     self.lines[589] = self.lines[589].replace("14", "15");
 
+    # Rename Jillian's "maid opened" base to "maidop"
+    self.lines[25654] = self.lines[25654].replace("maid opened", "maidop");
+    self.lines[25657] = self.lines[25657].replace("maid opened", "maidop");
+    self.lines[25660] = self.lines[25660].replace("maid opened", "maidop");
+
   def labelIsAcceptable(self, label):
     #type: (str) -> bool  
     return not("goopy" in label);
