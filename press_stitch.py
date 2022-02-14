@@ -1109,7 +1109,7 @@ def main(argv):
   effectsFile.writeFile(os.path.join(dstPath, "effects.rpy"));
 
   # Read options.rpy into memory
-  print("Patching effects.rpy...");
+  print("Patching options.rpy...");
   optionsFile = rpp.RenPyFile();
   optionsFile.readFile(os.path.join(extPath5, "options.rpy"));
 
