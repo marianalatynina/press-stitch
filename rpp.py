@@ -95,7 +95,8 @@ class RenPyFile():
         fields = strippedLine.strip(":").split();
         if (fields[0] == "label"):
           label = fields[1];
-          self.labelList[label] = i;
+          if self.labelIsAcceptable(label):
+            self.labelList[label] = i;
       i = i + 1;
 
   def indentIsGood(self, lineNum, indent):
@@ -277,7 +278,13 @@ class RenPyFileEliza(RenPyFile):
 
   def labelIsAcceptable(self, label):
     #type: (str) -> bool  
-    return not("goopy" in label);
+    if ("goopy" in label):
+      return False;
+    if (label == "kpathendroundup2"):
+      return False;
+    if label.startswith("endingclone"):
+      return False;
+    return True;
 
   def hookIf(self, thread):
     #type: (RenPyThread) -> None

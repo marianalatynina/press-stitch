@@ -437,8 +437,21 @@ def processCommand(rpFile, thread, lineNum, line):
   #print(str(lineNum) + ": Command " + str(fields));
 
   if (fields[1] == "="):
-    thread.vars[pyVar] = pyVal;
-    #print("Variable '" + pyVar + "' becomes '" + pyVal + "'");
+    if (fields[2].startswith("renpy.random.choice([")):
+      choiceList = line.split('[')[1].strip(')').strip(']').split();
+      for choice in choiceList:
+        pyVal = choice.strip(',').strip('\'');
+        #print("Spawning thread for random choice: " + pyVal);
+        newThread = copy.deepcopy(thread);
+        newThread.vars[pyVar] = pyVal;
+        newThread.stack[-1].lineNum = lineNum + 1;  # Start on next line
+        threads.append(newThread);
+      # Kill the current thread because the children threads of the random
+      # choice will continue from here
+      thread.stack = [];
+    else:
+      thread.vars[pyVar] = pyVal;
+      #print("Variable '" + pyVar + "' becomes '" + pyVal + "'");
   elif (fields[1] == "+="):
     if not(pyVar in thread.vars):
       flagError(rpFile, lineNum, "Variable '" + pyVar + "' not found in thread");
@@ -556,17 +569,17 @@ def processBlockStep(rpFile, thread):
     i += 1;
   elif (strippedLine.startswith("jump")):
     label = strippedLine.split()[1];
+    if not(rpFile.labelIsAcceptable(label)):
+      # Kill this thread, it jumped. Nothing to do though!
+      thread.stack = [];
+      return;
     if not(label in rpFile.labelList):
       print("External jump: " + label);
       thread.stack = [];  # Kill this thread, it jumped out of the file
       return;
-    jumpDest = rpFile.labelList[label];
-    if (not((label == "kpathendroundup2") or label.startswith("endingclone")) or (jumpDest > blk.lineNum)):
-      addLabelCall(rpFile, label, thread);
-      thread.stack = [];  # Kill this thread, it jumped
-      return;
-    else:
-      i = i + 1;
+    addLabelCall(rpFile, label, thread);
+    thread.stack = [];  # Kill this thread, it jumped
+    return;
   elif (strippedLine.startswith("show") or strippedLine.startswith("scene")):
     if rpFile.trackVis and strippedLine.startswith("scene"):
       for varName in thread.vars:
