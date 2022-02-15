@@ -1149,7 +1149,7 @@ def main(argv):
   iidaPathFile.readFile(os.path.join(extPath5, "Story", "Device_Iida_Path.rpy"));
 
   # Fix typo for expression
-  iidaPathFile.lines[19168] = "        show maind 5 open\n"
+  iidaPathFile.lines[19168] = "        show maind 5 open2\n"
 
   # Write the updated effects.rpy back out
   iidaPathFile.writeFile(os.path.join(dstPath, "Story", "Device_Iida_Path.rpy"));
