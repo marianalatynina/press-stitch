@@ -1143,6 +1143,17 @@ def main(argv):
   # Write the updated effects.rpy back out
   screensFile.writeFile(os.path.join(dstPath, "screens.rpy"));
 
+  # Read Iida path into memory
+  print("Patching Device_Iida_Path.rpy...");
+  iidaPathFile = rpp.RenPyFile();
+  iidaPathFile.readFile(os.path.join(extPath5, "Story", "Device_Iida_Path.rpy"));
+
+  # Fix typo for expression
+  iidaPathFile.lines[19168] = "        show maind 5 open\n"
+
+  # Write the updated effects.rpy back out
+  iidaPathFile.writeFile(os.path.join(dstPath, "Story", "Device_Iida_Path.rpy"));
+
 #-----------------------------------------------------------------------------
 # Hook to call main
 if __name__ == "__main__":
