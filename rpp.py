@@ -74,6 +74,7 @@ class RenPyFile():
     self.showLines = [] #type: list[int]
     self.trackVis  = False;
     self.lineModifiedFlags = {} #type: dict[int, bool]
+    self.blockEnds = {}
 
   def readFile(self, fn):
     #type: (str) -> None
@@ -116,11 +117,15 @@ class RenPyFile():
 
   def blockEndLine(self, lineNum, indent):
     #type: (int, int) -> int
+    if (lineNum, indent) in self.blockEnds:
+      return self.blockEnds[(lineNum, indent)];
     i = lineNum;
     while(i < self.numLines):
       if (not(self.indentIsGood(i, indent))):
+        self.blockEnds[(lineNum, indent)] = i;
         return i;
       i = i + 1;
+    self.blockEnds[(lineNum, indent)] = i;
     return i;
 
   def getIndentOf(self, line):
