@@ -895,7 +895,6 @@ def iterateLabelCalls(rpFile):
       if not(labelCall in labelCalls):
         processLabelCall(rpFile, labelCall.label, labelCall.vars);
       else:
-        print("Ignoring duplicate call");
         duplicates += 1;
 
     # Process threads
@@ -903,8 +902,8 @@ def iterateLabelCalls(rpFile):
     while(len(threads) > 0):
       processNextThread(rpFile);
       numThreads += 1;
-      if (len(threads) % 10) == 0:
-        print("[Depth " + str(iterations) + "] Paths: " + str(duplicates) + " dupe, " + str(numThreads) + " total, " + str(len(threads)) + " left this depth");
+      if (len(threads) % 20) == 0:
+        print("[Depth " + str(iterations) + "] " + str(duplicates) + " duplicate paths, " + str(numThreads) + " total paths, " + str(len(threads)) + " left this depth");
 
     iterations += 1;
 
