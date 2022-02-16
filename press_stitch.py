@@ -1140,7 +1140,7 @@ def main(argv):
   # Patch the version number
   screensFile.lines[190] = "        text \"{=bio_font}{size=+10}{color=32eeff}Press-Switch V:0.5c-merged{/color}{/size}{/bio_font}\":\n";
 
-  # Write the updated effects.rpy back out
+  # Write the updated file back out
   screensFile.writeFile(os.path.join(dstPath, "screens.rpy"));
 
   # Read Iida path into memory
@@ -1151,8 +1151,19 @@ def main(argv):
   # Fix typo for expression
   iidaPathFile.lines[19168] = "        show maind 5 open2\n"
 
-  # Write the updated effects.rpy back out
+  # Write the updated file back out
   iidaPathFile.writeFile(os.path.join(dstPath, "Story", "Device_Iida_Path.rpy"));
+
+  # Read Iida path into memory
+  print("Patching script.rpy...");
+  scriptFile = rpp.RenPyFile();
+  scriptFile.readFile(os.path.join(extPath5, "script.rpy"));
+
+  # Fix typo for expression
+  scriptFile.lines[611] = "        side \"r\":\n"
+
+  # Write the updated file back out
+  scriptFile.writeFile(os.path.join(dstPath, "script.rpy"));
 
 #-----------------------------------------------------------------------------
 # Hook to call main
