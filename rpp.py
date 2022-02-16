@@ -75,6 +75,7 @@ class RenPyFile():
     self.trackVis  = False;
     self.lineModifiedFlags = {} #type: dict[int, bool]
     self.blockEnds = {}
+    self.indentsGood = {}
 
   def readFile(self, fn):
     #type: (str) -> None
@@ -102,17 +103,22 @@ class RenPyFile():
 
   def indentIsGood(self, lineNum, indent):
     #type: (int, int) -> bool
+    if (lineNum, indent) in self.indentsGood:
+      return self.indentsGood[(lineNum, indent)];
     i = 0;
     line = self.lines[lineNum];
     lineLen = len(line);
     while(i < lineLen):
       if (i == indent):
+        self.indentsGood[(lineNum, indent)] = True;
         return True;
       if ((line[i] != ' ') and (line[i] != '\r') and (line[i] != '\n')):
+        self.indentsGood[(lineNum, indent)] = False;
         return False;
       i = i + 1;
 
     # Line is shorter than indent with no characters, this is fine
+    self.indentsGood[(lineNum, indent)] = True;
     return True;
 
   def blockEndLine(self, lineNum, indent):
