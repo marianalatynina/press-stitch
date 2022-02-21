@@ -4,6 +4,20 @@
 # pylint: disable=bad-indentation
 #-----------------------------------------------------------------------------
 
+from enum import IntEnum
+
+class LineType(IntEnum):
+  OTHER  = 1
+  MENU   = 2
+  RETURN = 3
+  IF     = 4
+  ELSE   = 5
+  HIDE   = 6
+  JUMP   = 7
+  SHOW   = 8
+  DOLLAR = 9
+  LABEL  = 10
+
 #-----------------------------------------------------------------------------
 class RenPyLabelCall():
   def __init__(self, l, v):
@@ -23,10 +37,11 @@ class RenPyLabelCall():
 class RenPyObject():
   def __init__(self, ln, ind):
     #type: (int, int) -> None
-    self.objType = "Object";
-    self.done    = False;
-    self.lineNum = ln;
-    self.indent  = ind;
+    self.objType   = "Object";
+    self.done      = False;
+    self.lineNum   = ln;
+    self.startLine = ln;
+    self.indent    = ind;
 
 #-----------------------------------------------------------------------------
 class RenPyBlock(RenPyObject):
@@ -37,7 +52,7 @@ class RenPyBlock(RenPyObject):
 
   def __repr__(self):
     #type: () -> str
-    return("blk(" + str(self.lineNum) + "," + str(self.indent) + ")");
+    return("blk(" + str(self.startLine) + "," + str(self.indent) + ") processing line " + str(self.lineNum));
 
 #-----------------------------------------------------------------------------
 class RenPyIf(RenPyObject):
@@ -47,18 +62,19 @@ class RenPyIf(RenPyObject):
     self.hasExecuted = False;
 
   def __repr__(self):
-    return("if(" + str(self.lineNum) + "," + str(self.indent) + ")");
+    return("if(" + str(self.startLine) + "," + str(self.indent) + ") processing line " + str(self.lineNum));
 
 #-----------------------------------------------------------------------------
 class RenPyThread():
-  def __init__(self, v, s):
+  def __init__(self, l, v, s):
     #type: (dict[str,str], list[RenPyObject]) -> None
+    self.label = l;
     self.vars  = v;
     self.stack = s;
 
   def __eq__(self, other):
     #type: (RenPyThread) -> bool
-    return self.vars == other.vars and self.stack == other.stack;
+    return self.vars == other.vars and self.stack == other.stack and self.label == other.label;
 
 #-----------------------------------------------------------------------------
 class RenPyFile():
@@ -76,6 +92,7 @@ class RenPyFile():
     self.lineModifiedFlags = {} #type: dict[int, bool]
     self.blockEnds = {}
     self.indentsGood = {}
+    self.lineTypes = {}
 
   def readFile(self, fn):
     #type: (str) -> None
@@ -127,7 +144,7 @@ class RenPyFile():
       return self.blockEnds[(lineNum, indent)];
     i = lineNum;
     while(i < self.numLines):
-      if (not(self.indentIsGood(i, indent))):
+      if not(self.indentIsGood(i, indent)):
         self.blockEnds[(lineNum, indent)] = i;
         return i;
       i = i + 1;
@@ -212,10 +229,34 @@ class RenPyFile():
     i = 0;
     self.lineModifiedFlags = {};
     while i < self.numLines:
-      strippedLine = self.lines[i].strip();
-      if (strippedLine.startswith("show") or strippedLine.startswith("scene")):
+      lineType = self.getLineTypeNoCache(i);
+      self.lineTypes[i] = lineType;
+      if (lineType == LineType.SHOW):
         self.lineModifiedFlags[i] = False;
       i = i + 1;
+
+  def getLineTypeNoCache(self, lineNum):
+    line = self.lines[lineNum].strip();
+    if (line.startswith("menu:")):
+      return LineType.MENU;
+    elif (line.startswith("return")):
+      return LineType.RETURN;
+    elif (line.startswith("if ")):
+      return LineType.IF;
+    elif (line.startswith("elif ") or line.startswith("else:")):
+      return LineType.ELSE;
+    elif (line.startswith("hide")):
+      return LineType.HIDE;
+    elif (line.startswith("jump")):
+      return LineType.JUMP;
+    elif (line.startswith("label")):
+      return LineType.LABEL;
+    elif (line.startswith("show") or line.startswith("scene")):
+      return LineType.SHOW;
+    elif (line.startswith("$")):
+      return LineType.DOLLAR;
+    else:
+      return LineType.OTHER;
 
   def labelIsAcceptable(self, label):
     #type: (str) -> bool
@@ -303,6 +344,12 @@ class RenPyFileEliza(RenPyFile):
     obj = thread.stack[-1];
     if (obj.lineNum == 10181):
       thread.vars["JokeEnding"] = "5";
+
+  def addMutators(self, charName):
+    #type: (str) -> str
+    if (charName == "ciel"):
+      return "cield";
+    return charName;
 
 #-----------------------------------------------------------------------------
 class RenPyFileGoopy(RenPyFile):

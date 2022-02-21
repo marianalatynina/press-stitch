@@ -450,6 +450,10 @@ def processCommand(rpFile, thread, lineNum, line):
       # choice will continue from here
       thread.stack = [];
     else:
+      pyVal = line.split('=')[1].strip().strip('"').strip('\'');
+      if (".display" in pyVar) and ("hillary school" in pyVal):
+        pyVal = "hillary";
+        rpFile.lines[lineNum] = rpFile.lines[lineNum].replace("hillary school", "hillary");
       thread.vars[pyVar] = pyVal;
       #print("Variable '" + pyVar + "' becomes '" + pyVal + "'");
   elif (fields[1] == "+="):
@@ -537,37 +541,44 @@ def processBlockStep(rpFile, thread):
   #type: (rpp.RenPyFile, rpp.RenPyThread) -> None
   blk = thread.stack[-1];
   i = blk.lineNum;
-  indent = blk.indent;
 
-  if (not(rpFile.indentIsGood(i, indent))):
+  indent = blk.indent;
+  lineType = rpFile.lineTypes[i];
+  if (not(rpFile.indentIsGood(i, indent)) and not(lineType == rpp.LineType.LABEL)):
     thread.stack.pop();
     return;
 
-  strippedLine = rpFile.lines[i].strip();
-  if (strippedLine.startswith("menu:")):
+  if (lineType == rpp.LineType.OTHER):
+    blk.lineNum = i + 1;
+    return;
+
+  if (lineType == rpp.LineType.MENU):
     # Shift the block processor to the end of the menu, so that when the
     # thread gets cloned it resumes from the right place
     blk.lineNum = rpFile.blockEndLine(i + 1, indent + 4);
     processMenuStep(rpFile, thread, i);
     return;
-  elif (strippedLine.startswith("return")):
+
+  if (lineType == rpp.LineType.RETURN):
     thread.stack = [];  # Kill the thread
     return;
-  elif (strippedLine.startswith("if ")):
+
+  if (lineType == rpp.LineType.IF):
     thread.stack.append(rpp.RenPyIf(i, indent));  # Add an IF processor to the stack
-    i = rpFile.blockEndLine(i + 1, indent + 4);
-  elif (strippedLine.startswith("elif ") or strippedLine.startswith("else:")):
-    i = rpFile.blockEndLine(i + 1, indent + 4);   # Flush it
-  elif (strippedLine.startswith("label goopy")):
-    # We hit the goopy path, no need to process this
-    thread.stack = [];  # Kill the thread
+    blk.lineNum = rpFile.blockEndLine(i + 1, indent + 4);
     return;
-  elif (strippedLine.startswith("hide")):
+
+  if (lineType == rpp.LineType.ELSE):
+    blk.lineNum = rpFile.blockEndLine(i + 1, indent + 4);   # Flush it
+    return;
+
+  strippedLine = rpFile.lines[i].strip();
+  if (lineType == rpp.LineType.HIDE):
     person = strippedLine.split()[1];
     if rpFile.trackVis and not(person == "bg"):
       thread.vars["_visible_" + person] = "0";
     i += 1;
-  elif (strippedLine.startswith("jump")):
+  elif (lineType == rpp.LineType.JUMP):
     label = strippedLine.split()[1];
     if not(rpFile.labelIsAcceptable(label)):
       # Kill this thread, it jumped. Nothing to do though!
@@ -580,7 +591,7 @@ def processBlockStep(rpFile, thread):
     addLabelCall(rpFile, label, thread);
     thread.stack = [];  # Kill this thread, it jumped
     return;
-  elif (strippedLine.startswith("show") or strippedLine.startswith("scene")):
+  elif (lineType == rpp.LineType.SHOW):
     if rpFile.trackVis and strippedLine.startswith("scene"):
       for varName in thread.vars:
         if varName.startswith("_visible_"):
@@ -589,7 +600,7 @@ def processBlockStep(rpFile, thread):
       rpFile.lines[i] = processShow(rpFile, thread, i);
       rpFile.lineModifiedFlags[i] = True;
     i = i + 1;
-  elif (strippedLine.startswith("$")):
+  elif (lineType == rpp.LineType.DOLLAR):
     processCommand(rpFile, thread, i, strippedLine.strip('$').strip());
     i = i + 1;
   else:
@@ -612,7 +623,7 @@ def processMenuStep(rpFile, thread, lineNum):
   while((lineNum < rpFile.numLines) and rpFile.indentIsGood(lineNum, indent)):
     if (getIndentOf(line) == indent):
       menuItem = line.strip('\n').strip('\r').strip();
-      if not((menuItem[0] == '#') or menuItem.startswith("\"{s}")):
+      if (":" in menuItem) and not((menuItem[0] == '#') or menuItem.startswith("\"{s}")):
         endQuote = menuItem.find("\"", 1);
         condition = ":";
         if (endQuote > 0):
@@ -711,12 +722,15 @@ def processShow(rpFile, thread, lineNum):
 
   charName = characterLabelMap[fields[1]];
   swappedCharName = charName;
+  donaldGirl = False;
   if characterDoRemap[fields[1]]:
     # Character is not a ghost, do the remap
     if (charName in personDispVars):
       swappedCharName = thread.vars[personDispVars[charName]];
     swappedFields = swappedCharName.split();
     swappedCharName = swappedFields[0];
+    if (swappedCharName == "donald") and (len(swappedFields) > 1) and (swappedFields[1] == "girl"):
+      donaldGirl = True;
 
   #i = 1;
   #while i < len(swappedFields):
@@ -726,6 +740,8 @@ def processShow(rpFile, thread, lineNum):
   filenameMode = True;
   baseMode = True;
   exFile = swappedCharName + "_ex";
+  if donaldGirl:
+    exFile += "_girl";
   modifiers = "";
   base = "";
   i = 2;
@@ -776,7 +792,12 @@ def processShow(rpFile, thread, lineNum):
 
   if not(hasMapped):
     # The .rpy file is referencing a graphic that doesn't seem to exist in the 0.4 graphics directory.
+    print("DBG: Thread started from label: " + thread.label);
     print("DBG: Vars are: " + str(thread.vars));
+    i = 0;
+    while(i < len(thread.stack)):
+      print("DBG: Stack[" + str(i) + "] = " + str(thread.stack[i]));
+      i += 1;
     return(flagError(rpFile, lineNum, "Mapping failed, source file '" + exFile + "' not found. Line being processed is: " + str(fields)));
 
   if mappedFile == "":
@@ -844,7 +865,6 @@ def processNextThread(rpFile):
   global threads;
 
   thread = threads.pop();
-
   while len(thread.stack) > 0:
     obj = thread.stack[-1];
     if (obj.objType == "Block"):
@@ -873,7 +893,7 @@ def processLabelCall(rpFile, l, v):
   indent = getIndentOf(line);
 
   blk = rpp.RenPyBlock(lineNum, indent);
-  thread = rpp.RenPyThread(v, [blk]);
+  thread = rpp.RenPyThread(l, v, [blk]);
   threads.append(thread);
 
 #-----------------------------------------------------------------------------
@@ -1000,8 +1020,10 @@ def main(argv):
 
   press_stitch_archive.unpackArchive(filename_05);
 
-  extPath5 = os.path.join("Extracted", filename_05);
-  dstPath  = os.path.join(filename_05, "game");
+  extPath5  = os.path.join("Extracted", filename_05);
+  dstPath   = os.path.join(filename_05, "game");
+  patchBase = os.path.join("Patch", filename_05);
+  patchPath = os.path.join(patchBase, "game");
   v6map = {};
 
   if not(verifyCharacterMapping("v3 to v5", characterImageMap35, extPath5)):
@@ -1012,7 +1034,13 @@ def main(argv):
 
   if doV6:
     v6map = characterImageMap56;
-    dstPath  = os.path.join(filename_06, "game");
+    dstPath = os.path.join(filename_06, "game");
+    patchPath = os.path.join("Patch", filename_06, "game");
+
+  doMakeDir("Patch");
+  doMakeDir(patchBase);
+  doMakeDir(patchPath);
+  doMakeDir(os.path.join(patchPath, "Story"));
 
   # Day-0.rpy
   print("Patching Day-0.rpy...");
@@ -1032,7 +1060,8 @@ def main(argv):
     addLabelCall(dayzero, "GameStart", rpp.RenPyThread(pyVariables.copy(), []));
     iterateLabelCalls(dayzero);
 
-  dayzero.writeFile(os.path.join(dstPath, "Story", "Day-0.rpy"));
+  dayzero.writeFile(os.path.join(dstPath,   "Story", "Day-0.rpy"));
+  dayzero.writeFile(os.path.join(patchPath, "Story", "Day-0.rpy"));
 
   if doCiel:
     # Read Cielpath.rpy into memory
@@ -1047,14 +1076,15 @@ def main(argv):
     cielPath.findShows();
 
     # Process the 'leftit' label, it's the toplevel.
-    addLabelCall(cielPath, "leftit", rpp.RenPyThread({}, []));
+    addLabelCall(cielPath, "leftit", rpp.RenPyThread("", {}, []));
     iterateLabelCalls(cielPath);
 
     # Flip the affected V3 characters
     cielPath.doFlips();
 
     # Write the updated Cielpath.rpy back out
-    cielPath.writeFile(os.path.join(dstPath, "Story", "Cielpath.rpy"));
+    cielPath.writeFile(os.path.join(dstPath,   "Story", "Cielpath.rpy"));
+    cielPath.writeFile(os.path.join(patchPath, "Story", "Cielpath.rpy"));
 
   if doEliza:
     # Read ElizaPath.rpy into memory
@@ -1072,13 +1102,14 @@ def main(argv):
       # Process the 'eliza' label, it's the toplevel.
       # We need two calls, one for the timer < 34 and one for > 30
       pyVariables["timer_value"] = 0;   # Less than 30
-      addLabelCall(elizaPath, "eliza", rpp.RenPyThread(pyVariables.copy(), []));
+      addLabelCall(elizaPath, "eliza", rpp.RenPyThread("", pyVariables.copy(), []));
       pyVariables["timer_value"] = 60;  # Greater than 30
-      addLabelCall(elizaPath, "eliza", rpp.RenPyThread(pyVariables.copy(), []));
+      addLabelCall(elizaPath, "eliza", rpp.RenPyThread("", pyVariables.copy(), []));
       iterateLabelCalls(elizaPath);
 
     # Write the updated ElizaPath.rpy back out
-    elizaPath.writeFile(os.path.join(dstPath, "Story", "ElizaPath.rpy"));
+    elizaPath.writeFile(os.path.join(dstPath,   "Story", "ElizaPath.rpy"));
+    elizaPath.writeFile(os.path.join(patchPath, "Story", "ElizaPath.rpy"));
 
   if doGoopy:
     # By default we're processing the file we just made for the 0.4 Eliza content...
@@ -1099,14 +1130,15 @@ def main(argv):
     goopyPath.findShows();
 
     # Process the path
-    addLabelCall(goopyPath, "elizagoopypath", rpp.RenPyThread({}, []));
+    addLabelCall(goopyPath, "elizagoopypath", rpp.RenPyThread("", {}, []));
     iterateLabelCalls(goopyPath);
 
     # Flip the affected V3 characters
     goopyPath.doFlips();
 
     # Write the updated ElizaPath.rpy back out
-    goopyPath.writeFile(os.path.join(dstPath, "Story", "ElizaPath.rpy"));
+    goopyPath.writeFile(os.path.join(dstPath,   "Story", "ElizaPath.rpy"));
+    goopyPath.writeFile(os.path.join(patchPath, "Story", "ElizaPath.rpy"));
 
   # Read effects.rpy into memory
   print("Patching effects.rpy...");
@@ -1118,7 +1150,8 @@ def main(argv):
   effectsFile.lines[495] = "    timer 1 repeat True action SetVariable(\"timer_value\", timer_value + 1)\n";
 
   # Write the updated effects.rpy back out
-  effectsFile.writeFile(os.path.join(dstPath, "effects.rpy"));
+  effectsFile.writeFile(os.path.join(dstPath,   "effects.rpy"));
+  effectsFile.writeFile(os.path.join(patchPath, "effects.rpy"));
 
   # Read options.rpy into memory
   print("Patching options.rpy...");
@@ -1129,7 +1162,8 @@ def main(argv):
   optionsFile.lines[25] = "    config.version = \"0.5c-merged\"\n";
 
   # Write the updated effects.rpy back out
-  optionsFile.writeFile(os.path.join(dstPath, "options.rpy"));
+  optionsFile.writeFile(os.path.join(dstPath,   "options.rpy"));
+  optionsFile.writeFile(os.path.join(patchPath, "options.rpy"));
 
   # Read screens.rpy into memory
   print("Patching screens.rpy...");
@@ -1140,7 +1174,8 @@ def main(argv):
   screensFile.lines[190] = "        text \"{=bio_font}{size=+10}{color=32eeff}Press-Switch V:0.5c-merged{/color}{/size}{/bio_font}\":\n";
 
   # Write the updated file back out
-  screensFile.writeFile(os.path.join(dstPath, "screens.rpy"));
+  screensFile.writeFile(os.path.join(dstPath,   "screens.rpy"));
+  screensFile.writeFile(os.path.join(patchPath, "screens.rpy"));
 
   # Read Iida path into memory
   print("Patching Device_Iida_Path.rpy...");
@@ -1151,7 +1186,8 @@ def main(argv):
   iidaPathFile.lines[19168] = "        show maind 5 open2\n"
 
   # Write the updated file back out
-  iidaPathFile.writeFile(os.path.join(dstPath, "Story", "Device_Iida_Path.rpy"));
+  iidaPathFile.writeFile(os.path.join(dstPath,   "Story", "Device_Iida_Path.rpy"));
+  iidaPathFile.writeFile(os.path.join(patchPath, "Story", "Device_Iida_Path.rpy"));
 
   # Read Iida path into memory
   print("Patching script.rpy...");
@@ -1162,7 +1198,8 @@ def main(argv):
   scriptFile.lines[611] = "        side \"r\":\n"
 
   # Write the updated file back out
-  scriptFile.writeFile(os.path.join(dstPath, "script.rpy"));
+  scriptFile.writeFile(os.path.join(dstPath,   "script.rpy"));
+  scriptFile.writeFile(os.path.join(patchPath, "script.rpy"));
 
 #-----------------------------------------------------------------------------
 # Hook to call main
