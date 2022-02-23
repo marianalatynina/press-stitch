@@ -1194,8 +1194,16 @@ def main(argv):
   scriptFile = rpp.RenPyFile();
   scriptFile.readFile(os.path.join(extPath5, "script.rpy"));
 
-  # Fix typo for expression
+  # Fix bio error
   scriptFile.lines[611] = "        side \"r\":\n"
+
+  # Fix bio button bug
+  line = "        imagebutton auto \"gui/Bio_Button_Exdown_%s.png\" action ";
+  line += "If(profile_ex_num > 0, ";
+  line += "SetScreenVariable(\"profile_ex_num\", profile_ex_num-1), ";
+  line += "SetScreenVariable(\"profile_ex_num\", len(profile_ex_list)-1)), "
+  line += "SetScreenVariable(\"profile_ex\", profile_ex_list[profile_ex_num])\n";
+  scriptFile.lines[922] = line;
 
   # Write the updated file back out
   scriptFile.writeFile(os.path.join(dstPath,   "script.rpy"));
