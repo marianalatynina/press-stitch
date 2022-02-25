@@ -15,55 +15,55 @@ import copy
 import zipfile
 import press_stitch_archive
 import rpp
-import backgrounds_map
+from maps import backgrounds_map
 
 # Mappings for 0.3 -> 0.5
-import character_map_35_chris
-import character_map_35_ciel
-import character_map_35_eliza
-import character_map_35_karyn
-import character_map_35_main
-import character_map_35_martha
-import character_map_35_michelle
-import character_map_35_mother
-import character_map_35_nick
-import character_map_35_vanessa
+from maps import character_map_35_chris
+from maps import character_map_35_ciel
+from maps import character_map_35_eliza
+from maps import character_map_35_karyn
+from maps import character_map_35_main
+from maps import character_map_35_martha
+from maps import character_map_35_michelle
+from maps import character_map_35_mother
+from maps import character_map_35_nick
+from maps import character_map_35_vanessa
 
 # Mappings for 0.4 -> 0.5
-import character_map_45_alma
-import character_map_45_amber
-import character_map_45_anna
-import character_map_45_april
-import character_map_45_candice
-import character_map_45_chris
-import character_map_45_ciel
-import character_map_45_cindy
-import character_map_45_donald
-import character_map_45_eliza
-import character_map_45_erin
-import character_map_45_ermach
-import character_map_45_hillary
-import character_map_45_jenna
-import character_map_45_jennifer
-import character_map_45_jillian
-import character_map_45_karyn
-import character_map_45_kayla
-import character_map_45_main
-import character_map_45_martha
-import character_map_45_melina
-import character_map_45_michelle
-import character_map_45_mika
-import character_map_45_mother
-import character_map_45_nelson
-import character_map_45_nick
-import character_map_45_nurse
-import character_map_45_sean
-import character_map_45_vanessa
-import character_map_45_waitress
+from maps import character_map_45_alma
+from maps import character_map_45_amber
+from maps import character_map_45_anna
+from maps import character_map_45_april
+from maps import character_map_45_candice
+from maps import character_map_45_chris
+from maps import character_map_45_ciel
+from maps import character_map_45_cindy
+from maps import character_map_45_donald
+from maps import character_map_45_eliza
+from maps import character_map_45_erin
+from maps import character_map_45_ermach
+from maps import character_map_45_hillary
+from maps import character_map_45_jenna
+from maps import character_map_45_jennifer
+from maps import character_map_45_jillian
+from maps import character_map_45_karyn
+from maps import character_map_45_kayla
+from maps import character_map_45_main
+from maps import character_map_45_martha
+from maps import character_map_45_melina
+from maps import character_map_45_michelle
+from maps import character_map_45_mika
+from maps import character_map_45_mother
+from maps import character_map_45_nelson
+from maps import character_map_45_nick
+from maps import character_map_45_nurse
+from maps import character_map_45_sean
+from maps import character_map_45_vanessa
+from maps import character_map_45_waitress
 
 # Mappings for 0.5 -> 0.6
-import character_map_56_eliza
-import character_map_56_main
+from maps import character_map_56_eliza
+from maps import character_map_56_main
 
 filename_03 = "Press-SwitchV0.3b-all";
 filename_04 = "Press-SwitchV0.4a-pc";
