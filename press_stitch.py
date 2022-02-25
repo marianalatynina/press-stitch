@@ -724,6 +724,8 @@ def processShow(rpFile, thread, lineNum):
   if (len(fields) < 3):
     return line;
 
+  isFlash = ("flash" in fields[1]);
+
   charName = characterLabelMap[fields[1]];
   swappedCharName = charName;
   donaldGirl = False;
@@ -852,7 +854,7 @@ def processShow(rpFile, thread, lineNum):
   while i < len(mappedFields) - 1:
     if isNumberField(mappedFields[i]):
       newLine += " " + str(int(mappedFields[i]));
-    elif not (donaldGirl and (mappedFields[i] == "girl")):
+    elif not((donaldGirl and (mappedFields[i] == "girl")) or isFlash):
       newLine += " " + mappedFields[i];
     i = i + 1;
 
