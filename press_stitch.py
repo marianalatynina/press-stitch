@@ -451,9 +451,13 @@ def processCommand(rpFile, thread, lineNum, line):
       thread.stack = [];
     else:
       pyVal = line.split('=')[1].strip().strip('"').strip('\'');
-      if (".display" in pyVar) and ("hillary school" in pyVal):
-        pyVal = "hillary";
-        rpFile.lines[lineNum] = rpFile.lines[lineNum].replace("hillary school", "hillary");
+      if (".display" in pyVar):
+        if ("hillary school" in pyVal):
+          pyVal = "hillary";
+          rpFile.lines[lineNum] = rpFile.lines[lineNum].replace("hillary school", "hillary");
+        elif (pyVal == "donald girl hair skin glasses"):
+          pyVal = "donald girl dohair doskin doglasses";
+          rpFile.lines[lineNum] = rpFile.lines[lineNum].replace("hair skin glasses", "dohair doskin doglasses");
       thread.vars[pyVar] = pyVal;
       #print("Variable '" + pyVar + "' becomes '" + pyVal + "'");
   elif (fields[1] == "+="):
@@ -848,7 +852,7 @@ def processShow(rpFile, thread, lineNum):
   while i < len(mappedFields) - 1:
     if isNumberField(mappedFields[i]):
       newLine += " " + str(int(mappedFields[i]));
-    else:
+    elif not (donaldGirl and (mappedFields[i] == "girl")):
       newLine += " " + mappedFields[i];
     i = i + 1;
 
