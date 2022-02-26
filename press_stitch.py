@@ -1078,13 +1078,27 @@ def main(argv):
     dayzerosaved = rpp.RenPyFile();
     dayzerosaved.readFile(os.path.join(extPath5, "Story", "Day_001_Saved.rpy"));
 
-    # Fix bio error
+    # Patch the menu option - jump into the unused HideDevicePath.rpy file
     dayzerosaved.lines[2402] = "        \"Best to keep it hidden for now.\":\n"
     dayzerosaved.lines[2403] = "            jump didnttell\n"
 
     # Write the updated file back out
     dayzerosaved.writeFile(os.path.join(dstPath,   "Story", "Day_001_Saved.rpy"));
     dayzerosaved.writeFile(os.path.join(patchPath, "Story", "Day_001_Saved.rpy"));
+
+    # Patch HideDevicePath
+    print("Patching HideDevicePath.rpy...");
+    hideDevicePath = rpp.RenPyFile();
+    hideDevicePath.readFile(os.path.join(extPath5, "Story", "HideDevicePath.rpy"));
+
+    # Disable the menu option leading to the 0.3 trio swap
+    hideDevicePath.lines[195] = "        \"{s}I shared the device with them.{/s}\":\n";
+    hideDevicePath.lines[196] = "            call screen pending_001(path_name = \"Trio Swap\", author_note = \"This path is under development, check back soon!\")\n";
+    hideDevicePath.lines[197] = "            return\n";
+
+    # Write the updated file back out
+    hideDevicePath.writeFile(os.path.join(dstPath,   "Story", "HideDevicePath.rpy"));
+    hideDevicePath.writeFile(os.path.join(patchPath, "Story", "HideDevicePath.rpy"));
 
   if doCiel:
     # Read Cielpath.rpy into memory
