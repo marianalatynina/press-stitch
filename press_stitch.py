@@ -972,12 +972,13 @@ def main(argv):
   doClean = False;
   doEliza = True;
   doCiel  = True;
+  doNick  = False
   doGoopy = True;
   doScan  = True;
   doV6    = False;
 
   try:
-    opts, args = getopt.getopt(argv, "", ["clean","inlineerrors","nociel","noeliza","nogoopy","noscan","v6"])
+    opts, args = getopt.getopt(argv, "", ["clean","inlineerrors","nick","nociel","noeliza","nogoopy","noscan","v6"])
   except getopt.GetoptError:
     showError('Usage is: press-stitch.py [--clean]');
     sys.exit(1);
@@ -987,6 +988,8 @@ def main(argv):
       doClean = True;
     elif (opt == "--inlineerrors"):
       inlineErrors = True;
+    elif (opt == "--nick"):
+      doNick = True;
     elif (opt == "--nociel"):
       doCiel = False;
     elif (opt == "--noeliza"):
@@ -1068,6 +1071,20 @@ def main(argv):
 
   dayzero.writeFile(os.path.join(dstPath,   "Story", "Day-0.rpy"));
   dayzero.writeFile(os.path.join(patchPath, "Story", "Day-0.rpy"));
+
+  if doNick:
+    # Patch Day_001_Saved
+    print("Patching Day_001_Saved.rpy...");
+    dayzerosaved = rpp.RenPyFile();
+    dayzerosaved.readFile(os.path.join(extPath5, "Story", "Day_001_Saved.rpy"));
+
+    # Fix bio error
+    dayzerosaved.lines[2402] = "        \"Best to keep it hidden for now.\":\n"
+    dayzerosaved.lines[2403] = "            jump didnttell\n"
+
+    # Write the updated file back out
+    dayzerosaved.writeFile(os.path.join(dstPath,   "Story", "Day_001_Saved.rpy"));
+    dayzerosaved.writeFile(os.path.join(patchPath, "Story", "Day_001_Saved.rpy"));
 
   if doCiel:
     # Read Cielpath.rpy into memory
