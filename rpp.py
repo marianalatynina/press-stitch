@@ -259,6 +259,11 @@ class RenPyFile():
     else:
       return LineType.OTHER;
 
+  def alterEffects(self, line):
+    line = line.replace("flashcirclein", "flash circlein");
+    line = line.replace("flashred",      "flash red");
+    return line;
+
   def labelIsAcceptable(self, label):
     #type: (str) -> bool
     return True;

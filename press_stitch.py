@@ -601,6 +601,7 @@ def processBlockStep(rpFile, thread):
     person = strippedLine.split()[1];
     if rpFile.trackVis and not(person == "bg"):
       thread.vars["_visible_" + person] = "0";
+    rpFile.lines[i] = rpFile.alterEffects(rpFile.lines[i]);
     i += 1;
   elif (lineType == rpp.LineType.JUMP):
     label = strippedLine.split()[1];
@@ -724,9 +725,9 @@ def processShow(rpFile, thread, lineNum):
   # Try for a character
   # Character label is fields[1], get character name
   if not(fields[0] == "show"):
-    return line;
+    return rpFile.alterEffects(line);
   if not(fields[1] in characterLabelMap):
-    return line;
+    return rpFile.alterEffects(line);
 
   isNewShowLine = False;
   if not(lineNum in rpFile.showLines):
