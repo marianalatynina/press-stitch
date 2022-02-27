@@ -692,7 +692,7 @@ def processShow(rpFile, thread, lineNum):
     if len(fields) < 3:
       return line;
     if not(fields[2] in rpFile.backMap):
-      #return flagError(rpFile, lineNum, "Background " + fields[2] + " has no mapping table entry");
+      return flagError(rpFile, lineNum, "Background " + fields[2] + " has no mapping table entry");
       return line;
 
     newLine = "";

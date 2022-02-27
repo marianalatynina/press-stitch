@@ -265,10 +265,10 @@ backgroundMap35 = {
   "cielhomenightoff":            "pirelivingnight",             # Auto: Renamed
   "cielhomenighton":             "pirelivingnightlit",          # Auto: Renamed
   "classroom4":                  "",                            # Auto: Deleted
-  "classroom001":                "",                            # Auto: Deleted
-  "classroom002":                "",                            # Auto: Deleted
-  "classroom003":                "",                            # Auto: Deleted
-  "classroom003dusk":            "",                            # Auto: Deleted
+  "classroom1":                  "schoolclassroomday",
+  "classroom2":                  "schoolclassroomday",
+  "classroom3":                  "schoolclassroomday",
+  "classroom3dusk":              "schoolclassroomdusk",
   "clubroomday":                 "",                            # Auto: Deleted
   "clubroomdusk":                "",                            # Auto: Deleted
   "clubroomnight":               "",                            # Auto: Deleted
@@ -456,16 +456,20 @@ backgroundMap35 = {
   "restaurantday":               "",                            # Auto: Deleted
   "restaurantdusk":              "",                            # Auto: Deleted
   "restaurantinside":            "",                            # Auto: Deleted
+  "schooldancehallday":          "schooldanceday",
   "schoolfieldday":              "schoolfieldday",
   "schoolfielddusk":             "schoolfielddusk",
   "schoolfieldnight":            "",                            # Auto: Deleted
   "schoolcenterpark":            "",                            # Auto: Deleted
+  "schoolgirlrestroom":          "schoolrestroomgirlday",
   "schoolgirlsrestroom":         "schoolrestroomgirlday",       # Auto: Renamed
   "schoolhall":                  "schoolhallday",
   "schoolhall2":                 "schoolhall2day",
+  "schoolnurseday":              "schoolnurseday",
   "schooloutside":               "schooloutsideday",
   "schooloutside2":              "schooloutsideday",
   "schooloutsidedawn":           "",                            # Auto: Deleted
+  "schooloutsidedusk":           "schooloutsidedusk",
   "schoolparkday":               "schoolparkday",
   "schoolparkdusk":              "schoolparkdusk",
   "schoolparknight":             "schoolparknightlit",
