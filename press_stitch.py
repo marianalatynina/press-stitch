@@ -716,17 +716,22 @@ def processShow(rpFile, thread, lineNum):
   if not(fields[1] in characterLabelMap):
     return line;
 
+  isNewShowLine = False;
   if not(lineNum in rpFile.showLines):
     rpFile.showLines.append(lineNum);
+    isNewShowLine = True;
 
   if (rpFile.trackVis):
     varName = "_visible_" + fields[1];
     if not(varName in thread.vars) or (thread.vars[varName] == "0"):
       # Person has become visible
-      print("DBGP: " + str(lineNum) + ": " + fields[1] + " has become visible");
       if (fields[1] in rpFile.charFlip) and not(lineNum in rpFile.visLines):
-        print("DBGP: " + str(lineNum) + ": " + fields[1] + " will flip");
         rpFile.visLines.append(lineNum);
+    elif rpFile.flipAll and isNewShowLine and (fields[1] in rpFile.charFlip):
+      # Character needs to be flipped but has already become visible.
+      # Check for xzoom calls to be reversed.
+      rpFile.reverseXZoom(lineNum);
+
     thread.vars[varName] = "1";
 
   # If it's got no parameters, like "show michelled:", then just return it

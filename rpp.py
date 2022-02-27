@@ -89,6 +89,7 @@ class RenPyFile():
     self.visLines  = [] #type: list[int]
     self.showLines = [] #type: list[int]
     self.trackVis  = False;
+    self.flipAll   = False;
     self.lineModifiedFlags = {} #type: dict[int, bool]
     self.blockEnds = {}
     self.indentsGood = {}
@@ -193,7 +194,6 @@ class RenPyFile():
   # Flip all V3 affected characters left-to-right
   def doFlips(self):
     for lineNum in sorted(self.visLines, reverse=True):
-      print("DBGF: Flipping line " + str(lineNum));
       self.addXZoom(lineNum);
       strippedLine = self.lines[lineNum].strip();
       if (strippedLine.startswith("show")):
@@ -309,6 +309,7 @@ class RenPyFileHideDevice(RenPyFile):
     self.v6Map = v6;
     self.charFlip = ["ashley", "main", "maind"];
     self.trackVis = True;
+    self.flipAll = True;
 
   def readFile(self, fn):
     #type: (str) -> None
