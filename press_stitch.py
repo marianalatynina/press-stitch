@@ -22,6 +22,7 @@ from maps import character_map_35_ashley
 from maps import character_map_35_candice
 from maps import character_map_35_chris
 from maps import character_map_35_ciel
+from maps import character_map_35_cindy
 from maps import character_map_35_eliza
 from maps import character_map_35_jenna
 from maps import character_map_35_karyn
@@ -208,6 +209,7 @@ characterImageMap35 = {
   "candice":  character_map_35_candice .characterMapCandice,
   "chris":    character_map_35_chris   .characterMapChris,
   "ciel":     character_map_35_ciel    .characterMapCiel,
+  "cindy":    character_map_35_cindy   .characterMapCindy,
   "eliza":    character_map_35_eliza   .characterMapEliza,
   "jenna":    character_map_35_jenna   .characterMapJenna,
   "karyn":    character_map_35_karyn   .characterMapKaryn,
