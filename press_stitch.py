@@ -18,6 +18,7 @@ import rpp
 from maps import backgrounds_map
 
 # Mappings for 0.3 -> 0.5
+from maps import character_map_35_ashley
 from maps import character_map_35_chris
 from maps import character_map_35_ciel
 from maps import character_map_35_eliza
@@ -25,6 +26,7 @@ from maps import character_map_35_karyn
 from maps import character_map_35_main
 from maps import character_map_35_martha
 from maps import character_map_35_michelle
+from maps import character_map_35_mika
 from maps import character_map_35_mother
 from maps import character_map_35_nick
 from maps import character_map_35_vanessa
@@ -78,6 +80,8 @@ characterLabelMap = {
   "amberd":        "amber",
   "anna":          "anna",
   "april":         "april",
+  "ashley":        "ashley",
+  "ashleyd":       "ashley",
   "candice":       "candice",
   "candiced":      "candice",
   "chris":         "chris",
@@ -138,6 +142,8 @@ characterDoRemap = {
   "amberd":        True,
   "anna":          False,
   "april":         False,
+  "ashley":        False,
+  "ashleyd":       True,
   "candice":       False,
   "candiced":      True,
   "chris":         False,
@@ -192,6 +198,7 @@ characterDoRemap = {
 };
 
 characterImageMap35 = {
+  "ashley":   character_map_35_ashley  .characterMapAshley,
   "chris":    character_map_35_chris   .characterMapChris,
   "ciel":     character_map_35_ciel    .characterMapCiel,
   "eliza":    character_map_35_eliza   .characterMapEliza,
@@ -199,6 +206,7 @@ characterImageMap35 = {
   "main":     character_map_35_main    .characterMapMain,
   "martha":   character_map_35_martha  .characterMapMartha,
   "michelle": character_map_35_michelle.characterMapMichelle,
+  "mika":     character_map_35_mika    .characterMapMika,
   "mother":   character_map_35_mother  .characterMapMother,
   "nick":     character_map_35_nick    .characterMapNick,
   "vanessa":  character_map_35_vanessa .characterMapVanessa,
@@ -715,7 +723,9 @@ def processShow(rpFile, thread, lineNum):
     varName = "_visible_" + fields[1];
     if not(varName in thread.vars) or (thread.vars[varName] == "0"):
       # Person has become visible
+      print("DBGP: " + str(lineNum) + ": " + fields[1] + " has become visible");
       if (fields[1] in rpFile.charFlip) and not(lineNum in rpFile.visLines):
+        print("DBGP: " + str(lineNum) + ": " + fields[1] + " will flip");
         rpFile.visLines.append(lineNum);
     thread.vars[varName] = "1";
 
@@ -1088,13 +1098,21 @@ def main(argv):
 
     # Patch HideDevicePath
     print("Patching HideDevicePath.rpy...");
-    hideDevicePath = rpp.RenPyFile();
+    hideDevicePath = rpp.RenPyFileHideDevice(backgrounds_map.backgroundMap35, characterImageMap35, v6map);
     hideDevicePath.readFile(os.path.join(extPath5, "Story", "HideDevicePath.rpy"));
 
-    # Disable the menu option leading to the 0.3 trio swap
-    hideDevicePath.lines[195] = "        \"{s}I shared the device with them.{/s}\":\n";
-    hideDevicePath.lines[196] = "            call screen pending_001(path_name = \"Trio Swap\", author_note = \"This path is under development, check back soon!\")\n";
-    hideDevicePath.lines[197] = "            return\n";
+    # Search for labels
+    hideDevicePath.findLabels();
+
+    # Search for "show" statements
+    hideDevicePath.findShows();
+
+    # Process the 'didnttell' label, it's called from Day_001_Saved now
+    addLabelCall(hideDevicePath, "didnttell", rpp.RenPyThread("", {}, []));
+    iterateLabelCalls(hideDevicePath);
+
+    # Flip the affected V3 characters
+    hideDevicePath.doFlips();
 
     # Write the updated file back out
     hideDevicePath.writeFile(os.path.join(dstPath,   "Story", "HideDevicePath.rpy"));

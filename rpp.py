@@ -193,6 +193,7 @@ class RenPyFile():
   # Flip all V3 affected characters left-to-right
   def doFlips(self):
     for lineNum in sorted(self.visLines, reverse=True):
+      print("DBGF: Flipping line " + str(lineNum));
       self.addXZoom(lineNum);
       strippedLine = self.lines[lineNum].strip();
       if (strippedLine.startswith("show")):
@@ -296,6 +297,37 @@ class RenPyFileCiel(RenPyFile):
     #type: (str) -> str
     if (charName == "ciel"):
       return "ciel hair headband";
+    return charName;
+
+#-----------------------------------------------------------------------------
+class RenPyFileHideDevice(RenPyFile):
+  def __init__(self, b, c, v6):
+    #type: (dict[str, str], dict[str, dict[str,str]], dict[str, dict[str,str]]) -> None
+    super().__init__();
+    self.backMap = b;
+    self.charMap = c;
+    self.v6Map = v6;
+    self.charFlip = ["ashley", "main", "maind"];
+    self.trackVis = True;
+
+  def readFile(self, fn):
+    #type: (str) -> None
+    super().readFile(fn);
+
+    # Disable the menu option leading to the 0.3 trio swap
+    self.lines[195] = "        \"{s}I shared the device with them.{/s}\":\n";
+    self.lines[196] = "            call screen pending_001(path_name = \"Trio Swap\", author_note = \"This path is under development, check back soon!\")\n";
+    self.lines[197] = "            return\n";
+
+    # Need to ease Calvin to the left when Ashley appears, graphical difference from 0.3 -> 0.5 paths
+    self.lines.insert(112, "    show main 1:\n");
+    self.lines.insert(113, "        ease 0.5 xpos 400\n");
+    self.numLines = len(self.lines);
+
+  def addMutators(self, charName):
+    #type: (str) -> str
+    if (charName in ["main", "mika"]):
+      return charName + "d";
     return charName;
 
 #-----------------------------------------------------------------------------
