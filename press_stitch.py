@@ -22,6 +22,7 @@ from maps import character_map_35_ashley
 from maps import character_map_35_chris
 from maps import character_map_35_ciel
 from maps import character_map_35_eliza
+from maps import character_map_35_jenna
 from maps import character_map_35_karyn
 from maps import character_map_35_main
 from maps import character_map_35_martha
@@ -202,6 +203,7 @@ characterImageMap35 = {
   "chris":    character_map_35_chris   .characterMapChris,
   "ciel":     character_map_35_ciel    .characterMapCiel,
   "eliza":    character_map_35_eliza   .characterMapEliza,
+  "jenna":    character_map_35_jenna   .characterMapJenna,
   "karyn":    character_map_35_karyn   .characterMapKaryn,
   "main":     character_map_35_main    .characterMapMain,
   "martha":   character_map_35_martha  .characterMapMartha,
@@ -807,9 +809,7 @@ def processShow(rpFile, thread, lineNum):
       mappedFile = rpFile.charMap[swappedCharName][exFile+"_003"];
       hasMapped = True;
   else:
-    # We're not doing a V3 or V4 mapping for this character, fake that we've done one
-    mappedFile = exFile;
-    hasMapped = True;
+    return(flagError(rpFile, lineNum, "No mapping entry for character '" + swappedCharName + "', source file '" + exFile + "'"));
 
   if not(hasMapped):
     # The .rpy file is referencing a graphic that doesn't seem to exist in the 0.4 graphics directory.

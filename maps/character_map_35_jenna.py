@@ -1,0 +1,20 @@
+characterMapJenna = {
+  "jenna_ex_001":                          "jenna_ex_001_001",
+  "jenna_ex_001_smile":                    "jenna_ex_001_smile_001",
+  "jenna_ex_002":                          "jenna_ex_003_001",
+  "jenna_ex_003":                          "jenna_ex_001_smile2_001",
+  "jenna_ex_004_grin2":                    "jenna_ex_003_grin2_001",
+  "jenna_ex_004_grin":                     "jenna_ex_003_grin_001",
+  "jenna_ex_004":                          "jenna_ex_003_open_001",
+  "jenna_ex_005":                          "jenna_ex_003_open2_001",
+  "jenna_ex_006":                          "jenna_ex_005_aroused2_001",
+  "jenna_ex_007":                          "jenna_ex_004_open_001",
+  "jenna_ex_008":                          "jenna_ex_007_open_002",
+  "jenna_ex_009":                          "jenna_ex_008_open_002",
+  "jenna_ex_010":                          "jenna_ex_010_002",
+  "jenna_ex_011":                          "jenna_ex_009_002",
+  "jenna_ex_012":                          "jenna_ex_011_002",
+  "jenna_ex_013":                          "jenna_ex_012_002",
+  "jenna_ex_014":                          "jenna_ex_009_closed_002",
+}
+
