@@ -431,3 +431,22 @@ class RenPyFileGoopy(RenPyFile):
     if (charName == "ciel"):
       return "ciel hair headband";
     return charName;
+
+#-----------------------------------------------------------------------------
+class RenPyFileNick(RenPyFile):
+  def __init__(self, b, c, v6):
+    #type: (dict[str, str], dict[str, dict[str,str]], dict[str, dict[str,str]]) -> None
+    super().__init__();
+    self.backMap = b;
+    self.charMap = c;
+    self.v6Map = v6;
+    self.charFlip = ["ashley", "main", "maind"];
+    self.trackVis = True;
+    self.flipAll = True;
+
+  def addMutators(self, charName):
+    #type: (str) -> str
+    if (charName in ["main", "mika"]):
+      return charName + "d";
+    return charName;
+

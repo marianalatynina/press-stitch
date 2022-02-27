@@ -1123,6 +1123,28 @@ def main(argv):
     hideDevicePath.writeFile(os.path.join(dstPath,   "Story", "HideDevicePath.rpy"));
     hideDevicePath.writeFile(os.path.join(patchPath, "Story", "HideDevicePath.rpy"));
 
+    # Patch Nickpath
+    print("Patching Nickpath.rpy...");
+    nickPath = rpp.RenPyFileNick(backgrounds_map.backgroundMap35, characterImageMap35, v6map);
+    nickPath.readFile(os.path.join(extPath5, "Story", "Nickpath.rpy"));
+
+    # Search for labels
+    nickPath.findLabels();
+
+    # Search for "show" statements
+    nickPath.findShows();
+
+    # Process the 'playeditoff' label, it's the path entry point from HideDevicePath
+    addLabelCall(nickPath, "playeditoff", rpp.RenPyThread("", {}, []));
+    iterateLabelCalls(nickPath);
+
+    # Flip the affected V3 characters
+    nickPath.doFlips();
+
+    # Write the updated file back out
+    nickPath.writeFile(os.path.join(dstPath,   "Story", "Nickpath.rpy"));
+    nickPath.writeFile(os.path.join(patchPath, "Story", "Nickpath.rpy"));
+
   if doCiel:
     # Read Cielpath.rpy into memory
     print("Patching Cielpath.rpy...");

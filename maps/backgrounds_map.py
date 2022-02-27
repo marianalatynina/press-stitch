@@ -316,8 +316,8 @@ backgroundMap35 = {
   "elizaschoolsidedusk":         "elizaschoolsidedusk",         # Auto: Renamed
   "flash":                       "",                            # Auto: Deleted
   "flashwhite":                  "",                            # Auto: Deleted
-  "gymclosetday":                "",                            # Auto: Deleted
-  "gymclosetnight":              "",                            # Auto: Deleted
+  "gymclosetday":                "elizaschoolgymclosetday",
+  "gymclosetnight":              "elizaschoolgymclosetdusk",    # Visually fairly different but best I can do
   "gymday":                      "",                            # Auto: Deleted
   "gymdusk":                     "",                            # Auto: Deleted
   "heatherhomeofficeday":        "mansionofficeday",
@@ -456,19 +456,19 @@ backgroundMap35 = {
   "restaurantday":               "",                            # Auto: Deleted
   "restaurantdusk":              "",                            # Auto: Deleted
   "restaurantinside":            "",                            # Auto: Deleted
-  "schoolfieldday":              "",                            # Auto: Deleted
-  "schoolfielddusk":             "",                            # Auto: Deleted
+  "schoolfieldday":              "schoolfieldday",
+  "schoolfielddusk":             "schoolfielddusk",
   "schoolfieldnight":            "",                            # Auto: Deleted
   "schoolcenterpark":            "",                            # Auto: Deleted
   "schoolgirlsrestroom":         "schoolrestroomgirlday",       # Auto: Renamed
-  "schoolhall":                  "",                            # Auto: Deleted
-  "schoolhall2":                 "",                            # Auto: Deleted
+  "schoolhall":                  "schoolhallday",
+  "schoolhall2":                 "schoolhall2day",
   "schooloutside":               "schooloutsideday",
   "schooloutside2":              "schooloutsideday",
   "schooloutsidedawn":           "",                            # Auto: Deleted
-  "schoolparkday":               "",                            # Auto: Deleted
-  "schoolparkdusk":              "",                            # Auto: Deleted
-  "schoolparknight":             "",                            # Auto: Deleted
+  "schoolparkday":               "schoolparkday",
+  "schoolparkdusk":              "schoolparkdusk",
+  "schoolparknight":             "schoolparknightlit",
   "schoolrooftopday":            "schoolroofday",               # Auto: Renamed
   "schoolrooftopdusk":           "schoolroofdusk",              # Auto: Renamed
   "schoolrooftopnight":          "schoolroofnight",             # Auto: Renamed
