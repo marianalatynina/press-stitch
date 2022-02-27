@@ -19,6 +19,7 @@ from maps import backgrounds_map
 
 # Mappings for 0.3 -> 0.5
 from maps import character_map_35_ashley
+from maps import character_map_35_candice
 from maps import character_map_35_chris
 from maps import character_map_35_ciel
 from maps import character_map_35_eliza
@@ -26,10 +27,12 @@ from maps import character_map_35_jenna
 from maps import character_map_35_karyn
 from maps import character_map_35_main
 from maps import character_map_35_martha
+from maps import character_map_35_melina
 from maps import character_map_35_michelle
 from maps import character_map_35_mika
 from maps import character_map_35_mother
 from maps import character_map_35_nick
+from maps import character_map_35_nurse
 from maps import character_map_35_vanessa
 
 # Mappings for 0.4 -> 0.5
@@ -121,6 +124,7 @@ characterLabelMap = {
   "marthad":       "martha",
   "marthaghost":   "martha",
   "melina":        "melina",
+  "melinad":       "melina",
   "michelle":      "michelle",
   "michelled":     "michelle",
   "michelleghost": "michelle",
@@ -183,6 +187,7 @@ characterDoRemap = {
   "marthad":       True,
   "marthaghost":   False,
   "melina":        False,
+  "melinad":       True,
   "michelle":      False,
   "michelled":     True,
   "michelleghost": False,
@@ -200,6 +205,7 @@ characterDoRemap = {
 
 characterImageMap35 = {
   "ashley":   character_map_35_ashley  .characterMapAshley,
+  "candice":  character_map_35_candice .characterMapCandice,
   "chris":    character_map_35_chris   .characterMapChris,
   "ciel":     character_map_35_ciel    .characterMapCiel,
   "eliza":    character_map_35_eliza   .characterMapEliza,
@@ -207,10 +213,12 @@ characterImageMap35 = {
   "karyn":    character_map_35_karyn   .characterMapKaryn,
   "main":     character_map_35_main    .characterMapMain,
   "martha":   character_map_35_martha  .characterMapMartha,
+  "melina":   character_map_35_melina  .characterMapMelina,
   "michelle": character_map_35_michelle.characterMapMichelle,
   "mika":     character_map_35_mika    .characterMapMika,
   "mother":   character_map_35_mother  .characterMapMother,
   "nick":     character_map_35_nick    .characterMapNick,
+  "nurse":    character_map_35_nurse   .characterMapNurse,
   "vanessa":  character_map_35_vanessa .characterMapVanessa,
 };
 
