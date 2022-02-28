@@ -475,6 +475,12 @@ def processCommand(rpFile, thread, lineNum, line):
         if ("hillary school" in pyVal):
           pyVal = "hillary";
           rpFile.lines[lineNum] = rpFile.lines[lineNum].replace("hillary school", "hillary");
+        elif ("jillian opened" in pyVal):
+          pyVal = "jillian";
+          rpFile.lines[lineNum] = rpFile.lines[lineNum].replace("jillian opened", "jillian op");
+        elif ("jillian maid opened" in pyVal):
+          pyVal = "jillian";
+          rpFile.lines[lineNum] = rpFile.lines[lineNum].replace("jillian maid opened", "jillian maidop");
         elif (pyVal == "donald girl hair skin glasses"):
           pyVal = "donald girl dohair doskin doglasses";
           rpFile.lines[lineNum] = rpFile.lines[lineNum].replace("hair skin glasses", "dohair doskin doglasses");
