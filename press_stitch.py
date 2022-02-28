@@ -472,6 +472,9 @@ def processCommand(rpFile, thread, lineNum, line):
     else:
       pyVal = line.split('=')[1].strip().strip('"').strip('\'');
       if (".display" in pyVar):
+        if ("hillary cas" in pyVal) and not ("hillary casual" in pyVal):
+          pyVal = "hillary";
+          rpFile.lines[lineNum] = rpFile.lines[lineNum].replace("hillary cas", "hillary casual");
         if ("hillary school" in pyVal):
           pyVal = "hillary";
           rpFile.lines[lineNum] = rpFile.lines[lineNum].replace("hillary school", "hillary");
