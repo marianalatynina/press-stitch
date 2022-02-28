@@ -634,6 +634,21 @@ def processBlockStep(rpFile, thread):
   blk.lineNum = i;
 
 #-----------------------------------------------------------------------------
+# Find the end of a quoted string.
+# Assumes that the first character is an open quote.
+# Scans forward to find the corresponding end quote.
+# It will skip any quotes that are protected by a backslash.
+def findQuotedStringEnd(val):
+  offset = 1;
+  while(offset < len(val)):
+    if val[offset] == '"':
+      return offset;
+    if val[offset] == '\\':
+      offset += 1;
+    offset += 1;
+  return offset;
+
+#-----------------------------------------------------------------------------
 # On entry, lineNum points to the menu: line
 def processMenuStep(rpFile, thread, lineNum):
   #type: (rpp.RenPyFile, rpp.RenPyThread, int) -> None
@@ -649,7 +664,7 @@ def processMenuStep(rpFile, thread, lineNum):
     if (getIndentOf(line) == indent):
       menuItem = line.strip('\n').strip('\r').strip();
       if (":" in menuItem) and not((menuItem[0] == '#') or menuItem.startswith("\"{s}")):
-        endQuote = menuItem.find("\"", 1);
+        endQuote = findQuotedStringEnd(menuItem);
         condition = ":";
         if (endQuote > 0):
           condition = menuItem[endQuote + 1:].strip();
