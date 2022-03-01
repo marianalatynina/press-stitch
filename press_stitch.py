@@ -719,15 +719,12 @@ def processShow(rpFile, thread, lineNum):
     # Character is not a ghost, do the remap
     if (charName in personDispVars):
       swappedCharName = thread.vars[personDispVars[charName]];
+    else:
+      return(flagError(rpFile, lineNum, "Missing Python display variable for character '" + charName + "'"));
     swappedFields = swappedCharName.split();
     swappedCharName = swappedFields[0];
     if (swappedCharName == "donald") and (len(swappedFields) > 1) and (swappedFields[1] == "girl"):
       donaldGirl = True;
-
-  #i = 1;
-  #while i < len(swappedFields):
-  #  fields.append(swappedFields[i]);
-  #  i = i + 1;
 
   filenameMode = True;
   baseMode = True;
