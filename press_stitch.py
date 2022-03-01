@@ -77,132 +77,63 @@ filename_04 = "Press-SwitchV0.4a-pc";
 filename_05 = "Press-SwitchV0.5c-pc";
 filename_06 = "Press-SwitchV0.6";
 
+# List of known characters to process
+characterList = [
+  "alma",
+  "amber",
+  "anna",
+  "aprika",
+  "april",
+  "arelia",
+  "ashley",
+  "betty",
+  "bman",
+  "candice",
+  "chastity",
+  "chris",
+  "ciel",
+  "cindy",
+  "donald",
+  "eliza",
+  "erin",
+  "ermach",
+  "fair",
+  "hillary",
+  "hope",
+  "iida",
+  "jenna",
+  "jennifer",
+  "jillian",
+  "karyn",
+  "kayla",
+  "kenichi",
+  "main",
+  "martha",
+  "melina",
+  "michelle",
+  "mika",
+  "mike",
+  "miya",
+  "mother",
+  "nelson",
+  "nick",
+  "nicole",
+  "nurse",
+  "reina",
+  "sakajou",
+  "sean",
+  "vanessa",
+  "waitress"
+];
+
 # The key is the label used in an RPY "show" command to show a character.
 # The value is the character directory used to find the images.
-characterLabelMap = {
-  "alma":          "alma",
-  "amber":         "amber",
-  "amberd":        "amber",
-  "anna":          "anna",
-  "april":         "april",
-  "ashley":        "ashley",
-  "ashleyd":       "ashley",
-  "candice":       "candice",
-  "candiced":      "candice",
-  "chris":         "chris",
-  "chrisd":        "chris",
-  "chrisghost":    "chris",
-  "ciel":          "ciel",
-  "cindy":         "cindy",
-  "donald":        "donald",
-  "donaldd":       "donald",
-  "donaldflash":   "donald",
-  "eliza":         "eliza",
-  "elizad":        "eliza",
-  "elizaflash":    "eliza",
-  "elizaghost":    "eliza",
-  "erin":          "erin",
-  "erind":         "erin",
-  "eringhost":     "erin",
-  "hillary":       "hillary",
-  "hillaryd":      "hillary",
-  "jenna":         "jenna",
-  "jennifer":      "jennifer",
-  "jenniferd":     "jennifer",
-  "jillian":       "jillian",
-  "jilliand":      "jillian",
-  "karyn":         "karyn",
-  "karynd":        "karyn",
-  "karynflash":    "karyn",
-  "karynghost":    "karyn",
-  "kayla":         "kayla",
-  "kaylad":        "kayla",
-  "main":          "main",
-  "maind":         "main",
-  "mainflash":     "main",
-  "mainghost":     "main",
-  "martha":        "martha",
-  "marthad":       "martha",
-  "marthaghost":   "martha",
-  "melina":        "melina",
-  "melinad":       "melina",
-  "michelle":      "michelle",
-  "michelled":     "michelle",
-  "michelleghost": "michelle",
-  "mika":          "mika",
-  "mikad":         "mika",
-  "mother":        "mother",
-  "nelson":        "nelson",
-  "nick":          "nick",
-  "nurse":         "nurse",
-  "sean":          "sean",
-  "vanessa":       "vanessa",
-  "vanessad":      "vanessa",
-  "waitress":      "waitress"
-};
+# Populated automatically from the character list on program startup.
+characterLabelMap = { };
 
 # Map showing whether to remap the character based on RenPy variables
-characterDoRemap = {
-  "alma":          False,
-  "amber":         False,
-  "amberd":        True,
-  "anna":          False,
-  "april":         False,
-  "ashley":        False,
-  "ashleyd":       True,
-  "candice":       False,
-  "candiced":      True,
-  "chris":         False,
-  "chrisd":        True,
-  "chrisghost":    False,
-  "ciel":          False,
-  "cindy":         False,
-  "donald":        False,
-  "donaldd":       True,
-  "donaldflash":   False,
-  "eliza":         False,
-  "elizad":        True,
-  "elizaflash":    False,
-  "elizaghost":    False,
-  "erin":          False,
-  "erind":         True,
-  "eringhost":     False,
-  "hillary":       False,
-  "hillaryd":      True,
-  "jenna":         False,
-  "jennifer":      False,
-  "jenniferd":     True,
-  "jillian":       False,
-  "jilliand":      True,
-  "karyn":         False,
-  "karynd":        True,
-  "karynflash":    False,
-  "karynghost":    False,
-  "kayla":         False,
-  "kaylad":        True,
-  "main":          False,
-  "maind":         True,
-  "mainflash":     False,
-  "mainghost":     False,
-  "martha":        False,
-  "marthad":       True,
-  "marthaghost":   False,
-  "melina":        False,
-  "melinad":       True,
-  "michelle":      False,
-  "michelled":     True,
-  "michelleghost": False,
-  "mika":          False,
-  "mikad":         True,
-  "mother":        False,
-  "nelson":        False,
-  "nick":          False,
-  "nurse":         False,
-  "sean":          False,
-  "vanessa":       False,
-  "vanessad":      True,
-  "waitress":      False,
-};
+# Populated automatically from the character list on program startup.
+characterDoRemap = { };
 
 characterImageMap35 = {
   "ashley":   character_map_35_ashley  .characterMapAshley,
@@ -1021,6 +952,9 @@ def main(argv):
   global inlineErrors;
   global pyVariables;
   global threads;
+  global characterList;
+  global characterLabelMap;
+  global characterDoRemap;
 
   doClean = False;
   doEliza = True;
@@ -1061,6 +995,17 @@ def main(argv):
     removeDir(filename_05);
     removeDir("Extracted");
     sys.exit(0);
+
+  # Create global vars from character list
+  for charName in characterList:
+    characterLabelMap[charName]           = charName;
+    characterLabelMap[charName + "d"]     = charName;
+    characterLabelMap[charName + "flash"] = charName;
+    characterLabelMap[charName + "ghost"] = charName;
+    characterDoRemap[charName]            = False;
+    characterDoRemap[charName + "d"]      = True;
+    characterDoRemap[charName + "flash"]  = False;
+    characterDoRemap[charName + "ghost"]  = False;
 
   # Normal run
   have3 = False;
