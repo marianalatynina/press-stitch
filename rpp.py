@@ -445,7 +445,7 @@ class RenPyFileNick(RenPyFile):
     self.backMap = b;
     self.charMap = c;
     self.v6Map = v6;
-    self.charFlip = ["ashley", "candice", "main", "maind", "melina", "nurse"];
+    self.charFlip = ["ashley", "candice", "iida", "main", "maind", "melina", "nurse"];
     self.trackVis = True;
     self.flipAll = True;
 

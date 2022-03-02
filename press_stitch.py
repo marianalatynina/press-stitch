@@ -24,6 +24,7 @@ from maps import character_map_35_chris
 from maps import character_map_35_ciel
 from maps import character_map_35_cindy
 from maps import character_map_35_eliza
+from maps import character_map_35_iida
 from maps import character_map_35_jenna
 from maps import character_map_35_karyn
 from maps import character_map_35_main
@@ -33,6 +34,7 @@ from maps import character_map_35_michelle
 from maps import character_map_35_mika
 from maps import character_map_35_mother
 from maps import character_map_35_nick
+from maps import character_map_35_nicole
 from maps import character_map_35_nurse
 from maps import character_map_35_vanessa
 
@@ -142,6 +144,7 @@ characterImageMap35 = {
   "ciel":     character_map_35_ciel    .characterMapCiel,
   "cindy":    character_map_35_cindy   .characterMapCindy,
   "eliza":    character_map_35_eliza   .characterMapEliza,
+  "iida":     character_map_35_iida    .characterMapIida,
   "jenna":    character_map_35_jenna   .characterMapJenna,
   "karyn":    character_map_35_karyn   .characterMapKaryn,
   "main":     character_map_35_main    .characterMapMain,
@@ -151,6 +154,7 @@ characterImageMap35 = {
   "mika":     character_map_35_mika    .characterMapMika,
   "mother":   character_map_35_mother  .characterMapMother,
   "nick":     character_map_35_nick    .characterMapNick,
+  "nicole":   character_map_35_nicole  .characterMapNicole,
   "nurse":    character_map_35_nurse   .characterMapNurse,
   "vanessa":  character_map_35_vanessa .characterMapVanessa,
 };
