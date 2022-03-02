@@ -1,0 +1,17 @@
+characterMapReina = {
+    "reina_ex_001":                          "reina_ex_001_001",
+    "reina_ex_002":                          "reina_ex_001_neutral_001",
+    "reina_ex_003":                          "reina_ex_002_smile_001",
+    "reina_ex_004":                          "reina_ex_003_001",
+    "reina_ex_005":                          "reina_ex_003_open_001",
+    "reina_ex_006":                          "reina_ex_005_smile_001",
+    "reina_ex_007":                          "reina_ex_004_open_001",
+    "reina_ex_008":                          "reina_ex_007_open_002",
+    "reina_ex_009":                          "reina_ex_008_open_002",
+    "reina_ex_010":                          "reina_ex_010_002",
+    "reina_ex_011":                          "reina_ex_009_002",
+    "reina_ex_012":                          "reina_ex_011_002",
+    "reina_ex_013":                          "reina_ex_012_002",
+    "reina_ex_014":                          "reina_ex_009_closed_002",
+    "reina_ex_015":                          "reina_ex_013_002",
+}

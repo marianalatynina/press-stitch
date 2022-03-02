@@ -19,6 +19,7 @@ from maps import backgrounds_map
 
 # Mappings for 0.3 -> 0.5
 from maps import character_map_35_ashley
+from maps import character_map_35_betty
 from maps import character_map_35_candice
 from maps import character_map_35_chris
 from maps import character_map_35_ciel
@@ -36,6 +37,7 @@ from maps import character_map_35_mother
 from maps import character_map_35_nick
 from maps import character_map_35_nicole
 from maps import character_map_35_nurse
+from maps import character_map_35_reina
 from maps import character_map_35_vanessa
 
 # Mappings for 0.4 -> 0.5
@@ -139,6 +141,7 @@ characterDoRemap = {}
 
 characterImageMap35 = {
     "ashley":   character_map_35_ashley  .characterMapAshley,
+    "betty":    character_map_35_betty   .characterMapBetty,
     "candice":  character_map_35_candice .characterMapCandice,
     "chris":    character_map_35_chris   .characterMapChris,
     "ciel":     character_map_35_ciel    .characterMapCiel,
@@ -156,6 +159,7 @@ characterImageMap35 = {
     "nick":     character_map_35_nick    .characterMapNick,
     "nicole":   character_map_35_nicole  .characterMapNicole,
     "nurse":    character_map_35_nurse   .characterMapNurse,
+    "reina":    character_map_35_reina   .characterMapReina,
     "vanessa":  character_map_35_vanessa .characterMapVanessa,
 }
 

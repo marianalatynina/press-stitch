@@ -1,0 +1,18 @@
+characterMapBetty = {
+    "betty_ex_001":                          "betty_ex_001_001",
+    "betty_ex_001_smile":                    "betty_ex_001_smile_001",
+    "betty_ex_002_grin2":                    "betty_ex_001_smile_001",
+    "betty_ex_002_grin":                     "betty_ex_001_001",
+    "betty_ex_002":                          "betty_ex_001_neutral_001",
+    "betty_ex_003":                          "betty_ex_002_smile_001",
+    "betty_ex_004":                          "betty_ex_003_irked2_001",
+    "betty_ex_005":                          "betty_ex_003_open2_001",
+    "betty_ex_006":                          "betty_ex_003_grin_001",
+    "betty_ex_007":                          "betty_ex_005_002",
+    "betty_ex_008":                          "betty_ex_006_open_002",
+    "betty_ex_009":                          "betty_ex_004_open_002",
+    "betty_ex_009_surprised":                "betty_ex_004_open2_002",
+    "betty_ex_010":                          "betty_ex_006_open2_002",
+    "betty_ex_011":                          "betty_ex_012_002",
+    "betty_ex_012":                          "betty_ex_009_open_002",
+}
