@@ -15,7 +15,10 @@ import copy
 import zipfile
 import press_stitch_archive
 import rpp
+
+# Misc mappings
 from maps import backgrounds_map
+from maps import cg_map
 
 # Mappings for 0.3 -> 0.5
 from maps import character_map_35_ashley
@@ -685,7 +688,7 @@ def processShow(rpFile, thread, lineNum):
         return newLine
 
     # Check for 0.3 style "show cg" statements
-    if (fields[0] == "show") and (fields[1] == "cg"):
+    if ((fields[0] == "show") or (fields[0] == "scene")) and (fields[1] == "cg"):
         return rpFile.processCG(line)
 
     # Try for a character
@@ -1115,6 +1118,7 @@ def main(argv):
         # Patch Nickpath
         print("Patching Nickpath.rpy...")
         nickPath = rpp.RenPyFileNick(backgrounds_map.backgroundMap35, characterImageMap35, v6map)
+        nickPath.cgReplacers = cg_map.cgreplacers
         nickPath.readFile(os.path.join(extPath5, "Story", "Nickpath.rpy"))
 
         # Search for labels
