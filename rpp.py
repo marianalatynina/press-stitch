@@ -95,7 +95,7 @@ class RenPyFile():
         self.blockEnds = {}
         self.indentsGood = {}
         self.lineTypes = {}
-        self.cgReplacers = {}
+        self.cg3 = False
 
     def readFile(self, fn):
         # type: (str) -> None
@@ -450,16 +450,6 @@ class RenPyFileNick(RenPyFile):
         self.charFlip = ["ashley", "candice", "iida", "main", "maind", "melina", "nick", "nurse", "reina"]
         self.trackVis = True
         self.flipAll = True
-
-    def processCG(self, line):
-        # type: (str) -> str
-        fields = line.strip().strip(":").split()
-        cmd = ' '.join(fields[1:])
-        cmd = cmd.replace(" with dissolve", "");
-        cmd = cmd.replace(" with fade", "");
-        if not(cmd in self.cgReplacers):
-            print("ERROR: No CG map for '" + cmd + "'")
-        return line
 
     def addMutators(self, charName):
         # type: (str) -> str

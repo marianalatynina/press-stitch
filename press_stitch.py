@@ -648,6 +648,18 @@ def processMenuStep(rpFile, thread, lineNum):
     thread.stack = []
 
 # -----------------------------------------------------------------------------
+def processCG3(rpFile, lineNum):
+    line = rpFile.lines[lineNum]
+    fields = line.strip().strip(":").split()
+    cmd = ' '.join(fields[1:])
+    cmd = cmd.replace(" at truecenter", "");
+    cmd = cmd.replace(" with dissolve", "");
+    cmd = cmd.replace(" with fade", "");
+    if not(cmd in cg_map.cgreplacers):
+        return flagError(rpFile, lineNum, "ERROR: No CG map for '" + cmd + "'")
+    return line
+
+# -----------------------------------------------------------------------------
 def processShow(rpFile, thread, lineNum):
     # type: (rpp.RenPyFile, rpp.RenPyThread, int) -> str
     line = rpFile.lines[lineNum]
@@ -689,6 +701,8 @@ def processShow(rpFile, thread, lineNum):
 
     # Check for 0.3 style "show cg" statements
     if ((fields[0] == "show") or (fields[0] == "scene")) and (fields[1] == "cg"):
+        if rpFile.cg3:
+          return processCG3(rpFile, lineNum)
         return rpFile.processCG(line)
 
     # Try for a character
@@ -1118,7 +1132,7 @@ def main(argv):
         # Patch Nickpath
         print("Patching Nickpath.rpy...")
         nickPath = rpp.RenPyFileNick(backgrounds_map.backgroundMap35, characterImageMap35, v6map)
-        nickPath.cgReplacers = cg_map.cgreplacers
+        nickPath.cg3 = True;
         nickPath.readFile(os.path.join(extPath5, "Story", "Nickpath.rpy"))
 
         # Search for labels
@@ -1196,6 +1210,7 @@ def main(argv):
         # Read ElizaPath.rpy into memory. GoopyPath is ElizaPath but with v0.3 mappings
         print("Patching ElizaPath.rpy... (Goopy path)")
         goopyPath = rpp.RenPyFileGoopy(backgrounds_map.backgroundMap35, characterImageMap35, v6map)
+        goopyPath.cg3 = True;
         goopyPath.readFile(srcFile)
 
         # Search for labels
