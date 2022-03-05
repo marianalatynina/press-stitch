@@ -555,11 +555,6 @@ def processBlockStep(rpFile, thread):
         person = strippedLine.split()[1]
         if rpFile.trackVis and not(person == "bg"):
             thread.vars["_visible_" + person] = "0"
-        if not(rpFile.lineModifiedFlags[i]):
-            rpFile.lines[i] = rpFile.alterEffects(rpFile.lines[i])
-            if (person == "cg") and rpFile.cg3:
-              rpFile.lines[i] = processHideCG3(rpFile, thread, i);
-            rpFile.lineModifiedFlags[i] = True
         i += 1
     elif (lineType == rpp.LineType.JUMP):
         label = strippedLine.split()[1]
@@ -652,41 +647,6 @@ def processMenuStep(rpFile, thread, lineNum):
     thread.stack = []
 
 # -----------------------------------------------------------------------------
-def processCG3(rpFile, thread, lineNum):
-    line = rpFile.lines[lineNum]
-    fields = line.strip().strip(":").split()
-    cmd = ' '.join(fields[1:])
-    cmd = cmd.replace(" at truecenter", "")
-    cmd = cmd.replace(" with dissolve", "")
-    cmd = cmd.replace(" with fade", "")
-    if not(cmd in cg_map.cgreplacers):
-        return flagError(rpFile, lineNum, "ERROR: No CG map for '" + cmd + "'")
-
-    newLines = cg_map.cgreplacers[cmd]
-    newFirstLine = line.replace(cmd, newLines[0])
-
-    # Track the visibility using thread vars
-    # i.e. if the line is "show cgbase" we save "cgbase" so we know what to hide
-    thread.vars["_currentcg_"] = newFirstLine.strip().split()[1]
-
-    return newFirstLine
-
-# -----------------------------------------------------------------------------
-def processHideCG3(rpFile, thread, lineNum):
-    line = rpFile.lines[lineNum]
-    fields = line.strip().split()
-
-    varName = "_currentcg_"
-    if not(varName in thread.vars):
-      return line
-
-    # Line is currently something like "hide cg"
-    # Update the "cg" field to the same thing that we've shown
-    fields[1] = thread.vars[varName]
-    indent = rpFile.getIndentOf(line)
-    return (' ' * indent) + (' '.join(fields)) + "\n"
-
-# -----------------------------------------------------------------------------
 def processShow(rpFile, thread, lineNum):
     # type: (rpp.RenPyFile, rpp.RenPyThread, int) -> str
     line = rpFile.lines[lineNum]
@@ -728,8 +688,6 @@ def processShow(rpFile, thread, lineNum):
 
     # Check for 0.3 style "show cg" statements
     if ((fields[0] == "show") or (fields[0] == "scene")) and (fields[1] == "cg"):
-        if rpFile.cg3:
-          return processCG3(rpFile, thread, lineNum)
         return rpFile.processCG(line)
 
     # Try for a character
@@ -997,6 +955,31 @@ def verifyCharacterMapping(desc, mapTable, extractedDir):
     return True
 
 # -----------------------------------------------------------------------------
+def patchV3CG(rpFile):
+    lineNum = 0
+    while(lineNum < len(rpFile.lines)):
+        line = rpFile.lines[lineNum]
+        fields = line.strip().split()
+        if (len(fields) > 0) and ((fields[0] == "show") or (fields[0] == "scene")) and (fields[1] == "cg"):
+            cmd = ' '.join(fields[1:]).strip(':')
+            cmd = cmd.replace(" at truecenter", "")
+            cmd = cmd.replace(" with dissolve", "")
+            cmd = cmd.replace(" with fade", "")
+            if not(cmd in cg_map.cgreplacers):
+                printRed(str(lineNum) + ": ERROR: No CG map for '" + cmd + "'")
+                sys.exit(1)
+            newLines = cg_map.cgreplacers[cmd]
+            rpFile.lines[lineNum] = line.replace(cmd, newLines[0])
+            indent = rpFile.getIndentOf(line);
+            lineNum += 1
+            for s in newLines[1:]:
+                rpFile.lines.insert(lineNum, (' ' * indent) + "show " + s + "\n");
+                lineNum += 1
+        lineNum += 1
+
+    rpFile.numLines = len(rpFile.lines)
+
+# -----------------------------------------------------------------------------
 # Main program
 def main(argv):
     global inlineErrors
@@ -1159,8 +1142,10 @@ def main(argv):
         # Patch Nickpath
         print("Patching Nickpath.rpy...")
         nickPath = rpp.RenPyFileNick(backgrounds_map.backgroundMap35, characterImageMap35, v6map)
-        nickPath.cg3 = True;
         nickPath.readFile(os.path.join(extPath5, "Story", "Nickpath.rpy"))
+
+        # Patch the v3 GC statements
+        patchV3CG(nickPath)
 
         # Search for labels
         nickPath.findLabels()

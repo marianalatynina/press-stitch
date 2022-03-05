@@ -234,7 +234,7 @@ class RenPyFile():
         while i < self.numLines:
             lineType = self.getLineTypeNoCache(i)
             self.lineTypes[i] = lineType
-            if (lineType == LineType.SHOW) or (lineType == LineType.HIDE):
+            if (lineType == LineType.SHOW):
                 self.lineModifiedFlags[i] = False
             i = i + 1
 
@@ -450,6 +450,7 @@ class RenPyFileNick(RenPyFile):
         self.charFlip = ["ashley", "candice", "iida", "main", "maind", "melina", "nick", "nurse", "reina"]
         self.trackVis = True
         self.flipAll = True
+        self.cg3 = True;
 
     def addMutators(self, charName):
         # type: (str) -> str
