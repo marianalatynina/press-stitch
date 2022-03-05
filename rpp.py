@@ -278,7 +278,7 @@ class RenPyFile():
         # type: (str) -> str
         return line
 
-    def addMutators(self, charName):
+    def addMutators(self, charName, lineNum):
         # type: (str) -> str
         return charName
 
@@ -300,7 +300,7 @@ class RenPyFileCiel(RenPyFile):
         # Patch the initial hide of Calvin
         self.lines[5] = "    hide maind\n"
 
-    def addMutators(self, charName):
+    def addMutators(self, charName, lineNum):
         # type: (str) -> str
         if (charName == "ciel"):
             return "ciel hair headband"
@@ -332,7 +332,7 @@ class RenPyFileHideDevice(RenPyFile):
         self.lines.insert(113, "        ease 0.5 xpos 400\n")
         self.numLines = len(self.lines)
 
-    def addMutators(self, charName):
+    def addMutators(self, charName, lineNum):
         # type: (str) -> str
         if (charName in ["main", "mika"]):
             return charName + "d"
@@ -385,7 +385,7 @@ class RenPyFileEliza(RenPyFile):
         if (obj.lineNum == 10181):
             thread.vars["JokeEnding"] = "5"
 
-    def addMutators(self, charName):
+    def addMutators(self, charName, lineNum):
         # type: (str) -> str
         if (charName == "ciel"):
             return "cield"
@@ -433,7 +433,7 @@ class RenPyFileGoopy(RenPyFile):
             rv += ":"
         return rv + "\n"
 
-    def addMutators(self, charName):
+    def addMutators(self, charName, lineNum):
         # type: (str) -> str
         if (charName == "ciel"):
             return "ciel hair headband"
@@ -455,15 +455,14 @@ class RenPyFileNick(RenPyFile):
             "maind",   "maindghost",
             "melina",  "melinaghost",
             "nick",    "nickghost",
-            "nurse",   "nurseghost",
             "reina",   "reinaghost"
             ]
         self.trackVis = True
         self.flipAll = True
         self.cg3 = True;
 
-    def addMutators(self, charName):
+    def addMutators(self, charName, lineNum):
         # type: (str) -> str
-        if (charName in ["main", "mika"]):
+        if (lineNum < 28) and (charName in ["main", "mika"]):
             return charName + "d"
         return charName
