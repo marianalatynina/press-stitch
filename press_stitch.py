@@ -1160,6 +1160,13 @@ def main(argv):
         # Flip the affected V3 characters
         nickPath.doFlips()
 
+        # Patch the cg hide commands
+        nickPath.lines[3991] =      "    hide cgex\n"
+        nickPath.lines.insert(3992, "    hide cgeyes\n")
+        nickPath.lines.insert(3993, "    hide cgbase\n")
+        nickPath.lines.insert(3994, "    with dissolve\n")
+        nickPath.numLines = len(nickPath.lines)
+
         # Write the updated file back out
         nickPath.writeFile(os.path.join(dstPath,   "Story", "Nickpath.rpy"))
         nickPath.writeFile(os.path.join(patchPath, "Story", "Nickpath.rpy"))
