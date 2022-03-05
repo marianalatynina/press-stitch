@@ -234,7 +234,7 @@ class RenPyFile():
         while i < self.numLines:
             lineType = self.getLineTypeNoCache(i)
             self.lineTypes[i] = lineType
-            if (lineType == LineType.SHOW):
+            if (lineType == LineType.SHOW) or (lineType == LineType.HIDE):
                 self.lineModifiedFlags[i] = False
             i = i + 1
 
