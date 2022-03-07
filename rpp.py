@@ -468,6 +468,12 @@ class RenPyFileNick(RenPyFile):
         # Hide the Melina kiss CG overlay
         self.lines[1255] = "    hide cg2\n"
 
+        # Patch Melina with bare breasts and in her bra
+        self.lines[1311] = "    show melina naked 8 at right\n"
+        self.lines[1321] = "    show melina naked 9\n"
+        self.lines[1329] = "    show melina naked 12\n"
+        self.lines[1334] = "    show melina under 11\n"
+
     def addMutators(self, charName, lineNum):
         # type: (str) -> str
         if (lineNum < 28) and (charName in ["main", "mika"]):
