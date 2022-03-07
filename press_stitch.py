@@ -973,7 +973,10 @@ def patchV3CG(rpFile):
             indent = rpFile.getIndentOf(line);
             lineNum += 1
             for s in newLines[1:]:
-                rpFile.lines.insert(lineNum, (' ' * indent) + "show " + s + "\n");
+                if (s[0] == ' '):
+                    rpFile.lines.insert(lineNum, (' ' * indent) + s + "\n");
+                else:
+                    rpFile.lines.insert(lineNum, (' ' * indent) + "show " + s + "\n");
                 lineNum += 1
         lineNum += 1
 

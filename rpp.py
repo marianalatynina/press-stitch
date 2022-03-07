@@ -461,6 +461,13 @@ class RenPyFileNick(RenPyFile):
         self.flipAll = True
         self.cg3 = True;
 
+    def readFile(self, fn):
+        # type: (str) -> None
+        super().readFile(fn)
+
+        # Hide the Melina kiss CG overlay
+        self.lines[1255] = "    hide cg2\n"
+
     def addMutators(self, charName, lineNum):
         # type: (str) -> str
         if (lineNum < 28) and (charName in ["main", "mika"]):

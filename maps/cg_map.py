@@ -807,7 +807,6 @@ cgreplacers = {
         "cgpose betmel dress 1",
     ],
     "cg betmel 14": [
-        "cg betmel 14",
         "cgbase betmel dress 1",
         "cgbase betmel kiss 1 as cg2:",
         "    ypos 0",
