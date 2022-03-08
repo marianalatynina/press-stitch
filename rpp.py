@@ -481,8 +481,13 @@ class RenPyFileNick(RenPyFile):
         self.lines[2202] = "    hide cgbase\n"
         self.lines[2307] = "    hide cgcut\n"
         self.lines[2317] = "    hide cgcut\n"
+        self.lines[2938] = "    hide cgcut\n"
+        self.lines[3045] = "    hide cgzoom\n"
 
-        # Insertions
+        self.lines.insert(2962, "    hide t\n");
+        self.lines.insert(2962, "    hide cgalt\n");
+        self.lines.insert(2962, "    hide cgpose\n");
+        self.lines.insert(2962, "    hide t\n");
         self.lines.insert(2308, "    hide t\n");
         self.lines.insert(2318, "    hide t\n");
 

@@ -1341,7 +1341,7 @@ cgreplacers = {
         "cgceyes cinrei tied 3",
         "cgcex cinrei tied 5",
         "cgrex cinrei tied 2",
-        "cgpose cinrei tied 4",
+        "cgpose cinrei tied 3",
         "cgpose cinrei tied 2 as t behind cgpose",
     ],
     "cg cinren 14": [
