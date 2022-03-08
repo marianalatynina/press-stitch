@@ -474,6 +474,9 @@ class RenPyFileNick(RenPyFile):
         self.lines[1329] = "    show melina naked 12\n"
         self.lines[1334] = "    show melina under 11\n"
 
+        # Patch second Melina CG
+        self.lines[1622] = "    hide cgzoom\n"
+
     def addMutators(self, charName, lineNum):
         # type: (str) -> str
         if (lineNum < 28) and (charName in ["main", "mika"]):
