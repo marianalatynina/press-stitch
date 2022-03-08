@@ -969,14 +969,18 @@ def patchV3CG(rpFile):
                 printRed(str(lineNum) + ": ERROR: No CG map for '" + cmd + "'")
                 sys.exit(1)
             newLines = cg_map.cgreplacers[cmd]
-            rpFile.lines[lineNum] = line.replace(cmd, newLines[0])
             indent = rpFile.getIndentOf(line);
+            s = newLines[0]
+            if (s[0] == ' ') or s.startswith("hide "):
+                rpFile.lines[lineNum] = (' ' * indent) + s + "\n"
+            else:
+                rpFile.lines[lineNum] = (' ' * indent) + "show " + s + "\n"
             lineNum += 1
             for s in newLines[1:]:
-                if (s[0] == ' '):
-                    rpFile.lines.insert(lineNum, (' ' * indent) + s + "\n");
+                if (s[0] == ' ') or s.startswith("hide "):
+                    rpFile.lines.insert(lineNum, (' ' * indent) + s + "\n")
                 else:
-                    rpFile.lines.insert(lineNum, (' ' * indent) + "show " + s + "\n");
+                    rpFile.lines.insert(lineNum, (' ' * indent) + "show " + s + "\n")
                 lineNum += 1
         lineNum += 1
 
