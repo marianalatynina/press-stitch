@@ -477,6 +477,15 @@ class RenPyFileNick(RenPyFile):
         # Patch second Melina CG
         self.lines[1622] = "    hide cgzoom\n"
 
+        # Patch Betty path CG
+        self.lines[2202] = "    hide cgbase\n"
+        self.lines[2307] = "    hide cgcut\n"
+        self.lines[2317] = "    hide cgcut\n"
+
+        # Insertions
+        self.lines.insert(2308, "    hide t\n");
+        self.lines.insert(2318, "    hide t\n");
+
     def addMutators(self, charName, lineNum):
         # type: (str) -> str
         if (lineNum < 28) and (charName in ["main", "mika"]):
