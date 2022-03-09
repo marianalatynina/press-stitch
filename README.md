@@ -9,6 +9,8 @@ The script patches Press Switch 0.5c to additionally contain:
 * All paths from Press Switch 0.4, i.e. the main Eliza path and everything leading off it
 * The Ciel path from Press Switch 0.3
 * The Eliza / Elena clone path from Press Switch 0.3
+* The Nurse path and ending from Press Switch 0.3
+* The Nick paths from Press Switch 0.3
 
 The resulting game has all paths fully playable, including the 0.5 paths.
 

@@ -484,6 +484,12 @@ class RenPyFileNick(RenPyFile):
         self.lines[2938] = "    hide cgcut\n"
         self.lines[3045] = "    hide cgzoom\n"
 
+        # Patch the Iida cg hide commands
+        self.lines[3378] =      "    hide cgex\n"
+        self.lines.insert(3379, "    hide cgeyes\n")
+        self.lines.insert(3380, "    hide cgbase\n")
+        self.lines.insert(3381, "    with dissolve\n")
+
         self.lines.insert(2962, "    hide t\n");
         self.lines.insert(2962, "    hide cgalt\n");
         self.lines.insert(2962, "    hide cgpose\n");
@@ -491,8 +497,10 @@ class RenPyFileNick(RenPyFile):
         self.lines.insert(2308, "    hide t\n");
         self.lines.insert(2318, "    hide t\n");
 
+        self.numLines = len(self.lines)
+
     def addMutators(self, charName, lineNum):
         # type: (str) -> str
-        if (lineNum < 28) and (charName in ["main", "mika"]):
+        if (lineNum < 152) and (charName in ["main", "mika"]):
             return charName + "d"
         return charName

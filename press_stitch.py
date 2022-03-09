@@ -999,13 +999,13 @@ def main(argv):
     doClean = False
     doEliza = True
     doCiel = True
-    doNick = False
+    doNick = True
     doGoopy = True
     doScan = True
     doV6 = False
 
     try:
-        opts, args = getopt.getopt(argv, "", ["clean", "inlineerrors", "nick", "nociel", "noeliza", "nogoopy", "noscan", "v6"])
+        opts, args = getopt.getopt(argv, "", ["clean", "inlineerrors", "nociel", "noeliza", "nogoopy", "nonick", "noscan", "v6"])
     except getopt.GetoptError:
         showError('Usage is: press-stitch.py [--clean]')
         sys.exit(1)
@@ -1015,8 +1015,8 @@ def main(argv):
             doClean = True
         elif (opt == "--inlineerrors"):
             inlineErrors = True
-        elif (opt == "--nick"):
-            doNick = True
+        elif (opt == "--nonick"):
+            doNick = False
         elif (opt == "--nociel"):
             doCiel = False
         elif (opt == "--noeliza"):
@@ -1166,13 +1166,6 @@ def main(argv):
 
         # Flip the affected V3 characters
         nickPath.doFlips()
-
-        # Patch the cg hide commands
-        nickPath.lines[3991] =      "    hide cgex\n"
-        nickPath.lines.insert(3992, "    hide cgeyes\n")
-        nickPath.lines.insert(3993, "    hide cgbase\n")
-        nickPath.lines.insert(3994, "    with dissolve\n")
-        nickPath.numLines = len(nickPath.lines)
 
         # Write the updated file back out
         nickPath.writeFile(os.path.join(dstPath,   "Story", "Nickpath.rpy"))
