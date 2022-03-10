@@ -27,7 +27,18 @@ Currently the scripts are beta-quality. Content from earlier versions appears to
 
 The scripts are developed and tested primarily on Linux, but they should work equally well on Windows. If you have any problems please submit a bug report.
 
+# Playing the game
+
+To play the game:
+1. Click on the latest release (on the right hand side of this page) and download the ZIP file. It will be named something like "press-stitch-v3.zip".
+2. Download the `Press-SwitchV0.5c-pc.zip` file from [TFGames](https://tfgames.site/index.php?module=viewgame&id=282) if you don't already have it, and put it in the same folder as the "press-stitch" ZIP file that you downloaded in the first step.
+3. Unzip `Press-SwitchV0.5c-pc.zip`
+4. Unzip the "press-stitch" ZIP file. This will patch the game.
+5. You can now play the game as usual in the Press-SwitchV0.5c-pc folder.
+
 # Download and Installation
+
+You only need to follow these instructions if you wish to develop Press Stitch or see how it works. If you just want to play the game, you can ignore this section.
 
 ## Windows
 1. If you don't have Python installed, download it from [python.org](https://www.python.org/downloads/) and install it. While installing, check the "add to PATH" box.
