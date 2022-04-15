@@ -72,7 +72,7 @@ class Body:
         pose = int(fields.pop())
         self.breasts[tuple(fields)][(pose, level)] = Image(filename)
 
-    def add_mutation(self, fields, filename):
+    def add_mutation(self, fields, filename, below):
         pose = int(fields.pop())
         name = fields.pop()
 
@@ -82,7 +82,7 @@ class Body:
                 name=name,
                 depth=1,
                 group=name,
-                below=False
+                below=below
             )
             self.mutation_groups[name].add(name)
 
@@ -117,7 +117,9 @@ class Body:
         elif type.startswith('be'):
             self.add_breast(int(type[2:]), fields, filename)
         elif type == 'mut':
-            self.add_mutation(fields, filename)
+            self.add_mutation(fields, filename, below=False)
+        elif type == 'mutunder':
+            self.add_mutation(fields, filename, below=True)
         elif type == 'ex':
             self.add_expression(fields, filename)
         elif type == 'misc':
@@ -175,7 +177,6 @@ class Body:
                     expr_pos = (0, 0)
 
                 base_image_args = (
-                    image_size,
                     (0, 0), base_image,
                     expr_pos, expr.image
                 )
@@ -203,11 +204,15 @@ class Body:
                     for mutation_sets in combinations(grouped_mutations, i):
                         for mutation_names in product(*mutation_sets):
 
+                            composite_image_args = [image_size]
                             mut_image_args = list(base_image_args)
                             mut_image_name = []
 
                             for mutation_name in mutation_names:
-                                mut_image_args.extend(mutations[mutation_name][expr.pose_id])
+                                if self.mutations[mutation_name].below:
+                                    composite_image_args.extend(mutations[mutation_name][expr.pose_id])
+                                else:
+                                    mut_image_args.extend(mutations[mutation_name][expr.pose_id])
 
                                 # Append name to image tags
                                 if self.mutations[mutation_name].name != '':
@@ -230,7 +235,8 @@ class Body:
 
                                 # Define images
                                 image_name = self.fold_name(base_path + be_image_name + mut_image_name + expr_name, fold)
-                                image = Composite(*be_image_args)
+                                composite_image_args.extend(be_image_args)
+                                image = Composite(*composite_image_args)
                                 self.images[frozenset(image_name)] = image
 
                                 renpy.image((image_tag,) + image_name, image)
