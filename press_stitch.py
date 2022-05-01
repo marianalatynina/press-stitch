@@ -643,7 +643,10 @@ def processMenuStep(rpFile, thread, lineNum):
         else:
             lineNum = lineNum + 1
 
-        line = rpFile.lines[lineNum]
+        if (lineNum < rpFile.numLines):
+            line = rpFile.lines[lineNum]
+        else:
+            line = ""
 
     # Kill the current thread. Because it's been used as the parent thread for
     # all the menu options, it's not needed any more as each menu option will
@@ -1291,6 +1294,28 @@ def main(argv):
         # Write the updated ElizaPath.rpy back out
         showMikaPath.writeFile(os.path.join(dstPath,   "Story", "Showmikapath.rpy"))
         showMikaPath.writeFile(os.path.join(patchPath, "Story", "Showmikapath.rpy"))
+
+        print("Patching StuckasApril.rpy...")
+        stuckApril = rpp.RenPyFileShowMika(backgrounds_map.backgroundMap35, characterImageMap35, v6map)
+        stuckApril.cg3 = True;
+        stuckApril.readFile(os.path.join(extPath5, "Story", "StuckasApril.rpy"))
+
+        # Search for labels
+        stuckApril.findLabels()
+
+        # Search for "show" statements
+        stuckApril.findShows()
+
+        # Process the path
+        addLabelCall(stuckApril, "lieaboutapriltomika", rpp.RenPyThread("", {}, []))
+        iterateLabelCalls(stuckApril)
+
+        # Flip the affected V3 characters
+        stuckApril.doFlips()
+
+        # Write the updated ElizaPath.rpy back out
+        stuckApril.writeFile(os.path.join(dstPath,   "Story", "StuckasApril.rpy"))
+        stuckApril.writeFile(os.path.join(patchPath, "Story", "StuckasApril.rpy"))
 
     # Read effects.rpy into memory
     print("Patching effects.rpy...")

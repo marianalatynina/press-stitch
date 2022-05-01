@@ -537,3 +537,25 @@ class RenPyFileShowMika(RenPyFile):
 
         return charName
 
+# -----------------------------------------------------------------------------
+class RenPyFileStuckApril(RenPyFile):
+    def __init__(self, b, c, v6):
+        # type: (dict[str, str], dict[str, dict[str,str]], dict[str, dict[str,str]]) -> None
+        super().__init__()
+        self.backMap = b
+        self.charMap = c
+        self.v6Map = v6
+        self.charFlip = [
+            "ashley",  "ashleyghost",
+            "candice", "candiceghost",
+            "iida",    "iidaghost",
+            "main",    "mainghost",
+            "maind",   "maindghost",
+            "melina",  "melinaghost",
+            "nick",    "nickghost",
+            "reina",   "reinaghost"
+            ]
+        self.trackVis = True
+        self.flipAll = True
+        self.cg3 = True;
+
