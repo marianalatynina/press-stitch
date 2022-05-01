@@ -529,7 +529,11 @@ class RenPyFileShowMika(RenPyFile):
 
     def addMutators(self, charName, lineNum):
         # type: (str) -> str
-        if (charName in ["april", "main", "mika"]):
+        if (charName in ["main", "mika"]):
             return charName + "d"
+
+        if (lineNum < 488) and (charName == "april"):
+            return "mikad"
+
         return charName
 
