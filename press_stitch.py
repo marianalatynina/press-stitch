@@ -1263,6 +1263,7 @@ def main(argv):
         mikaPath.readFile(os.path.join(extPath5, "Story", "Mika_Path.rpy"))
 
         # Patch in the 0.3 Mika path
+        mikaPath.lines[550] = "        \"I said I would love to.\":\n";
         mikaPath.lines[552] = "            jump loveto\n";
 
         # Write the updated effects.rpy back out
