@@ -999,13 +999,14 @@ def main(argv):
     doClean = False
     doEliza = True
     doCiel = True
+    doMika = False
     doNick = True
     doGoopy = True
     doScan = True
     doV6 = False
 
     try:
-        opts, args = getopt.getopt(argv, "", ["clean", "inlineerrors", "nociel", "noeliza", "nogoopy", "nonick", "noscan", "v6"])
+        opts, args = getopt.getopt(argv, "", ["clean", "inlineerrors", "nociel", "noeliza", "nogoopy", "mika", "nonick", "noscan", "v6"])
     except getopt.GetoptError:
         showError('Usage is: press-stitch.py [--clean]')
         sys.exit(1)
@@ -1023,6 +1024,8 @@ def main(argv):
             doEliza = False
         elif (opt == "--nogoopy"):
             doGoopy = False
+        elif (opt == "--mika"):
+            doMika = True
         elif (opt == "--noscan"):
             doScan = False
         elif (opt == "--v6"):
@@ -1248,6 +1251,19 @@ def main(argv):
         # Write the updated ElizaPath.rpy back out
         goopyPath.writeFile(os.path.join(dstPath,   "Story", "ElizaPath.rpy"))
         goopyPath.writeFile(os.path.join(patchPath, "Story", "ElizaPath.rpy"))
+
+    if doMika:
+        # Read Mika_Path.rpy into memory
+        print("Patching Mika_Path.rpy...")
+        mikaPath = rpp.RenPyFile()
+        mikaPath.readFile(os.path.join(extPath5, "Story", "Mika_Path.rpy"))
+
+        # Patch in the 0.3 Mika path
+        mikaPath.lines[552] = "            jump loveto\n";
+
+        # Write the updated effects.rpy back out
+        mikaPath.writeFile(os.path.join(dstPath,   "Story", "Mika_Path.rpy"))
+        mikaPath.writeFile(os.path.join(patchPath, "Story", "Mika_Path.rpy"))
 
     # Read effects.rpy into memory
     print("Patching effects.rpy...")
