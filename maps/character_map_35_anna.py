@@ -1,0 +1,22 @@
+characterMapAnna = {
+    "anna_ex_001":                           "anna_ex_001_001",
+    "anna_ex_001_smile":                     "anna_ex_001_smile_001",
+    "anna_ex_002_open":                      "anna_ex_001_open_001",
+    "anna_ex_002":                           "anna_ex_001_neutral_001",
+    "anna_ex_003":                           "anna_ex_002_smile_001",
+    "anna_ex_004_grin2":                     "anna_ex_003_grin2_001",
+    "anna_ex_004_grin":                      "anna_ex_003_grin_001",
+    "anna_ex_004":                           "anna_ex_003_001",
+    "anna_ex_005":                           "anna_ex_003_open2_001",
+    "anna_ex_006_open":                      "anna_ex_005_open2_001",
+    "anna_ex_006":                           "anna_ex_005_smile2_001",
+    "anna_ex_007":                           "anna_ex_004_open_001",
+    "anna_ex_007_smile":                     "anna_ex_004_smile_001",
+    "anna_ex_008":                           "anna_ex_007_open_002",
+    "anna_ex_009":                           "anna_ex_008_open_002",
+    "anna_ex_010":                           "anna_ex_010_002",
+    "anna_ex_011_closed":                    "anna_ex_009_closed2_002",  # not exact
+    "anna_ex_011":                           "anna_ex_009_open_002",
+    "anna_ex_012":                           "anna_ex_011_002",
+    "anna_ex_013":                           "anna_ex_012_002",
+}

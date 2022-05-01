@@ -424,6 +424,10 @@ backgroundMap35 = {
     "mansionyardnight":            "mansionyardnight",            # Auto: Same
     "mikabathroomday":             "greenfieldbathday",           # Auto: Renamed
     "mikabathroomnight":           "greenfieldbathnight",         # Auto: Renamed
+    "mikahomeday":                 "greenfieldlivingday",         # Auto: Renamed
+    "mikahomedusk":                "greenfieldlivingdusk",        # Auto: Renamed
+    "mikahomelit":                 "greenfieldlivingnightlit",    # Auto: Renamed
+    "mikahomenight":               "greenfieldlivingnight",       # Auto: Renamed
     "mikahouseday":                "greenfieldlivingday",         # Auto: Renamed
     "mikahousedusk":               "greenfieldlivingdusk",        # Auto: Renamed
     "mikahouselit":                "greenfieldlivingnightlit",    # Auto: Renamed

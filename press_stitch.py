@@ -21,6 +21,8 @@ from maps import backgrounds_map
 from maps import cg_map
 
 # Mappings for 0.3 -> 0.5
+from maps import character_map_35_anna
+from maps import character_map_35_april
 from maps import character_map_35_ashley
 from maps import character_map_35_betty
 from maps import character_map_35_candice
@@ -143,6 +145,8 @@ characterLabelMap = {}
 characterDoRemap = {}
 
 characterImageMap35 = {
+    "anna":     character_map_35_anna    .characterMapAnna,
+    "april":    character_map_35_april   .characterMapApril,
     "ashley":   character_map_35_ashley  .characterMapAshley,
     "betty":    character_map_35_betty   .characterMapBetty,
     "candice":  character_map_35_candice .characterMapCandice,
@@ -1264,6 +1268,28 @@ def main(argv):
         # Write the updated effects.rpy back out
         mikaPath.writeFile(os.path.join(dstPath,   "Story", "Mika_Path.rpy"))
         mikaPath.writeFile(os.path.join(patchPath, "Story", "Mika_Path.rpy"))
+
+        print("Patching Showmikapath.rpy...")
+        showMikaPath = rpp.RenPyFileShowMika(backgrounds_map.backgroundMap35, characterImageMap35, v6map)
+        showMikaPath.cg3 = True;
+        showMikaPath.readFile(os.path.join(extPath5, "Story", "Showmikapath.rpy"))
+
+        # Search for labels
+        showMikaPath.findLabels()
+
+        # Search for "show" statements
+        showMikaPath.findShows()
+
+        # Process the path
+        addLabelCall(showMikaPath, "loveto", rpp.RenPyThread("", {}, []))
+        iterateLabelCalls(showMikaPath)
+
+        # Flip the affected V3 characters
+        showMikaPath.doFlips()
+
+        # Write the updated ElizaPath.rpy back out
+        showMikaPath.writeFile(os.path.join(dstPath,   "Story", "Showmikapath.rpy"))
+        showMikaPath.writeFile(os.path.join(patchPath, "Story", "Showmikapath.rpy"))
 
     # Read effects.rpy into memory
     print("Patching effects.rpy...")

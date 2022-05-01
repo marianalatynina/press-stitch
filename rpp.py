@@ -504,3 +504,32 @@ class RenPyFileNick(RenPyFile):
         if (lineNum < 152) and (charName in ["main", "mika"]):
             return charName + "d"
         return charName
+
+# -----------------------------------------------------------------------------
+class RenPyFileShowMika(RenPyFile):
+    def __init__(self, b, c, v6):
+        # type: (dict[str, str], dict[str, dict[str,str]], dict[str, dict[str,str]]) -> None
+        super().__init__()
+        self.backMap = b
+        self.charMap = c
+        self.v6Map = v6
+        self.charFlip = [
+            "ashley",  "ashleyghost",
+            "candice", "candiceghost",
+            "iida",    "iidaghost",
+            "main",    "mainghost",
+            "maind",   "maindghost",
+            "melina",  "melinaghost",
+            "nick",    "nickghost",
+            "reina",   "reinaghost"
+            ]
+        self.trackVis = True
+        self.flipAll = True
+        self.cg3 = True;
+
+    def addMutators(self, charName, lineNum):
+        # type: (str) -> str
+        if (charName in ["april", "main", "mika"]):
+            return charName + "d"
+        return charName
+
