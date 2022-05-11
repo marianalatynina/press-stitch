@@ -1038,6 +1038,8 @@ def main(argv):
         elif (opt == "--v6"):
             doV6 = True
             doCiel = False  # Cielpath disabled for 0.6
+            doNick = False  # Nick paths disabled for 0.6
+            doMika = False  # Mika paths disabled for 0.6
 
     if (doClean):
         removeDir(filename_03)
@@ -1110,12 +1112,12 @@ def main(argv):
         dayzero.lines[2863] = (" " * 20) + "\"Leave it on my desk and sleep.\":\n"
         dayzero.lines[2864] = (" " * 24) + "jump leftit\n"
 
-    if doV6:
-        dayzero.v6map = v6map
-        dayzero.findLabels()
-        dayzero.findShows()
-        addLabelCall(dayzero, "GameStart", rpp.RenPyThread(pyVariables.copy(), []))
-        iterateLabelCalls(dayzero)
+    #if doV6:
+    #    dayzero.v6map = v6map
+    #    dayzero.findLabels()
+    #    dayzero.findShows()
+    #    addLabelCall(dayzero, "GameStart", rpp.RenPyThread("", pyVariables.copy(), []))
+    #    iterateLabelCalls(dayzero)
 
     dayzero.writeFile(os.path.join(dstPath,   "Story", "Day-0.rpy"))
     dayzero.writeFile(os.path.join(patchPath, "Story", "Day-0.rpy"))
