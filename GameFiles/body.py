@@ -24,12 +24,19 @@ class Mutation:
         self.below = below
         self.images = defaultdict(dict)
 
+class Eye:
+
+    def __init__(self, name):
+        self.name = name
+        self.images = defaultdict(dict)
+
 class Expression:
 
-    def __init__(self, pose_id, variant_id, image):
+    def __init__(self, pose_id, variant_id, image, eye_image=None):
         self.pose_id = pose_id
         self.variant_id = variant_id
         self.image = image
+        self.eye_image = eye_image
 
 class Body:
 
@@ -53,6 +60,7 @@ class Body:
         self.expressions = defaultdict(dict)
         self.bases = defaultdict(dict)
         self.breasts = defaultdict(dict)
+        self.eyes = defaultdict(dict)
         self.misc = {}
 
         # Composited images
@@ -71,6 +79,15 @@ class Body:
     def add_breast(self, level, fields, filename):
         pose = int(fields.pop())
         self.breasts[tuple(fields)][(pose, level)] = Image(filename)
+
+    def add_eye(self, fields, filename):
+        pose = int(fields.pop())
+        name = fields.pop()
+
+        if name not in self.eyes:
+            self.eyes[name] = Eye(name)
+
+        self.eyes[name].images[tuple(fields)][pose] = Image(filename)
 
     def add_mutation(self, fields, filename, below):
         pose = int(fields.pop())
@@ -116,6 +133,8 @@ class Body:
             self.add_base(fields, filename)
         elif type.startswith('be'):
             self.add_breast(int(type[2:]), fields, filename)
+        elif type == 'eye':
+            self.add_eye(fields, filename)
         elif type == 'mut':
             self.add_mutation(fields, filename, below=False)
         elif type == 'mutunder':
@@ -164,8 +183,22 @@ class Body:
                 if image:
                     renpy.image(name, self.flashimage(image))
 
+            # Generate expression variants for eyes
+            new_expressions = {}
+            for eyename in self.eyes:
+                eyes = self.match_first_path(self.eyes[eyename].images, base_path)
+                if eyes:
+                    for pose_id in eyes:
+                        for expr_name, expr in expressions.iteritems():
+                            if expr.pose_id == pose_id:
+                                new_name = expr_name + (eyename,)
+                                new_expressions[new_name] = Expression(pose_id, expr.variant_id, expr.image, eyes[pose_id])
+                                all_expressions.add(new_name)
+
+            new_expressions.update(expressions)
+
             # Generate images for each expression
-            for expr_name, expr in expressions.iteritems():
+            for expr_name, expr in new_expressions.iteritems():
                 base_image = base_images[expr.pose_id, expr.variant_id]
                 pose = poses[expr.pose_id]
 
@@ -180,6 +213,9 @@ class Body:
                     (0, 0), base_image,
                     expr_pos, expr.image
                 )
+
+                if (expr.eye_image):
+                    base_image_args = base_image_args + ((0, 0), expr.eye_image)
 
                 # Find all the mutations that are available for this particular path,
                 # and see if we should start with a minimum of 0 or 1 mutations.
