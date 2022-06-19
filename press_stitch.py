@@ -1086,7 +1086,6 @@ def main(argv):
     extPath5 = os.path.join("Extracted", filename_05)
     dstPath = os.path.join(filename_05, "game")
     patchBase = os.path.join("Patch", filename_05)
-    patchPath = os.path.join(patchBase, "game")
     v6map = {}
 
     if not(verifyCharacterMapping("v3 to v5", characterImageMap35, extPath5)):
@@ -1101,12 +1100,17 @@ def main(argv):
         dstPath = os.path.join(filename_06, "game")
         doMakeDir(dstPath)
         doMakeDir(os.path.join(dstPath, "Story"))
-        patchPath = os.path.join("Patch", filename_06, "game")
+        patchBase = os.path.join("Patch", filename_06)
 
+    patchPath = os.path.join(patchBase, "game")
     doMakeDir("Patch")
     doMakeDir(patchBase)
     doMakeDir(patchPath)
     doMakeDir(os.path.join(patchPath, "Story"))
+
+    if doV6:
+        shutil.copy(os.path.join("GameFiles", "body.py"), dstPath);
+        shutil.copy(os.path.join("GameFiles", "body.py"), patchPath);
 
     # Day-0.rpy
     print("Patching Day-0.rpy...")
