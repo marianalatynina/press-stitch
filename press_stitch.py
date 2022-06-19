@@ -421,10 +421,10 @@ def processCommand(rpFile, thread, lineNum, line):
                 if ("hillary cas" in pyVal) and not ("hillary casual" in pyVal):
                     pyVal = "hillary"
                     rpFile.lines[lineNum] = rpFile.lines[lineNum].replace("hillary cas", "hillary casual")
-                if ("hillary school" in pyVal):
+                elif ("hillary school" in pyVal):
                     pyVal = "hillary"
                     rpFile.lines[lineNum] = rpFile.lines[lineNum].replace("hillary school", "hillary")
-                if ("ermach machhair" in pyVal):
+                elif ("ermach machhair" in pyVal):
                     pyVal = "ermach"
                     rpFile.lines[lineNum] = rpFile.lines[lineNum].replace("machhair", "ermachhair")
                 elif ("jillian opened" in pyVal):
@@ -436,6 +436,10 @@ def processCommand(rpFile, thread, lineNum, line):
                 elif (pyVal == "donald girl hair skin glasses"):
                     pyVal = "donald girl dohair doskin doglasses"
                     rpFile.lines[lineNum] = rpFile.lines[lineNum].replace("hair skin glasses", "dohair doskin doglasses")
+                if rpFile.v6Mode:
+                    if ("michelle nastic" in pyVal):
+                        pyVal = "michelle"
+                        rpFile.lines[lineNum] = rpFile.lines[lineNum].replace("michelle nastic", "michelle swim")
             thread.vars[pyVar] = pyVal
             #print("Variable '" + pyVar + "' becomes '" + pyVal + "'");
     elif (fields[1] == "+="):
@@ -1093,7 +1097,10 @@ def main(argv):
 
     if doV6:
         v6map = characterImageMap56
+        doMakeDir(filename_06)
         dstPath = os.path.join(filename_06, "game")
+        doMakeDir(dstPath)
+        doMakeDir(os.path.join(dstPath, "Story"))
         patchPath = os.path.join("Patch", filename_06, "game")
 
     doMakeDir("Patch")

@@ -96,6 +96,7 @@ class RenPyFile():
         self.indentsGood = {}
         self.lineTypes = {}
         self.cg3 = False
+        self.v6Mode = False
 
     def readFile(self, fn):
         # type: (str) -> None
@@ -346,6 +347,8 @@ class RenPyFileEliza(RenPyFile):
         self.backMap = b
         self.charMap = c
         self.v6Map = v6
+        if not(v6 == {}):
+            self.v6Mode = True
 
     def readFile(self, fn):
         # type: (str) -> None
