@@ -135,6 +135,8 @@ class Body:
             self.add_breast(int(type[2:]), fields, filename)
         elif type == 'eye':
             self.add_eye(fields, filename)
+        elif type == 'mth':
+            self.add_eye(fields, filename)
         elif type == 'mut':
             self.add_mutation(fields, filename, below=False)
         elif type == 'mutunder':
