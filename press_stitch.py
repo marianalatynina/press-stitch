@@ -1015,9 +1015,10 @@ def main(argv):
     doGoopy = True
     doScan = True
     doV6 = False
+    doEngine = False
 
     try:
-        opts, args = getopt.getopt(argv, "", ["clean", "inlineerrors", "nociel", "noeliza", "nogoopy", "mika", "nonick", "noscan", "v6"])
+        opts, args = getopt.getopt(argv, "", ["clean", "engine", "inlineerrors", "nociel", "noeliza", "nogoopy", "mika", "nonick", "noscan", "v6"])
     except getopt.GetoptError:
         showError('Usage is: press-stitch.py [--clean]')
         sys.exit(1)
@@ -1025,6 +1026,13 @@ def main(argv):
     for opt, arg in opts:
         if (opt == "--clean"):
             doClean = True
+        elif (opt == "--engine"):
+            doEngine = True
+            doCiel = False
+            doNick = False
+            doMika = False
+            doEliza = False
+            doGoopy = False
         elif (opt == "--inlineerrors"):
             inlineErrors = True
         elif (opt == "--nonick"):
@@ -1044,6 +1052,7 @@ def main(argv):
             doCiel = False  # Cielpath disabled for 0.6
             doNick = False  # Nick paths disabled for 0.6
             doMika = False  # Mika paths disabled for 0.6
+            doEngine = True # 0.6 has engine updates
 
     if (doClean):
         removeDir(filename_03)
@@ -1108,9 +1117,13 @@ def main(argv):
     doMakeDir(patchPath)
     doMakeDir(os.path.join(patchPath, "Story"))
 
-    if doV6:
+    if doEngine:
         shutil.copy(os.path.join("GameFiles", "body.py"), dstPath);
         shutil.copy(os.path.join("GameFiles", "body.py"), patchPath);
+        shutil.copy(os.path.join("GameFiles", "body_data.py"), dstPath);
+        shutil.copy(os.path.join("GameFiles", "body_data.py"), patchPath);
+        shutil.copy(os.path.join("GameFiles", "script.rpy"), dstPath);
+        shutil.copy(os.path.join("GameFiles", "script.rpy"), patchPath);
 
     # Day-0.rpy
     print("Patching Day-0.rpy...")
