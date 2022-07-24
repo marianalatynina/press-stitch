@@ -85,6 +85,7 @@ filename_03 = "Press-SwitchV0.3b-all"
 filename_04 = "Press-SwitchV0.4a-pc"
 filename_05 = "Press-SwitchV0.5c-pc"
 filename_06 = "Press-SwitchV0.6"
+filename_illia = "Illia's-MansionV1.0-pc"
 
 # List of known characters to process
 characterList = [
@@ -1075,17 +1076,24 @@ def main(argv):
     # Normal run
     have3 = False
     have4 = False
+    haveIllia = False
     if os.path.exists(filename_03 + ".zip"):
         if not(checkFile(filename_03, "e01bfc54520e8251bc73c7ee128836e2")):
             sys.exit(1)
         have3 = True
         press_stitch_archive.unpackArchive(filename_03)
 
-    if os.path.exists(filename_03 + ".zip"):
+    if os.path.exists(filename_04 + ".zip"):
         if not(checkFile(filename_04, "ca7ee44f40f802009a6d49659c8a760d")):
             sys.exit(1)
         have4 = True
         press_stitch_archive.unpackArchive(filename_04)
+
+    if os.path.exists(filename_illia + ".zip"):
+        if not(checkFile(filename_illia, "b5ae118b07ea2c37f46d8da27df749ae")):
+            sys.exit(1)
+        haveIllia = True
+        press_stitch_archive.unpackArchive(filename_illia)
 
     if not(checkFile(filename_05, "6a4f9dac386e2fae1bce00e0157ee8b1")):
         sys.exit(1)
