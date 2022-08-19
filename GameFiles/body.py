@@ -9,6 +9,7 @@ all_expressions = set()
 
 # Ghost matrix
 GHOST_MATRIX = matrix.tint(0.5, 0.5, 2.0) * matrix.opacity(0.6)
+TINT_MATRIX = matrix.tint(0.1, 0.0, 0.0)
 
 class Pose:
     def __init__(self, size, expr_pos):
@@ -282,6 +283,8 @@ class Body:
                                 renpy.image((image_tag,) + image_name, image)
                                 image_ghost = MatrixColor(image, GHOST_MATRIX)
                                 renpy.image((image_tag + 'ghost',) + image_name, image_ghost)
+                                image_tint = MatrixColor(image, TINT_MATRIX)
+                                renpy.image((image_tag + 'tint',) + image_name, image_tint)
 
                             # Iterate over BE
                             breasts = self.match_first_path(self.breasts, base_path)

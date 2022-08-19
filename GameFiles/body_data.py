@@ -64,12 +64,12 @@ bodies = {
         color='#fff7dd',
         poses={
             (): {
-                1: (457, 532),
-                2: (457, 532),
+                1: (492, 536),
+                2: (492, 536),
             },
             ('full',): {
-                1: (1504, 2107),
-                2: (1504, 2107),
+                1: (1581, 2115),
+                2: (1581, 2115),
             },
             ('male',): {
                 1: (379, 543),
@@ -77,6 +77,15 @@ bodies = {
             ('male', 'full',): {
                 1: (505, 892),
             },
+        },
+        mutations={
+            'br': Mutation(
+                group='breast',
+                depth=1,
+            ),
+            'glasses': Mutation(
+                group='face',
+            )
         },
     ),
     'arelia': Body(
@@ -89,6 +98,17 @@ bodies = {
             ('full',): {
                 1: (981, 2111),
                 2: (981, 2111),
+            },
+        },
+    ),
+    'aurora': Body(
+        color='#f8da76',
+        poses={
+            (): {
+                1: (273, 878),
+            },
+            ('full',): {
+                1: (364, 1170),
             },
         },
     ),
@@ -119,9 +139,19 @@ bodies = {
                 2: (452, 530),
             },
             ('full',): {
-                1: (758, 2072),
-                2: (758, 2072),
+                1: (904, 2072),
+                2: (904, 2072),
             },
+        },
+        mutations={
+            'acne': Mutation(
+                group='face',
+                depth=1,
+            ),
+            'macne': Mutation(
+                group='face',
+                depth=1,
+            )
         },
     ),
     'candice': Body(
@@ -135,6 +165,40 @@ bodies = {
                 1: (837, 2169),
                 2: (837, 2169),
             },
+        },
+    ),
+    'cards': Body(
+        color='#c8d2ee',
+        poses={
+            (): {
+                1: (500, 250),
+                2: (500, 250),
+                3: (500, 250),
+                4: (500, 250),
+                5: (500, 250),
+                6: (500, 250),
+                7: (500, 250),
+                8: (500, 250),
+                9: (500, 250),
+                10: (500, 250),
+            },
+        },
+    ),
+    'cassandra': Body(
+        color='#d4eaf7',
+        poses={
+            (): {
+                1: (327, 545),
+            },
+            ('full',): {
+                1: (653, 2194),
+            },
+        },
+        mutations={
+            'mind': Mutation(
+                group='eyes',
+                depth=1,
+            )
         },
     ),
     'chastity': Body(
@@ -175,14 +239,14 @@ bodies = {
         color='#623d3d',
         poses={
             (): {
-                1: (358, 561),
-                2: (358, 561),
-                3: (358, 561),
+                1: (421, 564),
+                2: (421, 564),
+                3: (421, 564),
             },
             ('full',): {
-                1: (776, 1538),
-                2: (776, 1538),
-                3: (776, 1538),
+                1: (841, 2195),
+                2: (841, 2195),
+                3: (841, 2195),
             },
         },
         mutations={
@@ -191,6 +255,21 @@ bodies = {
             ),
             'hair': Mutation(
                 group='hair',
+            ),
+            'hairblue': Mutation(
+                group='hair',
+            ),
+            'haireliza': Mutation(
+                group='hair',
+            ),
+            'hairjenna': Mutation(
+                group='hair',
+            ),
+            'hairheather': Mutation(
+                group='hair',
+            ),
+            'glasses': Mutation(
+                group='face',
             )
         },
     ),
@@ -198,13 +277,18 @@ bodies = {
         color='#4b779a',
         poses={
             (): {
-                1: (450, 544),
-                2: (450, 544),
+                1: (509, 543),
+                2: (509, 543),
             },
             ('full',): {
-                1: (958, 2129),
-                2: (958, 2129),
+                1: (1018, 2129),
+                2: (1018, 2129),
             },
+        },
+        mutations={
+            'cig': Mutation(
+                group='accessory',
+            )
         },
     ),
     'dilbert': Body(
@@ -230,23 +314,29 @@ bodies = {
         color='#ffdea4',
         poses={
             (): {
-                1: (281, 443),
-                2: (281, 443),
-                3: (281, 443),
+                1: (417, 497),
+                2: (417, 497),
+                3: (417, 497),
             },
             ('full',): {
-                1: (561, 1336),
-                2: (561, 1336),
-                3: (561, 1336),
+                1: (834, 1444),
+                2: (834, 1444),
+                3: (834, 1444),
             },
         },
         mutations={
             'short': Mutation(
                 group='hair',
+                below=True,
+            ),
+            'ponytail': Mutation(
+                group='hair',
+                below=True,
             ),
             'pigtails': Mutation(
                 name='',
                 group='hair',
+                below=True,
             )
         },
     ),
@@ -366,13 +456,44 @@ bodies = {
         color='#7a434b',
         poses={
             (): {
-                1: (450, 581),
-                2: (450, 581),
+                1: (486, 581),
+                2: (486, 581),
             },
             ('full',): {
-                1: (1608, 2239),
-                2: (1608, 2239),
+                1: (1610, 2239),
+                2: (1610, 2239),
             },
+        },
+        mutations={
+            'ponytail': Mutation(
+                name='',
+                group='hair',
+                depth=1,
+                below=True,
+            ),
+            'twintails': Mutation(
+                group='hair',
+                depth=1,
+                below=True,
+            ),
+            'down': Mutation(
+                group='hair',
+                depth=1,
+                below=True,
+            ),
+            'bob': Mutation(
+                group='hair',
+                depth=1,
+                below=True,
+            ),
+            'headband': Mutation(
+                group='headband',
+                depth=1,
+            ),
+            'headband2': Mutation(
+                group='headband',
+                depth=1,
+            )
         },
     ),
     'jennifer': Body(
@@ -394,6 +515,39 @@ bodies = {
                 1: (874, 1995),
                 2: (874, 1995),
             },
+        },
+    ),
+    'julie': Body(
+        color='#d37777',
+        poses={
+            (): {
+                1: (352, 489),
+            },
+            ('full',): {
+                1: (748, 2116),
+            },
+        },
+        mutations={
+            'mind': Mutation(
+                group='eyes',
+                depth=1,
+            ),
+            'hat': Mutation(
+                group='hat',
+                depth=1,
+            ),
+            'bandage': Mutation(
+                group='head',
+                depth=1,
+            ),
+            'cuts': Mutation(
+                group='face',
+                depth=1,
+            ),
+            'scar': Mutation(
+                group='neck',
+                depth=1,
+            )
         },
     ),
     'kayla': Body(
@@ -431,11 +585,29 @@ bodies = {
         color='#505cf1',
         poses={
             (): {
-                1: (350, 542),
+                1: (349, 542),
             },
             ('full',): {
                 1: (698, 1524),
             },
+        },
+        mutations={
+            'tie': Mutation(
+                group='tie',
+                depth=1,
+            ),
+            'swt': Mutation(
+                group='swt',
+                depth=2,
+            ),
+            'hair': Mutation(
+                group='hair',
+                depth=1,
+            ),
+            'hairred': Mutation(
+                group='hair',
+                depth=1,
+            )
         },
     ),
     'martha': Body(
@@ -470,25 +642,31 @@ bodies = {
         color='#5c90cc',
         poses={
             (): {
-                1: (484, 534),
-                2: (484, 534),
+                1: (524, 535),
+                2: (524, 535),
             },
             ('full',): {
                 1: (1047, 2180),
                 2: (1047, 2180),
             },
         },
+        mutations={
+            'mind': Mutation(
+                group='eyes',
+                depth=1,
+            )
+        },
     ),
     'melina': Body(
         color='#567171',
         poses={
             (): {
-                1: (468, 591),
-                2: (468, 591),
+                1: (529, 601),
+                2: (529, 601),
             },
             ('full',): {
-                1: (935, 2194),
-                2: (935, 2194),
+                1: (1057, 2214),
+                2: (1057, 2214),
             },
         },
     ),
@@ -503,6 +681,16 @@ bodies = {
                 1: (788, 1934),
                 2: (788, 1934),
             },
+        },
+        mutations={
+            'freckface': Mutation(
+                group='face',
+                depth=1,
+            ),
+            'freckbody': Mutation(
+                group='freckles',
+                depth=1,
+            )
         },
     ),
     'michelle': Body(
@@ -524,12 +712,12 @@ bodies = {
         color='#3287cb',
         poses={
             (): {
-                1: (454, 537),
-                2: (454, 537),
+                1: (452, 546),
+                2: (452, 546),
             },
             ('full',): {
-                1: (819, 2183),
-                2: (819, 2183),
+                1: (903, 2201),
+                2: (903, 2201),
             },
             ('ap',): {
                 1: (343, 498),
@@ -545,6 +733,42 @@ bodies = {
             ('male', 'full',): {
                 1: (483, 2187),
             },
+        },
+        mutations={
+            'ponytail': Mutation(
+                name='',
+                group='hair',
+                depth=1,
+                below=True,
+            ),
+            'down': Mutation(
+                group='hair',
+                depth=1,
+                below=True,
+            ),
+            'twintail': Mutation(
+                group='hair',
+                depth=1,
+                below=True,
+            ),
+            'lowtail': Mutation(
+                group='hair',
+                depth=1,
+                below=True,
+            ),
+            'backtail': Mutation(
+                group='hair',
+                depth=1,
+                below=True,
+            ),
+            'oil': Mutation(
+                group='oil',
+                depth=1,
+            ),
+            'robefront': Mutation(
+                group='face',
+                depth=1,
+            )
         },
     ),
     'mike': Body(
@@ -571,6 +795,14 @@ bodies = {
             },
         },
     ),
+    'mori': Body(
+        color='#726177',
+        poses={
+            (): {
+                1: (540, 1763),
+            },
+        },
+    ),
     'fwoman': Body(
         color='#578de7',
         poses={
@@ -583,13 +815,23 @@ bodies = {
         color='#c9373f',
         poses={
             (): {
-                1: (421, 515),
-                2: (421, 515),
+                1: (436, 517),
+                2: (436, 517),
             },
             ('full',): {
-                1: (842, 2152),
-                2: (842, 2152),
+                1: (872, 2154),
+                2: (872, 2154),
             },
+        },
+        mutations={
+            'hand': Mutation(
+                group='hand',
+                depth=1,
+            ),
+            'board': Mutation(
+                group='hand',
+                depth=1,
+            )
         },
     ),
     'nelson': Body(
@@ -678,6 +920,14 @@ bodies = {
             },
         },
     ),
+    'rosa': Body(
+        color='#ac837c',
+        poses={
+            (): {
+                1: (374, 1725),
+            },
+        },
+    ),
     'ruby': Body(
         color='#ff9e5d',
         poses={
@@ -691,12 +941,36 @@ bodies = {
             },
         },
     ),
+    'sadiya': Body(
+        color='#968775',
+        poses={
+            (): {
+                1: (353, 933),
+            },
+            ('full',): {
+                1: (470, 1244),
+            },
+        },
+    ),
     'sakajou': Body(
         color='#817586',
         poses={
             (): {
                 1: (359, 440),
                 2: (441, 423),
+            },
+        },
+    ),
+    'scarlet': Body(
+        color='#be3166',
+        poses={
+            (): {
+                1: (407, 515),
+                2: (407, 515),
+            },
+            ('full',): {
+                1: (814, 2093),
+                2: (814, 2093),
             },
         },
     ),
@@ -747,6 +1021,32 @@ bodies = {
                 1: (373, 1196),
             },
         },
+        mutations={
+            'hair': Mutation(
+                name='',
+                group='hair',
+                depth=1,
+            )
+        },
+    ),
+    'tessa': Body(
+        color='#ecd194',
+        poses={
+            (): {
+                1: (504, 1734),
+            },
+        },
+    ),
+    'test': Body(
+        color='#798773',
+        poses={
+            (): {
+                1: (468, 512),
+            },
+            ('bunny',): {
+                1: (468, 591),
+            },
+        },
     ),
     'tim': Body(
         color='#798773',
@@ -756,6 +1056,17 @@ bodies = {
             },
             ('full',): {
                 1: (520, 1854),
+            },
+        },
+    ),
+    'tracy': Body(
+        color='#f1d0a1',
+        poses={
+            (): {
+                1: (498, 941),
+            },
+            ('full',): {
+                1: (664, 1255),
             },
         },
     ),
@@ -782,6 +1093,14 @@ bodies = {
             ('full',): {
                 1: (1058, 1440),
                 2: (1058, 1440),
+            },
+        },
+    ),
+    'valerie': Body(
+        color='#a37da4',
+        poses={
+            (): {
+                1: (487, 1567),
             },
         },
     ),
@@ -872,4 +1191,3 @@ def add_file(filename):
 def init():
     for body_name, body in bodies.iteritems():
         body.define_images(body_name, FOLD)
-                

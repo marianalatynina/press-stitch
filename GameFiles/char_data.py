@@ -42,7 +42,7 @@ characters = {
     'Sil': CharInfo('silease', 'Silease'),
     'tay': CharInfo('taylor', 'Taylor'),
     'tri': CharInfo('trista', 'Trista'),
-    'tr': CharInfo('tristen', 'Tristen'), ### Erins' brother
+    'tr': CharInfo('tristen', 'Tristen'), ### Erins' cousin
     'zo': CharInfo('zoey', 'Zoey'),
     'tim': CharInfo('tim', 'Tim'),
     'Pet': CharInfo('peter', 'Peter'),
@@ -50,25 +50,46 @@ characters = {
     'megu': CharInfo('megumi', 'Megumi'),
     'How': CharInfo('howard', 'Howard'), ### Howard
     'fwom': CharInfo('fat woman', 'Fat Woman'), ## Random person
-    
+    'Sc': CharInfo('scarlet', 'Scarlet'), ## Scarlet Ryan (Heather's sister)
+
+    'sad': CharInfo('sadiya', 'Sadiya'),
+    'tra': CharInfo('tracy', 'Tracy'),
+    'aur': CharInfo('aurora', 'Aurora'), 
+
+
+    'test': CharInfo('test', 'Test'), ## Test bot
+
+
+    'Ros': CharInfo('rosa', 'Rosa'), ## Rosa from famswap ending (Newtown Porn Actress)
+    'Tes': CharInfo('tessa', 'Tessa'), ## Tessa from famswap ending (Newtown Porn Actress)
+    'Val': CharInfo('valerie', 'Valerie'), ## Valerie from famswap ending (Newtown Porn Actress)
+    'Mor': CharInfo('mori', 'Mori'), ## Mori from famswap ending (Newtown Porn Actress)
+
+    'Ju': CharInfo('julie', 'Julie'), ### Julie (Police Officer 24y/o)
+    'Cas': CharInfo('cassandra', 'Cassandra'), ### Cassandra (Julie's friend) (26 y/o)
+
+    'cards': CharInfo('cards', 'Cards'), ## Board game cards
+
     ## Silboy 3 Want to be each other because they are in love with each others' girlfriend // is sick, runny nose
     ## Silboy 4 Want to be each other because they are in love with each others' girlfriend
     ## Silgirl 1&2 Want to be each other because they prefer each others' look
-    
+
 
     # Unknown names at start
+
+
     'Ol': CharInfo('olivian', 'Olivian'), ### Christine Olivian, Christine's mother.
-    'Wi': CharInfo('william', 'William Olivian'), ### William Olivian, Christine's father.
+    'Wi': CharInfo('william', 'William'), ### William Olivian, Christine's father.
     'Ar': CharInfo('arelia', 'Woman'), ### Arelia Olivian
     'Can': CharInfo('candice', 'Woman'), ### Candice
     'Ho': CharInfo('hoover', 'Woman'), ### Candice Alt
     'Am': CharInfo('amber', 'Woman'), ### Amber, Candice's assistant
     'nur': CharInfo('nurse', 'Nurse'), ### The Nurse, also Candice's assistant
     'Nel': CharInfo('Large Man', 'Nelson'), ### Nelson, Candice's associate
-    
+
     'ch': CharInfo('chris', 'Oddly Dressed Student'), ### Christine
     'ma': CharInfo('martha', 'Teacher'), ### Martha
-    
+
     'er': CharInfo('erin', 'Student'), ### Erin
     'ermach': CharInfo('ermach', 'Student'), ### Merger of Erin/Martha/Christine
     'hi': CharInfo('hillary', 'Fat Student'), ### Hillary
@@ -78,25 +99,36 @@ characters = {
     'Do': CharInfo('donald', 'Teacher'), ### Donald Barron, one of the teachers at Eliza's school
     'ji': CharInfo('jillian', 'Cute Girl'), ### Jillian Maxwell (Christine's housekeeper)
     'Al': CharInfo('alma', 'Woman'), ### Erins' mother: Alma, #a78f80
-    
+
     'Yu': CharInfo('yukina', 'Yukina'), ### Nicole's' mother: Yukina ::: Girlfriend of Dilbert
-    
+
     #'Cha': CharInfo('charlotte', 'Charlotte'), ### Timothy's' mother: Charlotte, #
     #'Ant': CharInfo('anthony', 'Anthony'), ### Timothy's' father: Anthony, #
-    
-    
+
+
 
     # No sprites for these characters
-    
- 
 
-    
+    'May': CharInfo('may', 'May'), ### April's Mother
+    'Luc': CharInfo('lucas', 'Lucas'), ### April's Father
+
+
+
+    'Ver': CharInfo('veronica', 'Veronica'), ### Nick's Mother
+    'Mat': CharInfo('mathew', 'Mathew'), ### Nick's Father
+
     'Te': CharInfo('teacher', 'Teacher'), ### Teacher woman in class #4 of Eliza day 1, #978aa6
     'Tr': CharInfo('tristen', 'Tristen'), ### Erins' brother: Tristen, #a78f80
     'De': CharInfo('deater', 'Deater'), ### Erins' father: Deater, #a78f80
     'nur2': CharInfo('nurse2', 'Nurse'), ### Nurse in Eliza's route, #a38e4a
     'misc1': CharInfo('teacher', 'Teacher'), ### Used for random people
     'misc2': CharInfo('teacher', 'Teacher'), ### Used for random people
+    'misc3': CharInfo('teacher', 'Teacher'), ### Used for random people
+    'misc4': CharInfo('teacher', 'Teacher'), ### Used for random people
+    'misc5': CharInfo('teacher', 'Teacher'), ### Used for random people
+    'misc6': CharInfo('teacher', 'Teacher'), ### Used for random people
+
+    'Chloe': CharInfo('chloe', 'Chloe'), ### Green-haired girl in Nicole's archery CG
 
     'dal': CharInfo('daliah', 'Voice'), ### Daliah, for that special arc
     'daw': CharInfo('dawiah', 'Sister'), ### Dawiah, for that special arc
@@ -118,3 +150,4 @@ def define_chars():
 
         color = bodies[char_info.body_name].color if char_info.body_name in bodies else '#ffffff'
         setattr(renpy.store, char_name + '_nvl', Character(char_info.display_name, color=color, kind=renpy.store.nvl))
+        setattr(renpy.store, char_name + '_tho', Character(char_info.display_name + "'s thoughts", color=color, what_style='tho_font', what_prefix='{i}', what_suffix='{/i}'))
