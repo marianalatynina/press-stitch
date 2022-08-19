@@ -288,7 +288,7 @@ init python:
             return self.d
 
 image clone_part = SnowBlossom("Effects/Clone_Flash.png", count=100, border=50, xspeed=(50, 50), yspeed=(300,400), start=0, fast=False, horizontal=False)
-image boom = ParticleBurst([Solid("#%06x"%renpy.random.randint(0, 0xFFFFFF), xysize=(5, 5)) for i in xrange(50)], mouse_sparkle_mode=True)
+image boom = ParticleBurst([Solid("#%06x"%renpy.random.randint(0, 0xFFFFFF), xysize=(5, 5)) for i in range(50)], mouse_sparkle_mode=True)
 image clone_burst = ParticleBurst("Effects/Clone_Flash.png", interval=(0.02, 0.04), speed=(0.15, 0.3), around=(config.screen_width/2, config.screen_height/2), angle=(0, 360), radius=(50, 75), particles=None)
     
 

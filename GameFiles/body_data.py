@@ -1189,5 +1189,5 @@ def add_file(filename):
     bodies[body_name].add_image(fields, filename)
 
 def init():
-    for body_name, body in bodies.iteritems():
+    for body_name, body in bodies.items():
         body.define_images(body_name, FOLD)

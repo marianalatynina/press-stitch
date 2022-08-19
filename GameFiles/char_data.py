@@ -140,12 +140,12 @@ characters = {
 
 def init():
     dummychar = Character()
-    for char_name, char_info in characters.iteritems():
+    for char_name, char_info in characters.items():
         char_info.define_images(char_name)
         setattr(renpy.store, char_name, dummychar)
 
 def define_chars():
-    for char_name, char_info in characters.iteritems():
+    for char_name, char_info in characters.items():
         setattr(renpy.store, char_name, Person(char_info))
 
         color = bodies[char_info.body_name].color if char_info.body_name in bodies else '#ffffff'

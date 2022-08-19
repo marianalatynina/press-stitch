@@ -37,7 +37,7 @@ class PersonDisplayable(renpy.Displayable):
         # Get the correct image based on current_body + current_attribs
         img = bodies[self.current_body].images.get(self.current_attribs)
         if not img:
-            print "Missing image for body {0}".format(self.current_body)
+            print("Missing image for body {0}".format(self.current_body))
             img = bodies[self.current_body].images[frozenset(('1',))]
 
         # Render and return render

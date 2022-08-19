@@ -50,7 +50,7 @@ class Body:
 
         # Populate default mutation groups and fill out remainder of mutation
         # metadata
-        for mutation_name, mutation in self.mutations.iteritems():
+        for mutation_name, mutation in self.mutations.items():
             if mutation.name is None:
                 mutation.name = mutation_name
             if mutation.group is None:
@@ -156,19 +156,19 @@ class Body:
         # Generate args for mutations
         # mutation_args[path][name][pose] = image
         mutation_args = defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
-        for mutation_name, mutation in self.mutations.iteritems():
-            for mutation_path in mutation.images.iterkeys():
+        for mutation_name, mutation in self.mutations.items():
+            for mutation_path in mutation.images.keys():
                 mutation_poses_list = self.match_all_paths(mutation.images, mutation_path, mutation.depth)
 
                 # Append args per pose
                 args_per_pose = mutation_args[mutation_path][mutation_name]
                 for mutation_poses in mutation_poses_list:
-                    for mutation_pose, image in mutation_poses.iteritems():
+                    for mutation_pose, image in mutation_poses.items():
                         args_per_pose[mutation_pose].append((0, 0))
                         args_per_pose[mutation_pose].append(image)
 
         # Compose images
-        for base_path, base_images in self.bases.iteritems():
+        for base_path, base_images in self.bases.items():
             # Get list of expressions for this base
             expressions = self.match_first_path(self.expressions, base_path)
             if not expressions:
@@ -180,7 +180,7 @@ class Body:
                 continue
 
             # Generate flash ('white') images
-            for pose_id, __ in poses.iteritems():
+            for pose_id, __ in poses.items():
                 name = (image_tag + 'flash',) + base_path + (str(pose_id),)
                 image = base_images.get((pose_id, 0))
                 if image:
@@ -192,7 +192,7 @@ class Body:
                 eyes = self.match_first_path(self.eyes[eyename].images, base_path)
                 if eyes:
                     for pose_id in eyes:
-                        for expr_name, expr in expressions.iteritems():
+                        for expr_name, expr in expressions.items():
                             if expr.pose_id == pose_id:
                                 new_name = expr_name + (eyename,)
                                 new_expressions[new_name] = Expression(pose_id, expr.variant_id, expr.image, eyes[pose_id])
@@ -201,7 +201,7 @@ class Body:
             new_expressions.update(expressions)
 
             # Generate images for each expression
-            for expr_name, expr in new_expressions.iteritems():
+            for expr_name, expr in new_expressions.items():
                 base_image = base_images[expr.pose_id, expr.variant_id]
                 pose = poses[expr.pose_id]
 
@@ -227,7 +227,7 @@ class Body:
                 mutations = self.match_first_path(mutation_args, base_path)
                 grouped_mutations = []
                 if mutations:
-                    for mutation_group in self.mutation_groups.itervalues():
+                    for mutation_group in self.mutation_groups.values():
                         group = []
                         for mutation_name in mutation_group:
                             if mutation_name in mutations:
@@ -239,7 +239,7 @@ class Body:
                             grouped_mutations.append(group)
 
                 # Iterate over the mutations
-                for i in xrange(mutation_start, len(grouped_mutations)+1):
+                for i in range(mutation_start, len(grouped_mutations)+1):
                     for mutation_sets in combinations(grouped_mutations, i):
                         for mutation_names in product(*mutation_sets):
 
@@ -291,7 +291,7 @@ class Body:
                             if breasts:
                                 if 0 not in breasts:
                                     define_be(0, None)
-                                for (pose_id, be_level), image in breasts.iteritems():
+                                for (pose_id, be_level), image in breasts.items():
                                     if expr.pose_id != pose_id:
                                         continue
                                     define_be(be_level, image)
@@ -299,7 +299,7 @@ class Body:
                                 define_be(0, None)
 
         # Now define misc images
-        for misc_name, misc_image in self.misc.iteritems():
+        for misc_name, misc_image in self.misc.items():
             renpy.image((image_tag,) + misc_name, misc_image)
             renpy.image((image_tag + 'flash',) + misc_name, self.flashimage(misc_image))
 
