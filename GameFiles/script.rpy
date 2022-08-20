@@ -1,6 +1,6 @@
 init -10 python:
     import re, itertools
-    from body_data import add_file as add_body_file, init as init_bodies
+    from body_data import add_file as add_body_file, init as init_bodies, bodies
     from char_data import init as init_chars, define_chars
 
     # This function will run a countdown of the given length. It will
