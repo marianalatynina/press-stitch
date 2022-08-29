@@ -825,6 +825,9 @@ def processShow(rpFile, thread, lineNum):
             return(flagError(rpFile, lineNum, "No V6 mapping for V5 file '" + mappedFile + "', source file '" + exFile + "', char name " + swappedCharName + ", original char " + charName))
         #print("Mapped V5 " + mappedFile + " to V6 " + v6File);
         mappedFile = v6File
+    elif rpFile.sourceIsV5:
+        # We're processing a v5 file and there's no v6 mapping, don't change the line
+        return line
 
     mappedFields = mappedFile.split("_")
 
