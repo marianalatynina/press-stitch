@@ -97,6 +97,7 @@ class RenPyFile():
         self.lineTypes = {}
         self.cg3 = False
         self.v6Mode = False
+        self.sourceIsV5 = False
 
     def readFile(self, fn):
         # type: (str) -> None

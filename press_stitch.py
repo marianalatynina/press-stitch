@@ -210,49 +210,38 @@ characterImageMap56 = {
 }
 
 # Initial state of RenPy variables
-pyVariables = {
-    "Al.display":   "alma",
-    "Am.display":   "amber",
-    "Can.display":  "candice",
-    "ch.display":   "chris",
-    "Do.display":   "donald",
-    "e.display":    "eliza",
-    "er.display":   "erin",
-    "hi.display":   "hillary",
-    "je.display":   "jennifer",
-    "ji.display":   "jillian",
-    "k.display":    "karyn",
-    "ka.display":   "kayla",
-    "ma.display":   "martha",
-    "m.display":    "mika",
-    "M.display":    "main",
-    "mic.display":  "michelle",
-    "Nel.display":  "nelson",
-    "nur2.display": "nurse",
-    "Te.display":   "teacher",
-    "v.display":    "vanessa"
-}
+pyVariables = {}
 
 # Association of person name to RenPy display variable
 personDispVars = {
     "alma":     "Al.display",
     "amber":    "Am.display",
+    "anna":     "An.display",
+    "ashley":   "A.display",
     "candice":  "Can.display",
+    "chastity": "C.display",
     "chris":    "ch.display",
+    "ciel":     "c.display",
     "donald":   "Do.display",
     "eliza":    "e.display",
     "erin":     "er.display",
     "hillary":  "hi.display",
+    "hope":     "h.display",
+    "jenna":    "j.display",
     "jennifer": "je.display",
     "jillian":  "ji.display",
     "karyn":    "k.display",
     "kayla":    "ka.display",
     "martha":   "ma.display",
     "mika":     "m.display",
+    "mike":     "mi.display",
     "main":     "M.display",
     "michelle": "mic.display",
+    "mother":   "Mo.display",
     "nelson":   "Nel.display",
+    "nick":     "N.display",
     "nurse":    "nur2.display",
+    "sean":     "Se.display",
     "teacher":  "Te.display",
     "vanessa":  "v.display"
 }
@@ -668,7 +657,7 @@ def processShow(rpFile, thread, lineNum):
     # ['show', 'maind', '17', 'with', 'dissolve']
 
     # Check for backgrounds
-    if fields[1] == "bg":
+    if not(rpFile.sourceIsV5) and fields[1] == "bg":
         if len(fields) < 3:
             return line
         if not(fields[2] in rpFile.backMap):
@@ -783,7 +772,10 @@ def processShow(rpFile, thread, lineNum):
     mappedFile = ""
     hasMapped = False
 
-    if (swappedCharName in rpFile.charMap):
+    if rpFile.sourceIsV5:
+        mappedFile = exFile
+        hasMapped = True
+    elif (swappedCharName in rpFile.charMap):
         if exFile in rpFile.charMap[swappedCharName]:
             mappedFile = rpFile.charMap[swappedCharName][exFile]
             hasMapped = True
@@ -1003,6 +995,7 @@ def patchV3CG(rpFile):
 def main(argv):
     global inlineErrors
     global pyVariables
+    global personDispVars
     global threads
     global characterList
     global characterLabelMap
@@ -1072,6 +1065,9 @@ def main(argv):
         characterDoRemap[charName + "d"] = True
         characterDoRemap[charName + "flash"] = False
         characterDoRemap[charName + "ghost"] = False
+
+    for charName in personDispVars:
+        pyVariables[personDispVars[charName]] = charName
 
     # Normal run
     have3 = False
@@ -1303,7 +1299,7 @@ def main(argv):
         mikaPath.lines[550] = "        \"I said I would love to.\":\n";
         mikaPath.lines[552] = "            jump loveto\n";
 
-        # Write the updated effects.rpy back out
+        # Write the updated file back out
         mikaPath.writeFile(os.path.join(dstPath,   "Story", "Mika_Path.rpy"))
         mikaPath.writeFile(os.path.join(patchPath, "Story", "Mika_Path.rpy"))
 
@@ -1325,7 +1321,7 @@ def main(argv):
         # Flip the affected V3 characters
         showMikaPath.doFlips()
 
-        # Write the updated ElizaPath.rpy back out
+        # Write the updated file back out
         showMikaPath.writeFile(os.path.join(dstPath,   "Story", "Showmikapath.rpy"))
         showMikaPath.writeFile(os.path.join(patchPath, "Story", "Showmikapath.rpy"))
 
@@ -1347,9 +1343,32 @@ def main(argv):
         # Flip the affected V3 characters
         stuckApril.doFlips()
 
-        # Write the updated ElizaPath.rpy back out
+        # Write the updated file back out
         stuckApril.writeFile(os.path.join(dstPath,   "Story", "StuckasApril.rpy"))
         stuckApril.writeFile(os.path.join(patchPath, "Story", "StuckasApril.rpy"))
+
+    if doV6:
+        # Read Mother_Path.rpy into memory
+        print("Patching Mother_Path.rpy...")
+        motherPath = rpp.RenPyFile()
+        motherPath.sourceIsV5 = True;
+        motherPath.v6Mode = True;
+        motherPath.v6Map = v6map;
+        motherPath.readFile(os.path.join(extPath5, "Story", "Mother_Path.rpy"))
+
+        # Search for labels
+        motherPath.findLabels()
+
+        # Search for "show" statements
+        motherPath.findShows()
+
+        # Process the path
+        addLabelCall(motherPath, "mother_path_begin", rpp.RenPyThread("", pyVariables.copy(), []))
+        iterateLabelCalls(motherPath)
+
+        # Write the updated file back out
+        motherPath.writeFile(os.path.join(dstPath,   "Story", "Mother_Path.rpy"))
+        motherPath.writeFile(os.path.join(patchPath, "Story", "Mother_Path.rpy"))
 
     # Read effects.rpy into memory
     print("Patching effects.rpy...")
@@ -1372,7 +1391,7 @@ def main(argv):
     # Patch the version number
     optionsFile.lines[25] = "    config.version = \"0.5c-merged\"\n"
 
-    # Write the updated effects.rpy back out
+    # Write the updated file back out
     optionsFile.writeFile(os.path.join(dstPath,   "options.rpy"))
     optionsFile.writeFile(os.path.join(patchPath, "options.rpy"))
 
