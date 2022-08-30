@@ -1046,7 +1046,6 @@ def main(argv):
             doScan = False
         elif (opt == "--v6"):
             doV6 = True
-            doCiel = False  # Cielpath disabled for 0.6
             doNick = False  # Nick paths disabled for 0.6
             doMika = False  # Mika paths disabled for 0.6
             doEngine = True # 0.6 has engine updates
