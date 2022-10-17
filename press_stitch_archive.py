@@ -8,6 +8,7 @@ folderName = "Press-SwitchV0"
 #folderVersion = ['.3b-all', '.4a-pc', '.5c-pc']
 folderVersion = ['.5c-pc']
 fileNameArchive = "archive.rpa"
+fileNameImages  = "images.rpa"
 fileNameScripts = "scripts.rpa"
 cwd = os.getcwd()
 
@@ -50,6 +51,10 @@ def extractRPAFile(rpaFilename, output):
 # Unpackages scripts and archive rpas using rpatool. These go from the Press-SwitchV0x folder to extracted\Press-SwitchV0x
 
 
+def tryUnpackFile(filename, destinationFolder):
+    if os.path.exists(filename):
+        extractRPAFile(filename, destinationFolder)
+
 def unpackArchive(folder):
     # type: (str) -> None
     folderArchive = (os.path.join(cwd, folder, "game", ""))
@@ -58,9 +63,9 @@ def unpackArchive(folder):
         print("Extracted data folder " + destinationFolder + " exists, skipping RPA extract")
         return
     print("Extracting " + folder + ", please wait...")
-    extractRPAFile(folderArchive + fileNameArchive, destinationFolder)
-    if (not(folder == folderName + ".3b-all")):
-        extractRPAFile(folderArchive + fileNameScripts, destinationFolder)
+    tryUnpackFile(os.path.join(folderArchive, fileNameArchive), destinationFolder)
+    tryUnpackFile(os.path.join(folderArchive, fileNameImages),  destinationFolder)
+    tryUnpackFile(os.path.join(folderArchive, fileNameScripts), destinationFolder)
 
 # Creates the folders to extract to
 
