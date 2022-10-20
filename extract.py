@@ -163,7 +163,7 @@ def main(argv):
         have5 = True
         press_stitch_archive.unpackArchive(filename_05)
 
-    if not(checkFile(filename_06, "8a493566b8ad4fd131958848e60b44bc")):
+    if not(checkFile(filename_06, "8af387b938b2fcba32fd88848f042a32")):
         sys.exit(1)
     press_stitch_archive.unpackArchive(filename_06)
 
