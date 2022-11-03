@@ -41,10 +41,11 @@ class Expression:
 
 class Body:
 
-    def __init__(self, color, poses, mutations={}):
+    def __init__(self, color, poses, mutations={}, ignore_bases=[], ignore_mut=[]):
         self.color = color
         self.poses = poses
-
+        self.ignore_mut = ignore_mut
+        self.ignore_bases = ignore_bases
         self.mutations = mutations
         self.mutation_groups = defaultdict(set)
 
@@ -75,6 +76,9 @@ class Body:
         else:
             variant = 0
         pose = int(fields.pop())
+        for ignore in self.ignore_bases:
+            if ignore in filename:
+                return
         self.bases[tuple(fields)][(pose, variant)] = Image(filename)
 
     def add_breast(self, level, fields, filename):
@@ -94,17 +98,18 @@ class Body:
         pose = int(fields.pop())
         name = fields.pop()
 
-        # Create mutation entry/add to group map if it doesn't already exist
-        if name not in self.mutations:
-            self.mutations[name] = Mutation(
-                name=name,
-                depth=1,
-                group=name,
-                below=below
-            )
-            self.mutation_groups[name].add(name)
+        if not(name in self.ignore_mut):
+            # Create mutation entry/add to group map if it doesn't already exist
+            if name not in self.mutations:
+                self.mutations[name] = Mutation(
+                    name=name,
+                    depth=1,
+                    group=name,
+                    below=below
+                )
+                self.mutation_groups[name].add(name)
 
-        self.mutations[name].images[tuple(fields)][pose] = Image(filename)
+            self.mutations[name].images[tuple(fields)][pose] = Image(filename)
 
     def add_expression(self, fields, filename):
         pose_id = int(fields.pop())

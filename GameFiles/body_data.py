@@ -28,6 +28,7 @@ bodies = {
     ),
     'anna': Body(
         color='#e49fbc',
+        ignore_bases=["Preg"],
         poses={
             (): {
                 1: (312, 569),
@@ -62,6 +63,7 @@ bodies = {
     ),
     'april': Body(
         color='#fff7dd',
+        ignore_bases=["Preg", "Spreg"],
         poses={
             (): {
                 1: (492, 536),
@@ -114,6 +116,7 @@ bodies = {
     ),
     'ashley': Body(
         color='#ffe9e4',
+        ignore_bases=["Preg"],
         poses={
             (): {
                 1: (375, 532),
@@ -133,6 +136,7 @@ bodies = {
     ),
     'betty': Body(
         color='#745b9f',
+        ignore_bases=["Preg"],
         poses={
             (): {
                 1: (452, 530),
@@ -213,6 +217,21 @@ bodies = {
                 2: (770, 2167),
             },
         },
+        ignore_bases=["Preg", "PBDSM"],
+        mutations={
+            'hairdown': Mutation(
+                group='hair',
+            ),
+            'hairup': Mutation(
+                group='hair',
+            ),
+            'reg': Mutation(
+                group='body',
+            ),
+            'stretch': Mutation(
+                group='body',
+            ),
+        },
     ),
     'chris': Body(
         color='#8b4b50',
@@ -249,10 +268,8 @@ bodies = {
                 3: (841, 2195),
             },
         },
+        ignore_bases=["Swim"],
         mutations={
-            'headband': Mutation(
-                group='headband',
-            ),
             'hair': Mutation(
                 group='hair',
             ),
@@ -270,6 +287,9 @@ bodies = {
             ),
             'glasses': Mutation(
                 group='face',
+            ),
+            'headband': Mutation(
+                group='headband',
             )
         },
     ),
@@ -285,6 +305,7 @@ bodies = {
                 2: (1018, 2129),
             },
         },
+        ignore_bases=["Preg"],
         mutations={
             'cig': Mutation(
                 group='accessory',
@@ -324,6 +345,7 @@ bodies = {
                 3: (834, 1444),
             },
         },
+        ignore_mut=["cirlet", "circlet", "ears"],
         mutations={
             'short': Mutation(
                 group='hair',
@@ -368,6 +390,7 @@ bodies = {
     ),
     'fair': Body(
         color='#5e2a14',
+        ignore_bases=["Preg"],
         poses={
             (): {
                 1: (326, 511),
@@ -402,6 +425,7 @@ bodies = {
     ),
     'hope': Body(
         color='#a5dca4',
+        ignore_bases=["Preg"],
         poses={
             (): {
                 1: (300, 549),
@@ -441,6 +465,7 @@ bodies = {
     ),
     'jaina': Body(
         color='#defffb',
+        ignore_bases=["Preg"],
         poses={
             (): {
                 1: (267, 386),
@@ -464,6 +489,7 @@ bodies = {
                 2: (1610, 2239),
             },
         },
+        ignore_bases=["Preg"],
         mutations={
             'ponytail': Mutation(
                 name='',
@@ -506,6 +532,7 @@ bodies = {
     ),
     'jillian': Body(
         color='#babedb',
+        ignore_bases=["Preg"],
         poses={
             (): {
                 1: (437, 512),
@@ -533,7 +560,7 @@ bodies = {
                 depth=1,
             ),
             'hat': Mutation(
-                group='hat',
+                group='head',
                 depth=1,
             ),
             'bandage': Mutation(
@@ -627,6 +654,7 @@ bodies = {
     ),
     'megan': Body(
         color='#e5ddc7',
+        ignore_bases=["Preg"],
         poses={
             (): {
                 1: (369, 513),
@@ -654,6 +682,10 @@ bodies = {
             'mind': Mutation(
                 group='eyes',
                 depth=1,
+            ),
+            'empty': Mutation(
+                group='eyes',
+                depth=1,
             )
         },
     ),
@@ -668,6 +700,14 @@ bodies = {
                 1: (1057, 2214),
                 2: (1057, 2214),
             },
+        },
+        ignore_bases=["Preg", "preg"],
+        ignore_mut=["melbunnyband"],
+        mutations={
+            'melheadband': Mutation(
+                group='head',
+                depth=1,
+            ),
         },
     ),
     'melody': Body(
@@ -734,6 +774,7 @@ bodies = {
                 1: (483, 2187),
             },
         },
+        ignore_bases=["_AP_", "Preg"],
         mutations={
             'ponytail': Mutation(
                 name='',
@@ -762,7 +803,7 @@ bodies = {
                 below=True,
             ),
             'oil': Mutation(
-                group='oil',
+                group='face',
                 depth=1,
             ),
             'robefront': Mutation(
@@ -784,6 +825,7 @@ bodies = {
     ),
     'miya': Body(
         color='#578de7',
+        ignore_bases=["Preg"],
         poses={
             (): {
                 1: (384, 549),
@@ -823,6 +865,7 @@ bodies = {
                 2: (872, 2154),
             },
         },
+        ignore_bases=["Preg"],
         mutations={
             'hand': Mutation(
                 group='hand',
@@ -855,6 +898,7 @@ bodies = {
     ),
     'nicole': Body(
         color='#546e9e',
+        ignore_bases=["Preg"],
         poses={
             (): {
                 1: (404, 609),
@@ -909,6 +953,7 @@ bodies = {
     ),
     'reina': Body(
         color='#ff9ab0',
+        ignore_bases=["Preg", "preg"],
         poses={
             (): {
                 1: (330, 523),
@@ -963,6 +1008,7 @@ bodies = {
     ),
     'scarlet': Body(
         color='#be3166',
+        ignore_bases=["Preg"],
         poses={
             (): {
                 1: (407, 515),
@@ -1188,6 +1234,14 @@ def add_file(filename):
         return
     bodies[body_name].add_image(fields, filename)
 
+## ACTUAL code
+
 def init():
     for body_name, body in bodies.items():
         body.define_images(body_name, FOLD)
+
+# For TESTING / Fast Loading
+# def init():
+#     for body_name, body in bodies.items():
+#         if body_name in ['main', 'candice','mika','ashley','april', 'megumi', 'karyn']:
+#             body.define_images(body_name, FOLD)
