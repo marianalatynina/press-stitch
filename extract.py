@@ -116,9 +116,10 @@ def doCopyFile(srcPath, dstPath, filename):
 # Main program
 def main(argv):
     doClean = False
+    doEngine = False
 
     try:
-        opts, args = getopt.getopt(argv, "", ["clean"])
+        opts, args = getopt.getopt(argv, "", ["clean", "engine"])
     except getopt.GetoptError:
         showError('Usage is: extract.py [--clean]')
         sys.exit(1)
@@ -126,6 +127,8 @@ def main(argv):
     for opt, arg in opts:
         if (opt == "--clean"):
             doClean = True
+        elif (opt == "--engine"):
+            doEngine = True
 
     if (doClean):
         removeDir(filename_03)
@@ -166,6 +169,16 @@ def main(argv):
     if not(checkFile(filename_06, "8af387b938b2fcba32fd88848f042a32")):
         sys.exit(1)
     press_stitch_archive.unpackArchive(filename_06)
+
+    patchBase = os.path.join("Patch", filename_06)
+    patchPath = os.path.join(patchBase, "game")
+    doMakeDir("Patch")
+    doMakeDir(patchBase)
+    doMakeDir(patchPath)
+
+    if doEngine:
+        shutil.copy(os.path.join("GameFiles", "body.py"), patchPath);
+        shutil.copy(os.path.join("GameFiles", "body_data.py"), patchPath);
 
     print("Done");
 
