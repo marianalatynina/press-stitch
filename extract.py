@@ -179,6 +179,7 @@ def main(argv):
     if doEngine:
         shutil.copy(os.path.join("GameFiles", "body.py"), patchPath);
         shutil.copy(os.path.join("GameFiles", "body_data.py"), patchPath);
+        shutil.copy(os.path.join("GameFiles", "screens.rpy"), patchPath);
 
     print("Done");
 
